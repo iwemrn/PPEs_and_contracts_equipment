@@ -27,7 +27,7 @@ def _fetch_contracts(app, ppe_number):
     """Получение данных контрактов из базы данных"""
     cursor = app.connection.cursor()
     query = """
-        SELECT contract_date, contract_namber, supplier, supplier_inn, contract_name 
+        SELECT contract_date, contract_number, supplier, supplier_inn, contract_name 
         FROM dat_contract 
         WHERE id IN (SELECT contract_id FROM equip_data WHERE ppe_id = %s)
     """

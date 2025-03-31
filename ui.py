@@ -3,6 +3,8 @@ from tkinter import ttk, messagebox
 from utils import toggle_ppe_list, toggle_pdf_visibility, create_invisible_scrolled_area
 from database import show_equipment
 from pdf_handler import show_ppe_pdf, show_fullscreen_image
+from contracts import generate_contract
+from utils import on_download_contract, on_preview_contract_click
 # show_contracts, load_equipment_data можно тоже импортировать при необходимости
 
 def create_ui(app):
@@ -39,6 +41,9 @@ def _create_menu_bar(app):
     refresh_menu = tk.Menu(menubar,tearoff=0)
     menubar.add_cascade(label="Действия", menu=refresh_menu)
     refresh_menu.add_command(label="Обновить список ППЭ", command=lambda: refresh_ppe_list(app))
+    refresh_menu.add_separator()  # Разделитель (по желанию)
+    refresh_menu.add_command(label="Просмотр договора", command=lambda: on_preview_contract_click(app))
+    refresh_menu.add_command(label="Скачать договор", command=lambda: on_download_contract(app))
 
 def _create_ppe_list_frame(app):
     """Создание фрейма для списка ППЭ."""
@@ -124,42 +129,9 @@ def show_ppe_details(app, event):
     tk.Label(app.scrollable_frame, text=f"Детали ППЭ № {ppe_number}", font=("Arial", 16)).pack(anchor="w", pady=5)
     tk.Label(app.scrollable_frame, text=f"Адрес: {ppe_address}", font=("Arial", 14)).pack(anchor="w", pady=5)
 
-    # Создаем вкладки
-    equipment_tabs = ttk.Notebook(app.scrollable_frame)
-    equipment_tabs.pack(fill=tk.BOTH, expand=True)
-
-    # Для вкладки "Оборудование"
-    equipment_tab = ttk.Frame(equipment_tabs)
-    equipment_tabs.add(equipment_tab, text="Оборудование")
-
-    # Создаем "скрытый" скролл
-    canvas_equipment, frame_equipment = create_invisible_scrolled_area(equipment_tab)
-
-    # Теперь внутри frame_equipment размещаем Treeview
-    equipment_tree = ttk.Treeview(
-        frame_equipment,
-        columns=("Тип", "Марка", "Модель", "Год", "Кол-во"),
-        show="headings",
-    )
-    equipment_tree.pack(fill=tk.BOTH, expand=True)
-
     # Загружаем данные
-    from database import load_equipment_data
-    load_equipment_data(app, equipment_tree, ppe_number)
-
-    equipment_tabs = ttk.Notebook(app.scrollable_frame)
-    contract_tab = ttk.Frame(equipment_tabs)
-    equipment_tabs.add(contract_tab, text="Контракты")
-
-    canvas_contract, frame_contract = create_invisible_scrolled_area(contract_tab)
-
-    contract_tree = ttk.Treeview(
-        frame_contract,
-        columns=("Дата", "Номер", "Поставщик", "ИНН", "Описание"),
-        show="headings"
-    )
-    contract_tree.pack(fill=tk.BOTH, expand=True)
-    # Заполнение contract_tree
+    from database import show_equipment
+    show_equipment(app, ppe_number)
 
     # PDF
     from pdf_handler import show_ppe_pdf
@@ -185,3 +157,23 @@ def refresh_ppe_list(app):
 
     for row in rows:
         app.ppe_list.insert("", tk.END, values=row)
+
+# def on_generate_contract_click_wrapper(self):
+#     """
+#     Обработчик при нажатии на кнопку «Сформировать договор».
+#     Получаем ppe_id из выбранной строки в self.ppe_list.
+#     Затем вызываем on_generate_contract_click(ppe_id) из ui.py.
+#     """
+#     selected = self.ppe_list.selection()
+#     if not selected:
+#         messagebox.showerror("Ошибка", "Сначала выберите ППЭ.")
+#         return
+
+#     # Допустим, первая колонка в Treeview — это ppe_id
+#     ppe_id = self.ppe_list.item(selected, "values")[0]
+
+#     try:
+#         generate_contract(ppe_id)
+#         messagebox.showinfo("Успех", f"Договор для ППЭ №{ppe_id} создан!")
+#     except Exception as e:
+#         messagebox.showerror("Ошибка", str(e))

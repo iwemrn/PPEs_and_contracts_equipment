@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, filedialog
 
 def toggle_ppe_list(app):
     """Скрытие/показ списка ППЭ"""
@@ -25,6 +25,7 @@ def toggle_pdf_visibility(app):
     else:
         app.pdf_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=0, pady=0)
 
+# пока не трогать, с заглушками
 def add_ppe():
     """Добавление нового ППЭ"""
     messagebox.showinfo("Добавить ППЭ", "Функция добавления ППЭ в разработке.")
@@ -65,3 +66,49 @@ def create_invisible_scrolled_area(parent):
     scrollable_frame.focus_set()
 
     return canvas, scrollable_frame
+
+def on_download_contract(app):
+    selected_item = app.ppe_list.selection()
+    if not selected_item:
+        messagebox.showerror("Ошибка", "Сначала выберите ППЭ.")
+        return
+    ppe_id = app.ppe_list.item(selected_item, "values")[0]
+
+    try:
+        from contracts import generate_contract
+
+        save_path = filedialog.asksaveasfilename(
+        defaultextension=".docx",
+        filetypes=[("Word Document", "*.docx")],
+        title="Сохранить договор"
+        )
+        if save_path:
+            generate_contract(ppe_id, save_path)
+
+        # Покажем сообщение
+        messagebox.showinfo("Успех", f"Файл сохранён:\n{save_path}")
+        # И/или отобразим метку
+        app._show_save_path(save_path)
+
+    except Exception as e:
+        messagebox.showerror("Ошибка", str(e))
+
+def _show_save_path(self, path):
+    # Удалим старую метку, если есть
+    for widget in self.pdf_buttons_frame.winfo_children():
+        if getattr(widget, "tag", None) == "save_path_label":
+            widget.destroy()
+
+    label = tk.Label(self.pdf_buttons_frame, text=f"Сохранено: {path}", fg="blue")
+    label.tag = "save_path_label"
+    label.pack(side=tk.LEFT, padx=5)
+
+def on_preview_contract_click(app):
+    selected = app.ppe_list.selection()
+    if not selected:
+        messagebox.showerror("Ошибка", "Сначала выберите ППЭ.")
+        return
+    ppe_number = app.ppe_list.item(selected, "values")[0]
+    # Делаем, например, окно Toplevel и показываем, что будет в договоре.
+    # ...
+
