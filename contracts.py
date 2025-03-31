@@ -3,7 +3,7 @@ from docxtpl import DocxTemplate
 from datetime import datetime
 from database import connect_to_database
 
-def get_equipment_list():
+def get_equipment_list(ppe_number):
     """
     Запрашивает данные оборудования, агрегирует и возвращает список словарей
     для вставки в шаблон docxtpl (equipment_list).
@@ -12,19 +12,20 @@ def get_equipment_list():
     cursor = conn.cursor()
     query = """
         SELECT 
-          row_number() OVER (ORDER BY "name_in_1C") AS row_num,
-          "name_in_1C"                   AS equip_name,
-          COUNT(*)                       AS equip_count,
-          string_agg(DISTINCT inv_number::text, '; ') AS inv_numbers,
-          equip_price                    AS price,
-          equip_price * COUNT(*)         AS total_price
+        row_number() OVER (ORDER BY "name_in_1C") AS row_num,
+        "name_in_1C"                   AS equip_name,
+        COUNT(*)                       AS equip_count,
+        string_agg(DISTINCT inv_number::text, '; ') AS inv_numbers,
+        equip_price                    AS price,
+        equip_price * COUNT(*)         AS total_price
         FROM equip_data
         JOIN "dat_equip" 
             ON "dat_equip"."id" = equip_data.equip_id
+        WHERE ppe_id = %s
         GROUP BY "name_in_1C", equip_price
         ORDER BY "name_in_1C";
     """
-    cursor.execute(query)
+    cursor.execute(query, (ppe_number, ))
     rows = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -39,6 +40,7 @@ def get_equipment_list():
             "equip_price":  f"{r[4]:.2f}",
             "total_price":  f"{r[5]:.2f}"
         })
+        print(rows)
     return equipment_list
 
 def get_ppe_details(ppe_number):
@@ -160,7 +162,7 @@ def generate_contract(ppe_number, save_path):
     }
 
     # Подгружаем таблицу (список оборудования) 
-    equipment_list = get_equipment_list()
+    equipment_list = get_equipment_list(ppe_number)
     context["equipment_list"] = equipment_list
 
     total_price = sum(float(row["total_price"]) for row in equipment_list)
