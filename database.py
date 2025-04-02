@@ -136,3 +136,23 @@ def show_equipment(app, ppe_number):
 
     _display_equipment(app, rows)
 
+def check_agreement_exists(ppe_id):
+    """
+    Проверяет, есть ли значение agreement для указанного ППЭ в таблице equip_data.
+    Возвращает True, если значение существует (не NULL), иначе False.
+    """
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    query = """
+        SELECT EXISTS (
+            SELECT 1
+            FROM equip_data
+            WHERE ppe_id = %s AND agreement IS NOT NULL
+            LIMIT 1
+        )
+    """
+    cursor.execute(query, (ppe_id,))
+    result = cursor.fetchone()[0]
+    cursor.close()
+    conn.close()
+    return result

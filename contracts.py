@@ -129,60 +129,108 @@ def get_responsible_info(ppe_number):
         "second_name":row[3],
     }
 
-def generate_contract(ppe_number, save_path):
+def generate_contract(ppe_number, save_path, code_contract, contract_date):
     """
     Формируем договор на основе template.docx,
     используя ppe_number для информации о договоре,
     и сохраняем результат в 'save_path'.
     """
+    # 1. Проверка и настройка путей
     template_path = "Z://Sofia//template.docx"
     if not os.path.exists(template_path):
-        raise FileNotFoundError(f"Шаблон не найден: {template_path}")
-
-    # Данные о договоре
-    contract_data = get_contract_data_from_db(ppe_number)
-    if not contract_data:
-        print(f"Не найден договор по № ППЭ: {ppe_number}")
-        return
-
-    now = datetime.now()
-    day_int = now.day
-    month_int = now.month
-    year_int = now.year
-    month_rus = build_month_name_rus(month_int)
-
-    context = {
-        "day": day_int,
-        "month_name": month_rus,
-        "year": year_int,
-        "year_next": year_int + 1,
-        "num_contract":   contract_data["num_contract"],
-        "date_contract":  contract_data["date_contract"],
-        "name_contract":  contract_data["name_contract"],
-        # при необходимости - доп. поля
-    }
-
-    # Подгружаем таблицу (список оборудования) 
-    equipment_list = get_equipment_list(ppe_number)
-    context["equipment_list"] = equipment_list
-
-    total = sum(float(row["total_price"]) for row in equipment_list)
-    context["total"] = f"{total:.2f}"
-    context["total_price_text"] = amount_to_text_rus(total)
-
-    # Добавляем данные из dat_ppe_details
-    ppe_details = get_ppe_details(ppe_number)
-    context.update(ppe_details)  # теперь есть school_fullname, school_address, etc.
-
-    # Добавляем данные из dat_responsible
-    responsible_info = get_responsible_info(ppe_number)
-    context.update(responsible_info)  # job_title, surname, name, second_name
-
-    doc = DocxTemplate(template_path)
-    doc.render(context)
-
-    doc.save(save_path)
-    print(f"Договор сформирован и сохранён: {save_path}")
+        alternative_path = os.path.join(os.path.dirname(__file__), "templates", "template.docx")
+        if os.path.exists(alternative_path):
+            template_path = alternative_path
+        else:
+            raise FileNotFoundError(f"Шаблон не найден: {template_path} или {alternative_path}")
+    
+    # 2. Создание директории для сохранения, если она не существует
+    save_dir = os.path.dirname(save_path)
+    if save_dir and not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+    
+    try:
+        # 3. Данные о договоре
+        contract_data = get_contract_data_from_db(ppe_number)
+        if not contract_data:
+            print(f"Не найден договор по № ППЭ: {ppe_number}")
+            return None
+        
+        # 4. Использование переданной даты или текущей
+        if contract_date:
+            # Если передана строка, преобразуем в datetime
+            if isinstance(contract_date, str):
+                try:
+                    contract_date = datetime.strptime(contract_date, "%d.%m.%Y")
+                except ValueError:
+                    print(f"Неверный формат даты: {contract_date}. Используем текущую дату.")
+                    contract_date = datetime.now()
+        else:
+            contract_date = datetime.now()
+        
+        day_int = contract_date.day
+        month_int = contract_date.month
+        year_int = contract_date.year
+        month_rus = build_month_name_rus(month_int)
+        
+        # 5. Формирование контекста
+        context = {
+            "code_contract": code_contract,
+            "day": day_int,
+            "month_name": month_rus,
+            "year": year_int,
+            "year_next": year_int + 1,
+            "num_contract": contract_data["num_contract"],
+            "date_contract": contract_data["date_contract"],
+            "name_contract": contract_data["name_contract"],
+        }
+        
+        # 6. Подгружаем таблицу (список оборудования)
+        try:
+            equipment_list = get_equipment_list(ppe_number)
+            if not equipment_list:
+                print(f"Предупреждение: Список оборудования пуст для ППЭ {ppe_number}")
+                equipment_list = []
+                
+            context["equipment_list"] = equipment_list
+            
+            total = sum(float(row["total_price"]) for row in equipment_list)
+            context["total"] = f"{total:.2f}"
+            context["total_price_text"] = amount_to_text_rus(total)
+        except Exception as e:
+            print(f"Ошибка при получении списка оборудования: {e}")
+            context["equipment_list"] = []
+            context["total"] = "0.00"
+            context["total_price_text"] = "Ноль рублей 00 копеек"
+        
+        # 7. Добавляем данные из dat_ppe_details
+        try:
+            ppe_details = get_ppe_details(ppe_number)
+            context.update(ppe_details)
+        except Exception as e:
+            print(f"Ошибка при получении деталей ППЭ: {e}")
+        
+        # 8. Добавляем данные из dat_responsible
+        try:
+            responsible_info = get_responsible_info(ppe_number)
+            context.update(responsible_info)
+        except Exception as e:
+            print(f"Ошибка при получении информации об ответственном: {e}")
+        
+        # 9. Генерация документа
+        doc = DocxTemplate(template_path)
+        doc.render(context)
+        
+        # 10. Сохранение результата
+        doc.save(save_path)
+        print(f"Договор сформирован и сохранён: {save_path}")
+        return save_path
+        
+    except Exception as e:
+        print(f"Ошибка при генерации договора: {e}")
+        import traceback
+        traceback.print_exc()
+        return None
 
 def build_month_name_rus(month_int):
     months = [

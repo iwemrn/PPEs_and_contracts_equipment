@@ -1,5 +1,8 @@
 import tkinter as tk
-from tkinter import messagebox, filedialog
+from tkinter import messagebox, filedialog, simpledialog
+from datetime import datetime
+from contracts import generate_contract
+from database import check_agreement_exists
 
 def toggle_ppe_list(app):
     """Скрытие/показ списка ППЭ"""
@@ -73,25 +76,39 @@ def on_download_contract(app):
         messagebox.showerror("Ошибка", "Сначала выберите ППЭ.")
         return
     ppe_id = app.ppe_list.item(selected_item, "values")[0]
+    # Проверяем наличие поля agreement
+    agreement_exists = check_agreement_exists(ppe_id)
 
-    try:
-        from contracts import generate_contract
+    code_contract = None
+    contract_date = None
 
-        save_path = filedialog.asksaveasfilename(
+    if agreement_exists:
+        # Запрос номера и даты договора
+        result = ask_contract_details()
+        if result is None:
+            messagebox.showwarning("Отмена", "Сохранение договора отменено пользователем.")
+            return
+        code_contract, contract_date = result
+
+    save_path = filedialog.asksaveasfilename(
         defaultextension=".docx",
         filetypes=[("Word Document", "*.docx")],
         title="Сохранить договор"
-        )
-        if save_path:
-            generate_contract(ppe_id, save_path)
+    )
 
-        # Покажем сообщение
-        messagebox.showinfo("Успех", f"Файл сохранён:\n{save_path}")
-        # И/или отобразим метку
-        app._show_save_path(save_path)
-
-    except Exception as e:
-        messagebox.showerror("Ошибка", str(e))
+    if save_path:
+        try:
+            generate_contract(
+                ppe_number=ppe_id,
+                save_path=save_path,
+                code_contract=code_contract,
+                contract_date=contract_date
+            )
+            messagebox.showinfo("Успех", f"Файл сохранён:\n{save_path}")
+            if hasattr(app, "_show_save_path"):
+                app._show_save_path(save_path)
+        except Exception as e:
+            messagebox.showerror("Ошибка", str(e))
 
 def show_save_path(self, path):
     # Удалим старую метку, если есть
@@ -112,3 +129,41 @@ def on_preview_contract_click(app):
     # Делаем, например, окно Toplevel и показываем, что будет в договоре.
     # ...
 
+def ask_contract_details():
+    """
+    Открывает окно для ввода номера договора и даты.
+    Возвращает словарь вида:
+    {
+        'code_contract': 'ДОГ-123',
+        'day': 1,
+        'month_name': 'января',
+        'year': 2025
+    }
+    или None, если отменено.
+    """
+    root = tk.Tk()
+    root.withdraw()  # Скрыть главное окно
+
+    code_contract = simpledialog.askstring("Номер договора", "Введите номер договора:")
+    if not code_contract:
+        return None
+
+    date_str = simpledialog.askstring("Дата договора", "Введите дату договора в формате ДД.ММ.ГГГГ:")
+    if not date_str:
+        return None
+
+    try:
+        date_obj = datetime.strptime(date_str, "%d.%m.%Y")
+        months_rus = [
+            "января", "февраля", "марта", "апреля", "мая", "июня",
+            "июля", "августа", "сентября", "октября", "ноября", "декабря"
+        ]
+        return {
+            "code_contract": code_contract,
+            "day": date_obj.day,
+            "month_name": months_rus[date_obj.month - 1],
+            "year": date_obj.year
+        }
+    except ValueError:
+        tk.messagebox.showerror("Ошибка", "Неверный формат даты. Ожидается: ДД.ММ.ГГГГ")
+        return None
