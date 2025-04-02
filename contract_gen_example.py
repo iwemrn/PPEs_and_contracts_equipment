@@ -133,14 +133,14 @@ def get_equipment_list():
 
     # Преобразуем в список словарей:
     equipment_list = []
-    for r in rows:
+    for row in rows:
         equipment_list.append({
-            "row_number":       r[0],  # row_num
-            "equip_name":       r[1],
-            "count_equip":      r[2],
-            "inv_numbers":      r[3],
-            "equip_price":      f"{r[4]:.2f}",
-            "total_price":      f"{r[5]:.2f}"
+            "row_number":       row[0],  # row_num
+            "equip_name":       row[1],
+            "count_equip":      row[2],
+            "inv_numbers":      row[3],
+            "equip_price":      f"{row[4]:.2f}",
+            "total_price":      f"{row[5]:.2f}"
         })
     return equipment_list
 

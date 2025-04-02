@@ -31,16 +31,16 @@ def get_equipment_list(ppe_number):
     conn.close()
 
     equipment_list = []
-    for r in rows:
+    for row in rows:
         equipment_list.append({
-            "row_number":   r[0],
-            "equip_name":   r[1],
-            "count_equip":  r[2],
-            "inv_numbers":  r[3],
-            "equip_price":  f"{r[4]:.2f}",
-            "total_price":  f"{r[5]:.2f}"
+            "row_number":   row[0],
+            "equip_name":   row[1],
+            "count_equip":  row[2],
+            "inv_numbers":  row[3],
+            "equip_price":  f"{row[4]:.2f}",
+            "total_price":  f"{row[5]:.2f}"
         })
-        print(rows)
+        print(equipment_list)
     return equipment_list
 
 def get_ppe_details(ppe_number):
@@ -165,9 +165,9 @@ def generate_contract(ppe_number, save_path):
     equipment_list = get_equipment_list(ppe_number)
     context["equipment_list"] = equipment_list
 
-    total_price = sum(float(row["total_price"]) for row in equipment_list)
-    context["total_price"] = f"{total_price:.2f}"
-    context["total_price_text"] = amount_to_text_rus(total_price)
+    total = sum(float(row["total_price"]) for row in equipment_list)
+    context["total"] = f"{total:.2f}"
+    context["total_price_text"] = amount_to_text_rus(total)
 
     # Добавляем данные из dat_ppe_details
     ppe_details = get_ppe_details(ppe_number)
