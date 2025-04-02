@@ -93,7 +93,7 @@ def on_download_contract(app):
     except Exception as e:
         messagebox.showerror("Ошибка", str(e))
 
-def _show_save_path(self, path):
+def show_save_path(self, path):
     # Удалим старую метку, если есть
     for widget in self.pdf_buttons_frame.winfo_children():
         if getattr(widget, "tag", None) == "save_path_label":
