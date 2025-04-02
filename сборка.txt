@@ -1,0 +1,8 @@
+-- если выдаёт ошибку, что pyinstall не установлен (хотя он установлен)
+python -m PyInstaller --name="PPE_Manager" --windowed --icon=icon.ico --add-data="templates/*.docx;templates" --hidden-import=ttkthemes --hidden-import=PIL --hidden-import=psycopg2 --hidden-import=docxtpl --hidden-import=num2words new_main.py
+-- иначе
+pyinstaller --name="PPE_Manager" --console --icon=icon.ico --add-data="templates/*.docx;templates" new_main.py
+
+--если нет прав администратора, то
+pip install --user pyinstaller
+-- и повторить запросы выше в терминале
