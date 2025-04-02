@@ -221,9 +221,8 @@ def update_equipment_agreement(ppe_id, contract_number, contract_year):
 def get_ppe_details(ppe_id):
     """Получает детальную информацию о ППЭ."""
     query = """
-        SELECT p.id, p.code, p.name, p.address, 
-               pd.fullname, pd.inn, pd.kpp, pd.okpo, pd.ogrn,
-               pd.cur_acc, pd.bank_acc, pd.pers_acc
+        SELECT p.id, p.ppe_number, p.ppe_address, 
+            pd.fullname
         FROM dat_ppe p
         LEFT JOIN dat_ppe_details pd ON p.id = pd.ppe_number
         WHERE p.id = %s

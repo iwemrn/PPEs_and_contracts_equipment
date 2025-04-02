@@ -9,3 +9,64 @@
 2025-04-02 14:16:48,173 - database - INFO - Контракты для ППЭ 193: 1 записей
 2025-04-02 14:16:48,175 - ui - INFO - Загружены детали для ППЭ 193
 2025-04-02 14:16:57,157 - ui - INFO - Загружено 98 записей ППЭ
+2025-04-02 14:27:02,430 - ui - INFO - Загружено 98 записей ППЭ
+2025-04-02 14:27:11,377 - ui - INFO - Загружено 98 записей ППЭ
+2025-04-02 14:27:15,607 - database - INFO - Контракты для ППЭ 193: 1 записей
+2025-04-02 14:27:15,609 - ui - INFO - Загружены детали для ППЭ 193
+2025-04-02 14:27:42,808 - contracts - INFO - Получено 1 позиций оборудования для ППЭ 193
+2025-04-02 14:27:43,647 - contracts - INFO - Договор сформирован и сохранён: C:/Users/erokhina/Desktop/vbhf.docx
+2025-04-02 14:39:57,967 - database - ERROR - Ошибка выполнения запроса: column p.code does not exist
+LINE 2:         SELECT p.id, p.code, p.name, p.address, 
+                             ^
+
+2025-04-02 14:39:57,983 - database - INFO - Контракты для ППЭ 101: 0 записей
+2025-04-02 14:40:00,122 - database - ERROR - Ошибка выполнения запроса: column p.code does not exist
+LINE 2:         SELECT p.id, p.code, p.name, p.address, 
+                             ^
+
+2025-04-02 14:40:00,133 - database - INFO - Контракты для ППЭ 101: 0 записей
+2025-04-02 14:40:01,859 - database - ERROR - Ошибка выполнения запроса: column p.code does not exist
+LINE 2:         SELECT p.id, p.code, p.name, p.address, 
+                             ^
+
+2025-04-02 14:40:01,873 - database - INFO - Контракты для ППЭ 101: 0 записей
+2025-04-02 14:40:03,504 - database - ERROR - Ошибка выполнения запроса: column p.code does not exist
+LINE 2:         SELECT p.id, p.code, p.name, p.address, 
+                             ^
+
+2025-04-02 14:40:03,514 - database - INFO - Контракты для ППЭ 101: 0 записей
+2025-04-02 14:40:05,180 - database - ERROR - Ошибка выполнения запроса: column p.code does not exist
+LINE 2:         SELECT p.id, p.code, p.name, p.address, 
+                             ^
+
+2025-04-02 14:40:05,193 - database - INFO - Контракты для ППЭ 108: 0 записей
+2025-04-02 14:40:05,729 - database - ERROR - Ошибка выполнения запроса: column p.code does not exist
+LINE 2:         SELECT p.id, p.code, p.name, p.address, 
+                             ^
+
+2025-04-02 14:40:05,742 - database - INFO - Контракты для ППЭ 108: 0 записей
+2025-04-02 14:40:26,993 - database - ERROR - Ошибка выполнения запроса: column p.code does not exist
+LINE 2:         SELECT p.id, p.code, p.name, p.address, 
+                             ^
+
+2025-04-02 14:40:27,008 - database - INFO - Контракты для ППЭ 193: 1 записей
+2025-04-02 14:40:27,780 - database - ERROR - Ошибка выполнения запроса: column p.code does not exist
+LINE 2:         SELECT p.id, p.code, p.name, p.address, 
+                             ^
+
+2025-04-02 14:40:27,792 - database - INFO - Контракты для ППЭ 193: 1 записей
+2025-04-02 14:45:50,304 - database - INFO - Контракты для ППЭ 193: 1 записей
+2025-04-02 14:45:51,103 - database - INFO - Контракты для ППЭ 193: 1 записей
+2025-04-02 14:48:49,188 - database - INFO - Контракты для ППЭ 193: 1 записей
+2025-04-02 14:48:50,121 - database - INFO - Контракты для ППЭ 193: 1 записей
+2025-04-02 14:49:33,472 - database - INFO - Контракты для ППЭ 280: 0 записей
+2025-04-02 14:49:39,577 - database - INFO - Контракты для ППЭ 282: 0 записей
+2025-04-02 14:49:43,072 - database - INFO - Контракты для ППЭ 177: 0 записей
+2025-04-02 14:49:43,596 - database - INFO - Контракты для ППЭ 177: 0 записей
+2025-04-02 15:06:33,547 - database - INFO - Контракты для ППЭ 193: 1 записей
+2025-04-02 15:06:34,626 - database - INFO - Контракты для ППЭ 193: 1 записей
+2025-04-02 15:06:35,054 - database - INFO - Контракты для ППЭ 193: 1 записей
+2025-04-02 15:06:59,665 - contracts - INFO - Получено 1 позиций оборудования для ППЭ 193
+2025-04-02 15:07:02,220 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\contract_193_20250402150659.docx
+2025-04-02 15:08:05,504 - contracts - INFO - Получено 1 позиций оборудования для ППЭ 193
+2025-04-02 15:08:07,974 - contracts - INFO - Договор сформирован и сохранён: C:/Users/erokhina/Desktop/тмоавщ.docx

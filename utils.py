@@ -43,18 +43,6 @@ def toggle_pdf_visibility(app):
     else:
         app.pdf_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=0, pady=0)
 
-def add_ppe():
-    """Добавление нового ППЭ."""
-    messagebox.showinfo("Добавить ППЭ", "Функция добавления ППЭ в разработке.")
-
-def edit_ppe():
-    """Редактирование ППЭ."""
-    messagebox.showinfo("Редактировать ППЭ", "Функция редактирования ППЭ в разработке.")
-
-def delete_ppe():
-    """Удаление ППЭ."""
-    messagebox.showinfo("Удалить ППЭ", "Функция удаления ППЭ в разработке.")
-
 def create_invisible_scrolled_area(parent):
     """
     Создаёт Canvas + Frame без видимого Scrollbar,
