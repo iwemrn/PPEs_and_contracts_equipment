@@ -2,6 +2,7 @@ import os
 from docxtpl import DocxTemplate
 from datetime import datetime
 from database import connect_to_database
+from num2words import num2words
 
 def get_equipment_list(ppe_number):
     """
@@ -15,7 +16,7 @@ def get_equipment_list(ppe_number):
         row_number() OVER (ORDER BY "name_in_1C") AS row_num,
         "name_in_1C"                   AS equip_name,
         COUNT(*)                       AS equip_count,
-        string_agg(DISTINCT inv_number::text, '; ') AS inv_numbers,
+        string_agg(DISTINCT inv_number::text, '\n ') AS inv_numbers,
         equip_price                    AS price,
         equip_price * COUNT(*)         AS total_price
         FROM equip_data
@@ -190,10 +191,27 @@ def build_month_name_rus(month_int):
     ]
     return months[month_int - 1]
 
+def get_ruble_suffix(n):
+    """Возвращает правильное окончание для 'рубль'."""
+    if 11 <= n % 100 <= 14:
+        return "рублей"
+    elif n % 10 == 1:
+        return "рубль"
+    elif 2 <= n % 10 <= 4:
+        return "рубля"
+    else:
+        return "рублей"
+
 def amount_to_text_rus(amount):
     rub = int(amount)
-    kop = int(round((amount - rub)*100))
-    return f"{rub} рублей {kop:02d} копеек"
+    kop = int(round((amount - rub) * 100))
+
+    rub_text = num2words(rub, lang='ru')
+    rub_suffix = get_ruble_suffix(rub)
+    kop_text = f"{kop:02d}"
+
+    return f"{rub_text.capitalize()} {rub_suffix} {kop_text} копеек"
+
 
 def get_contract_data_from_db(ppe_number):
     """
