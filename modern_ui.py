@@ -18,9 +18,9 @@ class ModernPPEApp:
         self.connection = connect_to_database()
         self._initialize_variables()
         self._create_ui()
-        
+
+    """Настройка параметров главного окна приложения."""        
     def _initialize_window(self):
-        """Настройка параметров главного окна приложения."""
         self.root.title("Система управления ППЭ")
         self.root.geometry("1280x800")
         self.root.minsize(1024, 768)
@@ -36,18 +36,9 @@ class ModernPPEApp:
         self.style.configure("Subheader.TLabel", font=("Segoe UI", 12))
         self.style.configure("Sidebar.TFrame", background="#f0f0f0")
         self.style.configure("Content.TFrame", background="#ffffff")
-        
-    def _initialize_variables(self):
-        """Инициализация переменных."""
-        self.pdf_directory = "Z:\\_ГИА_2025\\Планы БТИ\\Планы"
-        self.pdf_document = None
-        self.current_pdf_path = ""
-        self.current_ppe = None
-        self.search_var = tk.StringVar()
-        self.search_var.trace("w", self._filter_ppe_list)
-        
+
+    """Создание современного пользовательского интерфейса."""          
     def _create_ui(self):
-        """Создание современного пользовательского интерфейса."""
         # Основной контейнер с разделением на области
         self.main_paned = ttk.PanedWindow(self.root, orient=tk.HORIZONTAL)
         self.main_paned.pack(fill=tk.BOTH, expand=True)
@@ -64,12 +55,52 @@ class ModernPPEApp:
         self._create_sidebar()
         self._create_content_area()
         self._create_toolbar()
+
+    def _initialize_variables(self):
+        """Инициализация переменных."""
+        self.pdf_directory = "Z:\\_ГИА_2025\\Планы БТИ\\Планы"
+        self.pdf_document = None
+        self.current_pdf_path = ""
+        self.current_ppe = None
+        self.search_var = tk.StringVar()
+        self.search_var.trace("w", self._filter_ppe_list)
         
+        # Добавляем переменную для фильтра по типу ГИА
+        self.gia_filter = tk.IntVar(value=0)  # 0 - все, 1 - ЕГЭ, 3 - ОГЭ
+
     def _create_sidebar(self):
         """Создание боковой панели с поиском и списком ППЭ."""
         # Заголовок
         ttk.Label(self.sidebar, text="Пункты проведения экзаменов", 
-                 style="Header.TLabel").pack(pady=10, padx=10)
+                style="Header.TLabel").pack(pady=10, padx=10)
+        
+        # Фильтр по типу ГИА
+        filter_frame = ttk.LabelFrame(self.sidebar, text="Фильтр по типу ГИА")
+        filter_frame.pack(fill=tk.X, padx=10, pady=5)
+        
+        ttk.Radiobutton(
+            filter_frame, 
+            text="Все ППЭ", 
+            variable=self.gia_filter, 
+            value=0,
+            command=self._refresh_ppe_list
+        ).pack(anchor="w", padx=10, pady=2)
+        
+        ttk.Radiobutton(
+            filter_frame, 
+            text="Только ЕГЭ", 
+            variable=self.gia_filter, 
+            value=1,
+            command=self._refresh_ppe_list
+        ).pack(anchor="w", padx=10, pady=2)
+        
+        ttk.Radiobutton(
+            filter_frame, 
+            text="Только ОГЭ", 
+            variable=self.gia_filter, 
+            value=3,
+            command=self._refresh_ppe_list
+        ).pack(anchor="w", padx=10, pady=2)
         
         # Поле поиска
         search_frame = ttk.Frame(self.sidebar)
@@ -120,9 +151,101 @@ class ModernPPEApp:
         
         # Загружаем данные
         self._load_ppe_list()
+
+    def _load_ppe_list(self):
+        """Загрузка списка ППЭ из базы с учетом фильтра по типу ГИА."""
+        # Очищаем текущий список
+        for item in self.ppe_list.get_children():
+            self.ppe_list.delete(item)
+            
+        try:
+            # Получаем выбранный фильтр
+            gia_filter = self.gia_filter.get()
+            
+            if gia_filter == 0:  # Все ППЭ
+                # Используем стандартную функцию получения всех ППЭ
+                rows = get_ppe_list()
+            else:
+                # Запрос с фильтрацией по типу ГИА
+                query = """
+                    SELECT ppe_number, ppe_address 
+                    FROM dat_ppe 
+                    WHERE gia_type = %s
+                    ORDER BY ppe_number
+                """
+                from database import execute_query
+                rows = execute_query(query, (gia_filter,))
+            
+            for row in rows:
+                self.ppe_list.insert("", tk.END, values=row)
+                
+            # Обновляем заголовок с количеством ППЭ
+            gia_type_text = "Все ППЭ"
+            if int(gia_filter) == 1:
+                gia_type_text = "ППЭ ЕГЭ"
+            elif int(gia_filter) == 3:
+                gia_type_text = "ППЭ ОГЭ"
+                
+            count = len(rows)
+            ttk.Label(self.sidebar, text=f"{gia_type_text}: {count}", 
+                    style="Subheader.TLabel").pack(pady=5, padx=10, before=self.ppe_list.master)
+                
+        except Exception as e:
+            messagebox.showerror("Ошибка", f"Не удалось загрузить список ППЭ: {str(e)}")
+
+    def _filter_ppe_list(self, *args):
+        """Фильтрация списка ППЭ по поисковому запросу с учетом типа ГИА."""
+        search_term = self.search_var.get().lower()
+        gia_filter = self.gia_filter.get()
         
+        # Очищаем текущий список
+        for item in self.ppe_list.get_children():
+            self.ppe_list.delete(item)
+            
+        try:
+            if gia_filter == 0:
+                # Базовый запрос без фильтра по типу ГИА
+                base_query = """
+                    SELECT ppe_number, ppe_address 
+                    FROM dat_ppe 
+                    ORDER BY ppe_number
+                """
+                from database import execute_query
+                rows = execute_query(base_query)
+            else:
+                # Запрос с фильтром по типу ГИА
+                filtered_query = """
+                    SELECT ppe_number, ppe_address 
+                    FROM dat_ppe 
+                    WHERE gia_type = %s
+                    ORDER BY ppe_number
+                """
+                from database import execute_query
+                rows = execute_query(filtered_query, (gia_filter,))
+            
+            # Применяем поисковый фильтр
+            for row in rows:
+                # Проверяем, содержит ли номер или адрес ППЭ поисковый запрос
+                if (search_term in str(row[0]).lower() or 
+                    search_term in str(row[1]).lower()):
+                    self.ppe_list.insert("", tk.END, values=row)
+        except Exception as e:
+            messagebox.showerror("Ошибка", f"Ошибка при фильтрации списка: {str(e)}")
+    
+    """Обновление списка ППЭ с учетом текущего фильтра."""
+    def _refresh_ppe_list(self):
+        # Удаляем предыдущую метку с количеством ППЭ, если она есть
+        for widget in self.sidebar.winfo_children():
+            if isinstance(widget, ttk.Label) and widget.cget("text").startswith(("Все ППЭ:", "ППЭ ЕГЭ:", "ППЭ ОГЭ:")):
+                widget.destroy()
+        
+        self._load_ppe_list()
+    
+        # Сбрасываем поисковый запрос
+        self.search_var.set("")
+
+    """Создание основной области контента с вкладками."""
     def _create_content_area(self):
-        """Создание основной области контента с вкладками."""
         # Создаем вкладки для разных типов информации
         self.notebook = ttk.Notebook(self.content_frame)
         self.notebook.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
@@ -145,18 +268,18 @@ class ModernPPEApp:
         
         # Создаем заглушку для начального экрана
         self._create_welcome_screen()
-        
+
+    """Создание приветственного экрана."""   
     def _create_welcome_screen(self):
-        """Создание приветственного экрана."""
         for frame in [self.info_frame, self.equipment_frame, self.contracts_frame, self.plans_frame]:
             ttk.Label(
                 frame, 
                 text="Выберите ППЭ из списка слева для просмотра информации",
                 style="Subheader.TLabel"
             ).pack(expand=True)
-        
+    
+    """Создание панели инструментов."""
     def _create_toolbar(self):
-        """Создание панели инструментов."""
         toolbar = ttk.Frame(self.root)
         toolbar.pack(side=tk.TOP, fill=tk.X)
         
@@ -180,37 +303,6 @@ class ModernPPEApp:
             command=self._show_help
         ).pack(side=tk.RIGHT, padx=5, pady=5)
         
-    def _load_ppe_list(self):
-        """Загрузка списка ППЭ из базы."""
-        # Очищаем текущий список
-        for item in self.ppe_list.get_children():
-            self.ppe_list.delete(item)
-            
-        try:
-            rows = get_ppe_list()
-            for row in rows:
-                self.ppe_list.insert("", tk.END, values=row)
-        except Exception as e:
-            messagebox.showerror("Ошибка", f"Не удалось загрузить список ППЭ: {str(e)}")
-    
-    def _filter_ppe_list(self, *args):
-        """Фильтрация списка ППЭ по поисковому запросу."""
-        search_term = self.search_var.get().lower()
-        
-        # Очищаем текущий список
-        for item in self.ppe_list.get_children():
-            self.ppe_list.delete(item)
-            
-        try:
-            rows = get_ppe_list()
-            for row in rows:
-                # Проверяем, содержит ли номер или адрес ППЭ поисковый запрос
-                if (search_term in str(row[0]).lower() or 
-                    search_term in str(row[1]).lower()):
-                    self.ppe_list.insert("", tk.END, values=row)
-        except Exception as e:
-            messagebox.showerror("Ошибка", f"Ошибка при фильтрации списка: {str(e)}")
-    
     def _on_ppe_select(self, event):
         """Обработчик выбора ППЭ из списка."""
         selected_items = self.ppe_list.selection()
@@ -227,97 +319,154 @@ class ModernPPEApp:
         self._update_equipment_tab(ppe_number)
         self._update_contracts_tab(ppe_number)
         self._update_plans_tab(ppe_number)
-    
+ 
+    def _get_gia_type_name(self, gia_type):
+        """Преобразует числовой код типа ГИА в текстовое представление."""
+        if int(gia_type) == 1:
+            return "ЕГЭ"
+        elif int(gia_type) == 3:
+            return "ОГЭ"
+        else:
+            return f"Неизвестный тип ({gia_type})"
+
     def _update_info_tab(self, ppe_number, ppe_address):
         """Обновление вкладки с общей информацией."""
         # Очищаем текущее содержимое
         for widget in self.info_frame.winfo_children():
             widget.destroy()
-            
+                
         # Создаем прокручиваемую область
         canvas = tk.Canvas(self.info_frame)
         scrollbar = ttk.Scrollbar(self.info_frame, orient="vertical", command=canvas.yview)
         scrollable_frame = ttk.Frame(canvas)
-        
+            
         scrollable_frame.bind(
             "<Configure>",
             lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
         )
-        
+            
         canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
         canvas.configure(yscrollcommand=scrollbar.set)
-        
+            
         canvas.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
-        
+            
         # Заголовок
         ttk.Label(
             scrollable_frame, 
             text=f"ППЭ №{ppe_number}", 
             style="Header.TLabel"
         ).pack(anchor="w", padx=20, pady=(20, 10))
-        
+            
         ttk.Label(
             scrollable_frame, 
             text=f"Адрес: {ppe_address}", 
             style="Subheader.TLabel"
         ).pack(anchor="w", padx=20, pady=(0, 20))
-        
+            
         # Получаем дополнительную информацию из БД
         try:
             from database import get_ppe_details, get_responsible_person
-            
+                
             details = get_ppe_details(ppe_number)
             responsible = get_responsible_person(ppe_number)
             
+            # Получаем тип ГИА
+            try:
+                # Запрос типа ГИА из базы данных
+                query = """
+                    SELECT gia_type FROM dat_ppe
+                    WHERE id = %s
+                """
+                from database import execute_query
+                result = execute_query(query, (ppe_number,))
+                
+                if result and len(result) > 0:
+                    gia_type = result[0][0]
+                    gia_type_name = self._get_gia_type_name(gia_type)
+                    
+                    # Отображаем тип ГИА
+                    gia_frame = ttk.LabelFrame(scrollable_frame, text="Тип ГИА")
+                    gia_frame.pack(fill="x", expand=True, padx=20, pady=10)
+                    
+                    ttk.Label(
+                        gia_frame, 
+                        text=gia_type_name,
+                        font=("Arial", 12, "bold")
+                    ).pack(padx=10, pady=10)
+                else:
+                    # Если тип ГИА не найден
+                    gia_frame = ttk.LabelFrame(scrollable_frame, text="Тип ГИА")
+                    gia_frame.pack(fill="x", expand=True, padx=20, pady=10)
+                    
+                    ttk.Label(
+                        gia_frame, 
+                        text="Не указан",
+                        foreground="gray"
+                    ).pack(padx=10, pady=10)
+            except Exception as e:
+                # В случае ошибки при получении типа ГИА
+                gia_frame = ttk.LabelFrame(scrollable_frame, text="Тип ГИА")
+                gia_frame.pack(fill="x", expand=True, padx=20, pady=10)
+                
+                ttk.Label(
+                    gia_frame, 
+                    text=f"Ошибка при получении типа ГИА: {str(e)}",
+                    foreground="red"
+                ).pack(padx=10, pady=10)
+                
             # Информация об организации
             org_frame = ttk.LabelFrame(scrollable_frame, text="Информация об организации")
             org_frame.pack(fill="x", expand=True, padx=20, pady=10)
-            
-            if details:
-                info_grid = [
-                    ("Полное наименование:", details[2] if details[2] else "Не указано"),
-                    ("ИНН:", details[4] if details[4] else "Не указано"),
-                    ("КПП:", details[5] if details[5] else "Не указано"),
-                    ("ОКПО:", details[6] if details[6] else "Не указано"),
-                    ("ОГРН:", details[7] if details[7] else "Не указано"),
-                    ("Расчетный счет:", details[8] if details[8] else "Не указано"),
-                    ("Банковский счет:", details[9] if details[9] else "Не указано"),
-                    ("Лицевой счет:", details[10] if details[10] else "Не указано"),
-                ]
                 
+            if details:
+                # Проверяем, является ли details кортежем или словарем
+                if isinstance(details, tuple):
+                    # Если кортеж, используем индексы
+                    fullname = details[2] if len(details) > 2 and details[2] else "Не указано"
+                    inn = details[3] if len(details) > 3 and details[3] else "Не указано"
+                else:
+                    # Если словарь, используем ключи
+                    fullname = details.get("fullname", "Не указано")
+                    inn = details.get("INN", "Не указано")
+                    
+                info_grid = [
+                    ("Полное наименование:", fullname),
+                    ("ИНН:", inn),
+                ]
+                    
                 for i, (label, value) in enumerate(info_grid):
                     ttk.Label(org_frame, text=label).grid(row=i, column=0, sticky="w", padx=10, pady=5)
                     ttk.Label(org_frame, text=value).grid(row=i, column=1, sticky="w", padx=10, pady=5)
             else:
                 ttk.Label(org_frame, text="Информация отсутствует").pack(padx=10, pady=10)
-            
+                
             # Информация об ответственном лице
             resp_frame = ttk.LabelFrame(scrollable_frame, text="Ответственное лицо")
             resp_frame.pack(fill="x", expand=True, padx=20, pady=10)
-            
+                
             if responsible:
                 position = responsible[0] if responsible[0] else "Не указано"
                 surname = responsible[1] if responsible[1] else ""
                 first_name = responsible[2] if responsible[2] else ""
                 second_name = responsible[3] if responsible[3] else ""
                 full_name = f"{surname} {first_name} {second_name}".strip()
-                
+                    
                 ttk.Label(resp_frame, text="Должность:").grid(row=0, column=0, sticky="w", padx=10, pady=5)
                 ttk.Label(resp_frame, text=position).grid(row=0, column=1, sticky="w", padx=10, pady=5)
-                
+                    
                 ttk.Label(resp_frame, text="ФИО:").grid(row=1, column=0, sticky="w", padx=10, pady=5)
                 ttk.Label(resp_frame, text=full_name if full_name else "Не указано").grid(row=1, column=1, sticky="w", padx=10, pady=5)
             else:
                 ttk.Label(resp_frame, text="Информация отсутствует").pack(padx=10, pady=10)
-                
+                    
         except Exception as e:
             ttk.Label(
                 scrollable_frame, 
                 text=f"Ошибка при загрузке данных: {str(e)}", 
                 foreground="red"
             ).pack(padx=20, pady=20)
-    
+
     def _update_equipment_tab(self, ppe_number):
         """Обновление вкладки с оборудованием."""
         # Очищаем текущее содержимое
@@ -385,7 +534,7 @@ class ModernPPEApp:
             ).pack(expand=True)
     
     def _update_contracts_tab(self, ppe_number):
-        """Обновление вкладки с контрактами."""
+        """Обновление вкладки с контрактами с учетом ИНН."""
         # Очищаем текущее содержимое
         for widget in self.contracts_frame.winfo_children():
             widget.destroy()
@@ -397,7 +546,7 @@ class ModernPPEApp:
             columns=columns,
             show="headings"
         )
-        
+
         # Настраиваем заголовки и колонки
         column_settings = [
             ("Дата", 120, "center"),
@@ -406,50 +555,78 @@ class ModernPPEApp:
             ("ИНН", 120, "center"),
             ("Описание", 400, "w")
         ]
-        
+
         for col, width, anchor in column_settings:
             contracts_tree.heading(col, text=col)
             contracts_tree.column(col, width=width, anchor=anchor)
-        
+
         # Добавляем скроллбары
         y_scrollbar = ttk.Scrollbar(self.contracts_frame, orient="vertical", command=contracts_tree.yview)
         x_scrollbar = ttk.Scrollbar(self.contracts_frame, orient="horizontal", command=contracts_tree.xview)
         contracts_tree.configure(yscrollcommand=y_scrollbar.set, xscrollcommand=x_scrollbar.set)
-        
+
         # Размещаем элементы
         contracts_tree.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
         y_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         x_scrollbar.pack(side=tk.BOTTOM, fill=tk.X)
-        
+
         # Добавляем кнопки для работы с контрактами
         button_frame = ttk.Frame(self.contracts_frame)
         button_frame.pack(fill=tk.X, pady=10)
-        
+
         ttk.Button(
             button_frame, 
             text="Создать договор", 
             command=self._preview_contract
         ).pack(side=tk.LEFT, padx=5)
-        
+
         ttk.Button(
             button_frame, 
             text="Просмотреть договор", 
             command=lambda: self._view_selected_contract(contracts_tree)
         ).pack(side=tk.LEFT, padx=5)
-        
+
         # Загружаем данные контрактов
         try:
+            # Пробуем получить контракты напрямую по ppe_id
             from database import _fetch_contracts
             rows = _fetch_contracts(self, ppe_number)
             
+            if not rows:
+                # Если контракты не найдены по ppe_id, пробуем по school_id
+                query_school_id = """
+                    SELECT school_id FROM dat_ppe
+                    WHERE id = %s
+                """
+                from database import execute_query
+                school_id_result = execute_query(query_school_id, (ppe_number,))
+                
+                if school_id_result and school_id_result[0][0]:
+                    school_id = school_id_result[0][0]
+                    
+                    # Получаем контракты по school_id
+                    query_contracts = """
+                        SELECT c.contract_date, c.contract_number, c.supplier, c.supplier_inn, c.contract_name 
+                        FROM dat_contract c
+                        JOIN equip_data ed ON ed.contract_id = c.id
+                        JOIN dat_ppe p ON p.id = ed.ppe_id
+                        WHERE p.school_id = %s
+                        GROUP BY c.id, c.contract_date, c.contract_number, c.supplier, c.supplier_inn, c.contract_name
+                    """
+                    rows = execute_query(query_contracts, (school_id,))
+            
             if rows:
                 for row in rows:
-                    contracts_tree.insert("", tk.END, values=row)
+                    formatted_row = list(row)
+                    # Форматируем дату, если она есть
+                    if row[0] and hasattr(row[0], 'strftime'):
+                        formatted_row[0] = row[0].strftime('%d.%m.%Y')
+                    contracts_tree.insert("", tk.END, values=formatted_row)
             else:
                 # Если нет данных, показываем сообщение в таблице
                 ttk.Label(
                     button_frame, 
-                    text="Контракты для данного ППЭ не найдены", 
+                    text="Контракты для данной организации не найдены", 
                     foreground="#666666"
                 ).pack(side=tk.RIGHT, padx=10)
                 
@@ -459,7 +636,111 @@ class ModernPPEApp:
                 text=f"Ошибка при загрузке данных контрактов: {str(e)}", 
                 foreground="red"
             ).pack(side=tk.RIGHT, padx=10)
-    
+
+    def _preview_contract(self):
+        """Предварительный просмотр договора."""
+        if not self.current_ppe:
+            messagebox.showwarning("Предупреждение", "Выберите ППЭ для просмотра договора")
+            return
+                
+        # Используем существующую логику из utils.py
+        try:
+            # Получаем данные контракта из базы данных
+            from contracts import get_contract_data_from_db
+            contract_data = get_contract_data_from_db(self.current_ppe)
+            
+            # Спрашиваем пользователя, какой метод использовать
+            method_choice = messagebox.askyesnocancel(
+                "Выбор метода", 
+                "Выберите метод генерации договора:\n\n"
+                "Да - использовать ИНН организации\n"
+                "Нет - использовать school_id организации\n"
+                "Отмена - использовать только номер ППЭ"
+            )
+            
+            if method_choice is None:
+                # Пользователь выбрал "Отмена" - используем только номер ППЭ
+                use_inn = False
+                use_school_id = False
+                identifier = self.current_ppe
+            elif method_choice:
+                # Пользователь выбрал "Да" - используем ИНН
+                use_inn = True
+                use_school_id = False
+                
+                # Получаем ИНН для текущего ППЭ
+                query_inn = """
+                    SELECT inn FROM dat_ppe_details
+                    WHERE ppe_number = %s
+                """
+                from database import execute_query
+                inn_result = execute_query(query_inn, (self.current_ppe,))
+                
+                if inn_result and inn_result[0][0]:
+                    identifier = inn_result[0][0]
+                else:
+                    messagebox.showwarning("Предупреждение", "ИНН не найден для данного ППЭ. Будет использован номер ППЭ.")
+                    use_inn = False
+                    identifier = self.current_ppe
+            else:
+                # Пользователь выбрал "Нет" - используем school_id
+                use_inn = False
+                use_school_id = True
+                
+                # Получаем school_id для текущего ППЭ
+                query_school_id = """
+                    SELECT school_id FROM dat_ppe
+                    WHERE id = %s
+                """
+                from database import execute_query
+                school_id_result = execute_query(query_school_id, (self.current_ppe,))
+                
+                if school_id_result and school_id_result[0][0]:
+                    identifier = school_id_result[0][0]
+                else:
+                    messagebox.showwarning("Предупреждение", "school_id не найден для данного ППЭ. Будет использован номер ППЭ.")
+                    use_school_id = False
+                    identifier = self.current_ppe
+            
+            # Создаем диалоговое окно для ввода номера и даты договора
+            contract_details = show_contract_input_dialog(self, self.current_ppe)
+            if not contract_details:
+                return  # Пользователь отменил операцию
+            
+            # Создаем временный файл для договора
+            from contracts import create_temp_contract_directory
+            import os
+            from datetime import datetime
+            
+            temp_dir = create_temp_contract_directory()
+            temp_file = os.path.join(temp_dir, f"contract_{self.current_ppe}_{datetime.now().strftime('%Y%m%d%H%M%S')}.docx")
+            
+            # Генерируем временный договор
+            from contracts import generate_contract
+            
+            result = generate_contract(
+                identifier, 
+                temp_file, 
+                contract_details["number"], 
+                contract_details["date"],
+                use_inn=use_inn,
+                use_school_id=use_school_id
+            )
+            
+            if result:
+                # Открываем файл в системном приложении
+                open_document(temp_file)
+                
+                # Даем время на открытие документа перед показом диалога
+                self.root.after(1000, lambda: show_save_dialog(self, self.current_ppe, temp_file))
+            else:
+                messagebox.showerror("Ошибка", "Не удалось сгенерировать договор")
+        
+        except Exception as e:
+            messagebox.showerror("Ошибка", f"Произошла ошибка: {str(e)}")
+            import traceback
+            traceback.print_exc()
+
     def _update_plans_tab(self, ppe_number):
         """Обновление вкладки с планами помещений."""
         # Очищаем текущее содержимое
@@ -514,13 +795,7 @@ class ModernPPEApp:
                 text=f"Ошибка при загрузке плана помещения: {str(e)}", 
                 foreground="red"
             ).pack(expand=True)
-
-    
-    def _refresh_ppe_list(self):
-        """Обновление списка ППЭ."""
-        self._load_ppe_list()
-        messagebox.showinfo("Информация", "Список ППЭ обновлен")
-    
+  
     def _preview_contract(self):
         """Предварительный просмотр договора."""
         if not self.current_ppe:

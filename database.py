@@ -70,7 +70,7 @@ def execute_query(query, params=None, fetch=True):
 
 def get_ppe_list():
     """Получает список всех ППЭ из базы данных."""
-    query = "SELECT ppe_number, ppe_address FROM dat_ppe ORDER BY ppe_number"
+    query = "SELECT id, ppe_address_fact FROM dat_ppe ORDER BY ppe_number"
     return execute_query(query)
 
 def show_contracts(app, ppe_number):
@@ -221,10 +221,10 @@ def update_equipment_agreement(ppe_id, contract_number, contract_year):
 def get_ppe_details(ppe_id):
     """Получает детальную информацию о ППЭ."""
     query = """
-        SELECT p.id, p.ppe_number, p.ppe_address, 
-            pd.fullname
+        SELECT p.id, p.ppe_address_fact, 
+            pd.fullname, pd.inn
         FROM dat_ppe p
-        LEFT JOIN dat_ppe_details pd ON p.id = pd.ppe_number
+        LEFT JOIN dat_ppe_details pd ON p.school_id = pd.school_id
         WHERE p.id = %s
     """
     

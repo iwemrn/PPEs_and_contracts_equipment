@@ -10,13 +10,21 @@ def show_ppe_pdf(app, ppe_number):
     for widget in app.scrollable_pdf_frame.winfo_children():
         widget.destroy()
 
+    # Ищем файл с точным соответствием номеру ППЭ
     for file in os.listdir(app.pdf_directory):
-        if file.endswith(".pdf") and ppe_number in file:
-            file_path = os.path.join(app.pdf_directory, file)
-            app.current_pdf_path = file_path
-            load_pdf(app, file_path)  # Вызываем нижеописанную функцию
-            return
-    messagebox.showerror("Ошибка", f"Файл с планом ППЭ № {ppe_number} не найден.")
+        if file.endswith(".pdf"):
+            # Извлекаем номер ППЭ из имени файла (после дефиса и до .pdf)
+            try:
+                file_ppe_number = file.split(' - ')[1].split('.pdf')[0]
+                # Сравниваем с искомым номером ППЭ
+                if file_ppe_number == ppe_number:
+                    file_path = os.path.join(app.pdf_directory, file)
+                    app.current_pdf_path = file_path
+                    load_pdf(app, file_path)
+                    return
+            except IndexError:
+                # Пропускаем файлы с неправильным форматом имени
+                continue
 
 def load_pdf(app, file_path):
     """Загрузка PDF-файла и отображение страниц"""
