@@ -5,7 +5,7 @@
 import os
 import tkinter as tk
 import logging
-from tkinter import messagebox, filedialog, simpledialog
+from tkinter import messagebox, filedialog, simpledialog, ttk
 from datetime import datetime
 import shutil
 import platform
@@ -136,78 +136,23 @@ def show_save_path(self, path):
     label.tag = "save_path_label"
     label.pack(side=tk.LEFT, padx=5)
 
-def on_preview_contract_click(app):
-    """Обработчик для просмотра договора с возможностью последующего сохранения."""
-    # Получаем выбранный ППЭ
-    selected_item = app.ppe_list.selection()
-    if not selected_item:
-        messagebox.showwarning("Предупреждение", "Выберите ППЭ для просмотра договора")
-        return
-    
-    try:
-        ppe_id = app.ppe_list.item(selected_item, "values")[0]
-        
-        # Получаем данные контракта из базы данных
-        from contracts import get_contract_data_from_db
-        contract_data = get_contract_data_from_db(ppe_id)
-        
-        if not contract_data:
-            messagebox.showwarning("Предупреждение", f"Для ППЭ {ppe_id} не найден контракт в базе данных")
-            return
-        
-        # Создаем диалоговое окно для ввода номера и даты договора
-        contract_details = show_contract_input_dialog(app, ppe_id)
-        if not contract_details:
-            return  # Пользователь отменил операцию
-        
-        # Создаем временный файл для договора
-        from contracts import create_temp_contract_directory
-        temp_dir = create_temp_contract_directory()
-        temp_file = os.path.join(temp_dir, f"contract_{ppe_id}_{datetime.now().strftime('%Y%m%d%H%M%S')}.docx")
-        
-        # Показываем индикатор загрузки
-        loading_indicator = show_loading_indicator(app, "Генерация договора...")
-        
-        # Генерируем временный договор
-        from contracts import generate_contract
-        
-        result = generate_contract(
-            ppe_id, 
-            temp_file, 
-            contract_details["number"], 
-            contract_details["date"]
-        )
-        
-        # Скрываем индикатор загрузки
-        hide_loading_indicator(loading_indicator)
-        
-        if result:
-            # Открываем файл в системном приложении
-            open_document(temp_file)
-            
-            # Даем время на открытие документа перед показом диалога
-            app.root.after(1000, lambda: show_save_dialog(app, ppe_id, temp_file))
-        else:
-            messagebox.showerror("Ошибка", "Не удалось сгенерировать договор")
-    
-    except Exception as e:
-        logger.error(f"Ошибка при предпросмотре договора: {e}")
-        messagebox.showerror("Ошибка", f"Произошла ошибка: {str(e)}")
-        import traceback
-        logger.error(traceback.format_exc())
-
 def open_document(file_path):
-    """Открывает документ в системном приложении по умолчанию."""
+    """Открывает документ в системном приложении без блокировки."""
+    import subprocess
+    import os
+    import platform
+    
     try:
         if platform.system() == 'Windows':
-            os.startfile(file_path)
+            # Используем subprocess вместо os.startfile для неблокирующего открытия
+            subprocess.Popen(f'start "" "{file_path}"', shell=True)
         elif platform.system() == 'Darwin':  # macOS
             subprocess.Popen(['open', file_path])
         else:  # Linux
             subprocess.Popen(['xdg-open', file_path])
         return True
     except Exception as e:
-        logger.error(f"Ошибка при открытии файла: {e}")
+        print(f"Ошибка при открытии файла: {str(e)}")
         return False
 
 def show_save_dialog(app, ppe_id, temp_file):
