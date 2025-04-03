@@ -1,0 +1,20 @@
+2025-04-03 13:39:09,570 - database - INFO - Контракты для ППЭ 1: 1 записей
+2025-04-03 13:39:10,344 - database - INFO - Контракты для ППЭ 1: 1 записей
+2025-04-03 13:39:25,791 - database - INFO - Контракты для ППЭ 101: 0 записей
+2025-04-03 13:39:28,848 - database - INFO - Контракты для ППЭ 101: 0 записей
+2025-04-03 13:45:34,286 - database - ERROR - Ошибка выполнения запроса: column "ppe_address" does not exist
+LINE 2:                     SELECT ppe_number, ppe_address 
+                                               ^
+
+2025-04-03 13:45:37,226 - database - ERROR - Ошибка выполнения запроса: column "ppe_address" does not exist
+LINE 2:                     SELECT ppe_number, ppe_address 
+                                               ^
+
+2025-04-03 13:46:45,830 - database - ERROR - Ошибка выполнения запроса: column "ppe_address" does not exist
+LINE 2:                     SELECT id, ppe_address 
+                                       ^
+
+2025-04-03 13:46:49,082 - database - ERROR - Ошибка выполнения запроса: column "ppe_address" does not exist
+LINE 2:                     SELECT ppe_number, ppe_address 
+                                               ^
+
