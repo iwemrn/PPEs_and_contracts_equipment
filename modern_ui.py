@@ -3,6 +3,7 @@
 """
 
 import tkinter as tk
+import io
 from tkinter import ttk, messagebox
 import ttkthemes
 from PIL import Image, ImageTk
@@ -266,42 +267,8 @@ class ModernPPEApp:
         self.plans_frame = ttk.Frame(self.notebook)
         self.notebook.add(self.plans_frame, text="Планы помещений")
         
-        # Создаем заглушку для начального экрана
-        self._create_welcome_screen()
-
-    """Создание приветственного экрана."""   
-    def _create_welcome_screen(self):
-        for frame in [self.info_frame, self.equipment_frame, self.contracts_frame, self.plans_frame]:
-            ttk.Label(
-                frame, 
-                text="Выберите ППЭ из списка слева для просмотра информации",
-                style="Subheader.TLabel"
-            ).pack(expand=True)
-    
-    # """Создание панели инструментов."""
-    # def _create_toolbar(self):
-    #     toolbar = ttk.Frame(self.root)
-    #     toolbar.pack(side=tk.TOP, fill=tk.X)
-        
-    #     # Кнопки для работы с договорами
-    #     ttk.Button(
-    #         toolbar, 
-    #         text="Просмотр договора", 
-    #         command=self._preview_contract
-    #     ).pack(side=tk.LEFT, padx=5, pady=5)
-        
-    #     ttk.Button(
-    #         toolbar, 
-    #         text="Скачать договор", 
-    #         command=self._download_contract
-    #     ).pack(side=tk.LEFT, padx=5, pady=5)
-        
-    #     # Кнопка справки
-    #     ttk.Button(
-    #         toolbar, 
-    #         text="Справка", 
-    #         command=self._show_help
-    #     ).pack(side=tk.RIGHT, padx=5, pady=5)
+        # # Создаем заглушку для начального экрана
+        # self._create_welcome_screen()
         
     def _on_ppe_select(self, event):
         """Обработчик выбора ППЭ из списка."""
@@ -533,8 +500,179 @@ class ModernPPEApp:
                 foreground="red"
             ).pack(expand=True)
     
-    """Обновление вкладки с контрактами по номеру ППЭ."""
+    def _preview_contract(self):
+        """Предварительный просмотр договора."""
+        if not self.current_ppe:
+            messagebox.showwarning("Предупреждение", "Выберите ППЭ для просмотра договора")
+            return
+                
+        try:
+            # Спрашиваем пользователя, какой метод использовать
+            method_choice = messagebox.askyesnocancel(
+                "Выбор метода", 
+                "Выберите метод генерации договора:\n\n"
+                "Да - использовать ИНН организации\n"
+                "Нет - использовать school_id организации\n"
+                "Отмена - использовать только номер ППЭ"
+            )
+            
+            # Определяем идентификатор и метод
+            if method_choice is None:
+                use_inn = False
+                use_school_id = False
+                identifier = self.current_ppe
+            elif method_choice:
+                use_inn = True
+                use_school_id = False
+                
+                # Получаем ИНН
+                query_inn = """
+                    SELECT inn FROM dat_ppe_details
+                    WHERE ppe_number = %s
+                """
+                from database import execute_query
+                inn_result = execute_query(query_inn, (self.current_ppe,))
+                
+                if inn_result and inn_result[0][0]:
+                    identifier = inn_result[0][0]
+                else:
+                    messagebox.showwarning("Предупреждение", "ИНН не найден. Будет использован номер ППЭ.")
+                    use_inn = False
+                    identifier = self.current_ppe
+            else:
+                use_inn = False
+                use_school_id = True
+                
+                # Получаем school_id
+                query_school_id = """
+                    SELECT school_id FROM dat_ppe
+                    WHERE id = %s
+                """
+                from database import execute_query
+                school_id_result = execute_query(query_school_id, (self.current_ppe,))
+                
+                if school_id_result and school_id_result[0][0]:
+                    identifier = school_id_result[0][0]
+                else:
+                    messagebox.showwarning("Предупреждение", "school_id не найден. Будет использован номер ППЭ.")
+                    use_school_id = False
+                    identifier = self.current_ppe
+            
+            # Используем фиксированный номер договора "1" и текущую системную дату
+            from datetime import datetime
+            contract_details = {
+                "number": "1",
+                "date": datetime.now().strftime("%d.%m.%Y")
+            }
+            
+            # Создаем временный файл для договора
+            from contracts import create_temp_contract_directory
+            import os
+            
+            temp_dir = create_temp_contract_directory()
+            temp_file = os.path.join(temp_dir, f"preview_contract_{self.current_ppe}_{datetime.now().strftime('%Y%m%d%H%M%S')}.docx")
+            
+            # Создаем окно загрузки
+            loading_window = tk.Toplevel(self.root)
+            loading_window.title("Генерация договора")
+            loading_window.geometry("300x150")
+            loading_window.transient(self.root)
+            loading_window.grab_set()
+            
+            # Центрируем окно
+            loading_window.update_idletasks()
+            width = loading_window.winfo_width()
+            height = loading_window.winfo_height()
+            x = (loading_window.winfo_screenwidth() // 2) - (width // 2)
+            y = (loading_window.winfo_screenheight() // 2) - (height // 2)
+            loading_window.geometry(f"{width}x{height}+{x}+{y}")
+            
+            # Добавляем сообщение и прогресс-бар
+            ttk.Label(
+                loading_window, 
+                text=f"Генерация предпросмотра договора для ППЭ №{self.current_ppe}...",
+                wraplength=280
+            ).pack(pady=(20, 10))
+            
+            progress = ttk.Progressbar(loading_window, mode="indeterminate")
+            progress.pack(fill=tk.X, padx=20, pady=10)
+            progress.start(10)
+            
+            # Обновляем окно, чтобы показать прогресс-бар
+            loading_window.update()
+            
+            # Генерируем временный договор в отдельном потоке
+            import threading
+            
+            def generate_and_show():
+                try:
+                    from contracts import generate_contract
+                    from utils import open_document
+                    
+                    result = generate_contract(
+                        identifier, 
+                        temp_file, 
+                        contract_details["number"], 
+                        contract_details["date"],
+                        use_inn=use_inn,
+                        use_school_id=use_school_id
+                    )
+                    
+                    # Закрываем окно загрузки
+                    loading_window.destroy()
+                    
+                    if result:
+                        # Открываем файл в системном приложении
+                        open_document(temp_file)
+                        
+                        # Показываем информационное сообщение о предпросмотре
+                        messagebox.showinfo(
+                            "Предпросмотр договора", 
+                            f"Открыт предпросмотр договора для ППЭ №{self.current_ppe}\n\n"
+                            f"Номер договора: {contract_details['number']}\n"
+                            f"Дата договора: {contract_details['date']}\n\n"
+                            "Это предварительный просмотр. Для создания настоящего договора используйте кнопку 'Создать договор'."
+                        )
+                    else:
+                        messagebox.showerror("Ошибка", "Не удалось сгенерировать договор для предпросмотра")
+                except Exception as e:
+                    # Закрываем окно загрузки в случае ошибки
+                    loading_window.destroy()
+                    messagebox.showerror("Ошибка", f"Произошла ошибка при предпросмотре договора: {str(e)}")
+                    import traceback
+                    traceback.print_exc()
+            
+            # Запускаем генерацию в отдельном потоке
+            threading.Thread(target=generate_and_show).start()
+            
+        except Exception as e:
+            messagebox.showerror("Ошибка", f"Произошла ошибка при подготовке предпросмотра договора: {str(e)}")
+            import traceback
+            traceback.print_exc()
+
+    def _view_selected_contract(self, contracts_tree):
+        """Просмотр выбранного контракта."""
+        selected_items = contracts_tree.selection()
+        if not selected_items:
+            messagebox.showwarning("Предупреждение", "Выберите контракт для просмотра")
+            return
+            
+        # Получаем данные выбранного контракта
+        item = selected_items[0]
+        contract_values = contracts_tree.item(item, "values")
+        
+        if len(contract_values) >= 2:
+            contract_date, contract_number = contract_values[:2]
+            
+            # Показываем информацию о контракте
+            messagebox.showinfo("Информация о контракте", 
+                            f"Контракт №{contract_number} от {contract_date}\n\n"
+                            "Функция просмотра контракта в разработке.")
+        else:
+            messagebox.showwarning("Предупреждение", "Не удалось получить данные контракта")
+
     def _update_contracts_tab(self, ppe_number):
+        """Обновление вкладки с контрактами напрямую по ppe_number."""
         # Очищаем текущее содержимое
         for widget in self.contracts_frame.winfo_children():
             widget.destroy()
@@ -577,13 +715,13 @@ class ModernPPEApp:
         ttk.Button(
             button_frame, 
             text="Создать договор", 
-            command=self._preview_contract
+            command=self._download_contract  # Используем функцию создания договора
         ).pack(side=tk.LEFT, padx=5)
 
         ttk.Button(
             button_frame, 
             text="Просмотреть договор", 
-            command=lambda: self._view_selected_contract(contracts_tree)
+            command=lambda: self._preview_contract # Правильный вызов функции
         ).pack(side=tk.LEFT, padx=5)
 
         # Загружаем данные контрактов напрямую по ppe_number
@@ -621,110 +759,6 @@ class ModernPPEApp:
                 text=f"Ошибка при загрузке данных контрактов: {str(e)}", 
                 foreground="red"
             ).pack(side=tk.RIGHT, padx=10)
-
-        def _preview_contract(self):
-            """Предварительный просмотр договора."""
-            if not self.current_ppe:
-                messagebox.showwarning("Предупреждение", "Выберите ППЭ для просмотра договора")
-                return
-                    
-            # Используем существующую логику из utils.py
-            try:
-                # Получаем данные контракта из базы данных
-                from contracts import get_contract_data_from_db
-                contract_data = get_contract_data_from_db(self.current_ppe)
-                
-                # Спрашиваем пользователя, какой метод использовать
-                method_choice = messagebox.askyesnocancel(
-                    "Выбор метода", 
-                    "Выберите метод генерации договора:\n\n"
-                    "Да - использовать ИНН организации\n"
-                    "Нет - использовать school_id организации\n"
-                    "Отмена - использовать только номер ППЭ"
-                )
-                
-                if method_choice is None:
-                    # Пользователь выбрал "Отмена" - используем только номер ППЭ
-                    use_inn = False
-                    use_school_id = False
-                    identifier = self.current_ppe
-                elif method_choice:
-                    # Пользователь выбрал "Да" - используем ИНН
-                    use_inn = True
-                    use_school_id = False
-                    
-                    # Получаем ИНН для текущего ППЭ
-                    query_inn = """
-                        SELECT inn FROM dat_ppe_details
-                        WHERE ppe_number = %s
-                    """
-                    from database import execute_query
-                    inn_result = execute_query(query_inn, (self.current_ppe,))
-                    
-                    if inn_result and inn_result[0][0]:
-                        identifier = inn_result[0][0]
-                    else:
-                        messagebox.showwarning("Предупреждение", "ИНН не найден для данного ППЭ. Будет использован номер ППЭ.")
-                        use_inn = False
-                        identifier = self.current_ppe
-                else:
-                    # Пользователь выбрал "Нет" - используем school_id
-                    use_inn = False
-                    use_school_id = True
-                    
-                    # Получаем school_id для текущего ППЭ
-                    query_school_id = """
-                        SELECT school_id FROM dat_ppe
-                        WHERE id = %s
-                    """
-                    from database import execute_query
-                    school_id_result = execute_query(query_school_id, (self.current_ppe,))
-                    
-                    if school_id_result and school_id_result[0][0]:
-                        identifier = school_id_result[0][0]
-                    else:
-                        messagebox.showwarning("Предупреждение", "school_id не найден для данного ППЭ. Будет использован номер ППЭ.")
-                        use_school_id = False
-                        identifier = self.current_ppe
-                
-                # Создаем диалоговое окно для ввода номера и даты договора
-                contract_details = show_contract_input_dialog(self, self.current_ppe)
-                if not contract_details:
-                    return  # Пользователь отменил операцию
-                
-                # Создаем временный файл для договора
-                from contracts import create_temp_contract_directory
-                import os
-                from datetime import datetime
-                
-                temp_dir = create_temp_contract_directory()
-                temp_file = os.path.join(temp_dir, f"contract_{self.current_ppe}_{datetime.now().strftime('%Y%m%d%H%M%S')}.docx")
-                
-                # Генерируем временный договор
-                from contracts import generate_contract
-                
-                result = generate_contract(
-                    identifier, 
-                    temp_file, 
-                    contract_details["number"], 
-                    contract_details["date"],
-                    use_inn=use_inn,
-                    use_school_id=use_school_id
-                )
-                
-                if result:
-                    # Открываем файл в системном приложении
-                    open_document(temp_file)
-                    
-                    # Даем время на открытие документа перед показом диалога
-                    self.root.after(1000, lambda: show_save_dialog(self, self.current_ppe, temp_file))
-                else:
-                    messagebox.showerror("Ошибка", "Не удалось сгенерировать договор")
-            
-            except Exception as e:
-                messagebox.showerror("Ошибка", f"Произошла ошибка: {str(e)}")
-                import traceback
-                traceback.print_exc()
 
     def _update_plans_tab(self, ppe_number):
         """Обновление вкладки с планами помещений."""
@@ -781,50 +815,6 @@ class ModernPPEApp:
                 foreground="red"
             ).pack(expand=True)
   
-    def _preview_contract(self):
-        """Предварительный просмотр договора."""
-        if not self.current_ppe:
-            messagebox.showwarning("Предупреждение", "Выберите ППЭ для просмотра договора")
-            return
-            
-        # Используем существующую логику из utils.py
-        try:
-            # Получаем данные контракта из базы данных
-            contract_data = get_contract_data_from_db(self.current_ppe)
-            
-            # Создаем диалоговое окно для ввода номера и даты договора
-            contract_details = show_contract_input_dialog(self, self.current_ppe)
-            if not contract_details:
-                return  # Пользователь отменил операцию
-            
-            # Создаем временный файл для договора
-            from contracts import create_temp_contract_directory
-            import os
-            from datetime import datetime
-            
-            temp_dir = create_temp_contract_directory()
-            temp_file = os.path.join(temp_dir, f"contract_{self.current_ppe}_{datetime.now().strftime('%Y%m%d%H%M%S')}.docx")
-            
-            # Генерируем временный договор
-            result = generate_contract(
-                self.current_ppe, 
-                temp_file, 
-                contract_details["number"], 
-                contract_details["date"]
-            )
-            
-            if result:
-                # Открываем файл в системном приложении
-                open_document(temp_file)
-                
-                # Даем время на открытие документа перед показом диалога
-                self.root.after(1000, lambda: show_save_dialog(self, self.current_ppe, temp_file))
-            else:
-                messagebox.showerror("Ошибка", "Не удалось сгенерировать договор")
-        
-        except Exception as e:
-            messagebox.showerror("Ошибка", f"Произошла ошибка: {str(e)}")
-    
     def _download_contract(self):
         """Скачивание договора."""
         if not self.current_ppe:
@@ -834,21 +824,6 @@ class ModernPPEApp:
         # Используем существующую логику из utils.py
         from utils import on_download_contract
         on_download_contract(self)
-    
-    def _view_selected_contract(self, contracts_tree):
-        """Просмотр выбранного контракта."""
-        selected_items = contracts_tree.selection()
-        if not selected_items:
-            messagebox.showwarning("Предупреждение", "Выберите контракт для просмотра")
-            return
-            
-        # Получаем данные выбранного контракта
-        item = selected_items[0]
-        contract_date, contract_number = contracts_tree.item(item, "values")[:2]
-        
-        messagebox.showinfo("Информация о контракте", 
-                           f"Контракт №{contract_number} от {contract_date}\n\n"
-                           "Функция просмотра контракта в разработке.")
     
     def _show_help(self):
         """Показ справочной информации."""
