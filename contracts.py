@@ -20,7 +20,7 @@ logger = logging.getLogger('contracts')
 
 # Константы
 TEMPLATE_PATHS = [
-    "Z://Sofia//template.docx",
+    "C://Users//erokhina//Desktop//coding//PPEs_and_contracts_equipment//templates//template.docx",
     os.path.join(os.path.dirname(__file__), "templates", "template.docx")
 ]
 
@@ -151,7 +151,7 @@ def get_responsible_info_by_inn(inn):
         SELECT r."position", r.surname, r.first_name, r.second_name
         FROM dat_responsible r
         JOIN dat_ppe p ON r.ppe_number = p.id
-        JOIN dat_ppe_details pd ON pd.ppe_number = p.id
+        JOIN dat_ppe_details pd ON pd.school_id = p.school_id
         WHERE pd.inn = %s
         LIMIT 1
     """
@@ -388,18 +388,35 @@ def generate_contract(identifier, save_path, code_contract, contract_date, use_i
             if not equipment_list:
                 type_id = "school_id" if use_school_id else ("ИНН" if use_inn and inn else "ППЭ")
                 logger.warning(f"Предупреждение: Список оборудования пуст для {type_id} {identifier}")
-                equipment_list = []
+                # Добавляем тестовую запись для отладки
+                equipment_list = [{
+                    "row_number": 1,
+                    "equip_name": "Тестовое оборудование",
+                    "count_equip": 1,
+                    "inv_numbers": "TEST123",
+                    "equip_price": "1000.00",
+                    "total_price": "1000.00"
+                }]
                 
             context["equipment_list"] = equipment_list
             
             total = sum(float(row["total_price"]) for row in equipment_list)
             context["total"] = f"{total:.2f}"
             context["total_price_text"] = amount_to_text_rus(total)
+            
+            logger.info(f"Список оборудования в контексте: {len(context.get('equipment_list', []))} позиций")
         except Exception as e:
             logger.error(f"Ошибка при получении списка оборудования: {e}")
             import traceback
             logger.error(traceback.format_exc())
-            context["equipment_list"] = []
+            context["equipment_list"] = [{
+                "row_number": 1,
+                "equip_name": "Тестовое оборудование (ошибка при загрузке)",
+                "count_equip": 1,
+                "inv_numbers": "ERROR",
+                "equip_price": "0.00",
+                "total_price": "0.00"
+            }]
             context["total"] = "0.00"
             context["total_price_text"] = "Ноль рублей 00 копеек"
         
@@ -407,9 +424,70 @@ def generate_contract(identifier, save_path, code_contract, contract_date, use_i
         try:
             if use_school_id:
                 responsible_info = get_responsible_info_by_school_id(identifier)
+                logger.info(f"Получена информация об ответственном лице по school_id {identifier}: {responsible_info}")
             else:
                 responsible_info = get_responsible_info(identifier)
+                logger.info(f"Получена информация об ответственном лице по ППЭ {identifier}: {responsible_info}")
+            
+            # Добавляем базовую информацию об ответственном лице
             context.update(responsible_info)
+            
+            # Добавляем инициалы и полное ФИО с инициалами
+            if responsible_info["name"] and responsible_info["second_name"]:
+                name_initial = responsible_info["name"][0] if responsible_info["name"] else ""
+                second_name_initial = responsible_info["second_name"][0] if responsible_info["second_name"] else ""
+                
+                context["name_initial"] = name_initial + "." if name_initial else ""
+                context["second_name_initial"] = second_name_initial + "." if second_name_initial else ""
+                
+                # ФИО с инициалами (Иванов И.И.)
+                context["full_name_with_initials"] = (
+                    f"{responsible_info['surname']} {context['name_initial']} {context['second_name_initial']}"
+                ).strip()
+                
+                # ФИО полностью (Иванов Иван Иванович)
+                context["responsible_fullname"] = (
+                    f"{responsible_info['surname']} {responsible_info['name']} {responsible_info['second_name']}"
+                ).strip()
+            else:
+                context["name_initial"] = ""
+                context["second_name_initial"] = ""
+                context["full_name_with_initials"] = responsible_info["surname"]
+                context["responsible_fullname"] = responsible_info["surname"]
+
+            # Добавляем версии в родительном падеже
+            try:
+                context["job_title_genitive"] = convert_to_genitive(responsible_info["job_title"])
+                context["surname_genitive"] = convert_to_genitive(responsible_info["surname"])
+                context["name_genitive"] = convert_to_genitive(responsible_info["name"])
+                context["second_name_genitive"] = convert_to_genitive(responsible_info["second_name"])
+                
+                # Полное ФИО в родительном падеже
+                context["full_name_genitive"] = f"{context['surname_genitive']} {context['name_genitive']} {context['second_name_genitive']}".strip()
+                
+                # ФИО с инициалами в родительном падеже
+                if context.get("name_initial") and context.get("second_name_initial"):
+                    context["full_name_with_initials_genitive"] = f"{context['surname_genitive']} {context['name_initial']} {context['second_name_initial']}".strip()
+                else:
+                    context["full_name_with_initials_genitive"] = context["surname_genitive"]
+                
+                # Должность и ФИО в родительном падеже
+                context["job_title_and_full_name_genitive"] = f"{context.get('job_title_genitive', '')} {context.get('full_name_genitive', '')}".strip()
+                context["job_title_and_full_name_with_initials_genitive"] = f"{context.get('job_title_genitive', '')} {context.get('full_name_with_initials_genitive', '')}".strip()
+                
+                logger.info(f"Добавлены переменные в родительном падеже: {context['job_title_genitive']}, {context['full_name_genitive']}")
+            except Exception as e:
+                logger.error(f"Ошибка при формировании родительного падежа: {e}")
+                # Устанавливаем значения по умолчанию
+                context["job_title_genitive"] = context.get("job_title", "")
+                context["surname_genitive"] = context.get("surname", "")
+                context["name_genitive"] = context.get("name", "")
+                context["second_name_genitive"] = context.get("second_name", "")
+                context["full_name_genitive"] = context.get("surname", "")
+                context["full_name_with_initials_genitive"] = context.get("surname", "")
+                context["job_title_and_full_name_genitive"] = f"{context.get('job_title', '')} {context.get('surname', '')}".strip()
+                context["job_title_and_full_name_with_initials_genitive"] = f"{context.get('job_title', '')} {context.get('surname', '')}".strip()
+
         except Exception as e:
             logger.error(f"Ошибка при получении информации об ответственном: {e}")
             import traceback
@@ -419,15 +497,33 @@ def generate_contract(identifier, save_path, code_contract, contract_date, use_i
                 "job_title": "",
                 "surname": "",
                 "name": "",
-                "second_name": ""
+                "second_name": "",
+                "name_initial": "",
+                "second_name_initial": "",
+                "full_name_with_initials": "",
+                "responsible_fullname": "",
+                "job_title_genitive": "",
+                "surname_genitive": "",
+                "name_genitive": "",
+                "second_name_genitive": "",
+                "full_name_genitive": "",
+                "full_name_with_initials_genitive": "",
+                "job_title_and_full_name_genitive": "",
+                "job_title_and_full_name_with_initials_genitive": ""
             })
-        
         # 9. Генерация документа
         doc = DocxTemplate(template_path)
         
-        # Выводим в лог все ключи контекста для отладки
+        # Выводим в лог ключи контекста для отладки
         logger.info(f"Ключи контекста: {list(context.keys())}")
-        logger.info(f"Значения контекста: {context}")
+        
+        # Выводим информацию об ответственном лице для отладки
+        logger.info("Переменные для ответственного лица:")
+        for key in ['job_title', 'surname', 'name', 'second_name', 
+                    'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive',
+                    'full_name_with_initials', 'full_name_with_initials_genitive',
+                    'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']:
+            logger.info(f"  {key}: {context.get(key, 'НЕ ЗАДАНО')}")
         
         doc.render(context)
         
@@ -441,6 +537,7 @@ def generate_contract(identifier, save_path, code_contract, contract_date, use_i
         import traceback
         logger.error(traceback.format_exc())
         return None
+
 
 def build_month_name_rus(month_int):
     """Возвращает название месяца в родительном падеже на русском языке."""
@@ -533,3 +630,134 @@ def create_temp_contract_directory():
     if not os.path.exists(temp_dir):
         os.makedirs(temp_dir)
     return temp_dir
+
+def convert_to_genitive(word_or_phrase):
+    """
+    Преобразует слово или фразу в родительный падеж.
+    """
+    if not word_or_phrase or not isinstance(word_or_phrase, str):
+        return ""
+    
+    # Словарь для должностей
+    job_titles_genitive = {
+        "директор": "директора",
+        "заместитель директора": "заместителя директора",
+        "учитель": "учителя",
+        "преподаватель": "преподавателя",
+        "руководитель": "руководителя",
+        "заведующий": "заведующего",
+        "методист": "методиста",
+        "специалист": "специалиста",
+        "инженер": "инженера",
+        "техник": "техника"
+    }
+    
+    # Словарь для распространенных имен и фамилий
+    names_genitive = {
+        "иван": "ивана",
+        "петр": "петра",
+        "александр": "александра",
+        "сергей": "сергея",
+        "андрей": "андрея",
+        "дмитрий": "дмитрия",
+        "михаил": "михаила",
+        "николай": "николая",
+        "владимир": "владимира",
+        "алексей": "алексея",
+        "мария": "марии",
+        "анна": "анны",
+        "елена": "елены",
+        "ольга": "ольги",
+        "татьяна": "татьяны",
+        "наталья": "натальи",
+        "екатерина": "екатерины",
+        "ирина": "ирины",
+        "светлана": "светланы",
+        "юлия": "юлии",
+        # Добавляем тестовые имена
+        "тест": "теста",
+        "тестовый": "тестового",
+        "тестович": "тестовича"
+    }
+    
+    # Словарь для отчеств
+    patronymics_genitive = {
+        "иванович": "ивановича",
+        "петрович": "петровича",
+        "александрович": "александровича",
+        "сергеевич": "сергеевича",
+        "андреевич": "андреевича",
+        "дмитриевич": "дмитриевича",
+        "михайлович": "михайловича",
+        "николаевич": "николаевича",
+        "владимирович": "владимировича",
+        "алексеевич": "алексеевича",
+        "ивановна": "ивановны",
+        "петровна": "петровны",
+        "александровна": "александровны",
+        "сергеевна": "сергеевны",
+        "андреевна": "андреевны",
+        "дмитриевна": "дмитриевны",
+        "михайловна": "михайловны",
+        "николаевна": "николаевны",
+        "владимировна": "владимировны",
+        "алексеевна": "алексеевны",
+        # Добавляем тестовые отчества
+        "тестович": "тестовича",
+        "тестовна": "тестовны"
+    }
+    
+    # Правила склонения фамилий
+    def decline_surname(surname):
+        surname_lower = surname.lower()
+        
+        # Если фамилия уже есть в словаре, используем готовое склонение
+        if surname_lower in names_genitive:
+            return names_genitive[surname_lower]
+        
+        # Правила склонения мужских фамилий
+        if surname_lower.endswith(('ов', 'ев', 'ин', 'ын')):
+            return surname + 'а'
+        elif surname_lower.endswith(('ий')):
+            return surname[:-2] + 'ого'
+        elif surname_lower.endswith(('ый', 'ой')):
+            return surname[:-2] + 'ого'
+        elif surname_lower.endswith(('ь')):
+            return surname[:-1] + 'я'
+        
+        # Если не удалось применить правила, возвращаем исходную фамилию
+        return surname
+    
+    # Объединяем словари
+    all_words_genitive = {**job_titles_genitive, **names_genitive, **patronymics_genitive}
+    
+    # Проверяем, есть ли фраза целиком в словаре
+    lower_phrase = word_or_phrase.lower()
+    if lower_phrase in all_words_genitive:
+        # Сохраняем оригинальный регистр первой буквы
+        if word_or_phrase[0].isupper():
+            return all_words_genitive[lower_phrase].capitalize()
+        return all_words_genitive[lower_phrase]
+    
+    # Если фразы целиком нет, пробуем разбить на слова
+    words = word_or_phrase.split()
+    result = []
+    
+    for word in words:
+        lower_word = word.lower()
+        if lower_word in all_words_genitive:
+            # Сохраняем оригинальный регистр первой буквы
+            if word[0].isupper():
+                result.append(all_words_genitive[lower_word].capitalize())
+            else:
+                result.append(all_words_genitive[lower_word])
+        else:
+            # Пробуем применить правила склонения для фамилий
+            if len(words) >= 2 and words.index(word) == 0:  # Предполагаем, что фамилия идет первой
+                declined_surname = decline_surname(word)
+                result.append(declined_surname)
+            else:
+                # Если слова нет в словаре и не похоже на фамилию, оставляем как есть
+                result.append(word)
+    
+    return ' '.join(result)

@@ -26,9 +26,8 @@ class ModernPPEApp:
         self.root.geometry("1280x800")
         self.root.minsize(1024, 768)
         
-        # Применяем современную тему
         self.style = ttkthemes.ThemedStyle(self.root)
-        self.style.set_theme("arc")  # Можно выбрать: arc, equilux, breeze и др.
+        self.style.set_theme("arc")  # либо adapta, либо arc.
         
         # Настраиваем стили
         self.style.configure("TButton", font=("Segoe UI", 10))
@@ -57,7 +56,6 @@ class ModernPPEApp:
         self._create_content_area()
 
     def _initialize_variables(self):
-        """Инициализация переменных."""
         self.pdf_directory = "Z:\\_ГИА_2025\\Планы БТИ\\Планы"
         self.pdf_document = None
         self.current_pdf_path = ""
@@ -66,10 +64,10 @@ class ModernPPEApp:
         self.search_var.trace("w", self._filter_ppe_list)
         
         # Добавляем переменную для фильтра по типу ГИА
-        self.gia_filter = tk.IntVar(value=0)  # 0 - все, 1 - ЕГЭ, 3 - ОГЭ
+        self.gia_filter = tk.IntVar(value=0)  # 0 - все, 1 - ЕГЭ, 3 - ОГЭ, 2 - ГВЭ (в разработке)
 
+    """Создание боковой панели с поиском и списком ППЭ."""
     def _create_sidebar(self):
-        """Создание боковой панели с поиском и списком ППЭ."""
         # Заголовок
         ttk.Label(self.sidebar, text="Пункты проведения экзаменов", 
                 style="Header.TLabel").pack(pady=10, padx=10)
@@ -152,8 +150,8 @@ class ModernPPEApp:
         # Загружаем данные
         self._load_ppe_list()
 
+    """Загрузка списка ППЭ из базы с учетом фильтра по типу ГИА."""
     def _load_ppe_list(self):
-        """Загрузка списка ППЭ из базы с учетом фильтра по типу ГИА."""
         # Очищаем текущий список
         for item in self.ppe_list.get_children():
             self.ppe_list.delete(item)
@@ -193,8 +191,8 @@ class ModernPPEApp:
         except Exception as e:
             messagebox.showerror("Ошибка", f"Не удалось загрузить список ППЭ: {str(e)}")
 
+    """Фильтрация списка ППЭ по поисковому запросу с учетом типа ГИА."""
     def _filter_ppe_list(self, *args):
-        """Фильтрация списка ППЭ по поисковому запросу с учетом типа ГИА."""
         search_term = self.search_var.get().lower()
         gia_filter = self.gia_filter.get()
         
@@ -269,8 +267,8 @@ class ModernPPEApp:
         # # Создаем заглушку для начального экрана
         # self._create_welcome_screen()
         
+    """Обработчик выбора ППЭ из списка."""
     def _on_ppe_select(self, event):
-        """Обработчик выбора ППЭ из списка."""
         selected_items = self.ppe_list.selection()
         if not selected_items:
             return
@@ -286,12 +284,14 @@ class ModernPPEApp:
         self._update_contracts_tab(ppe_number)
         self._update_plans_tab(ppe_number)
  
+    """Преобразует числовой код типа ГИА в текстовое представление."""
     def _get_gia_type_name(self, gia_type):
-        """Преобразует числовой код типа ГИА в текстовое представление."""
         if int(gia_type) == 1:
             return "ЕГЭ"
         elif int(gia_type) == 3:
             return "ОГЭ"
+        elif int(gia_type) == 2:
+            return f"ГВЭ (в разработке)"
         else:
             return f"Неизвестный тип ({gia_type})"
 
@@ -335,6 +335,7 @@ class ModernPPEApp:
             from database import get_ppe_details, get_responsible_person
                 
             details = get_ppe_details(ppe_number)
+            print(details)
             responsible = get_responsible_person(ppe_number)
             
             # Получаем тип ГИА
@@ -388,22 +389,34 @@ class ModernPPEApp:
             if details:
                 # Проверяем, является ли details кортежем или словарем
                 if isinstance(details, tuple):
-                    # Если кортеж, используем индексы
-                    fullname = details[2] if len(details) > 2 and details[2] else "Не указано"
-                    inn = details[3] if len(details) > 3 and details[3] else "Не указано"
+                    fullname = details[0] if len(details) > 0 and details[0] else "Не указано"
+                    address = details[1] if len(details) > 1 and details[1] else "Не указано"
+                    inn = details[2] if len(details) > 2 and details[2] else "Не указано"
+                    kpp = details[3] if len(details) > 3 and details[3] else "Не указано"
+                    okpo = details[4] if len(details) > 4 and details[4] else "Не указано"
+                    ogrn = details[5] if len(details) > 5 and details[5] else "Не указано"
                 else:
                     # Если словарь, используем ключи
                     fullname = details.get("fullname", "Не указано")
+                    address = details.get("address", "Не указано")
                     inn = details.get("INN", "Не указано")
+                    kpp = details.get("KPP", "Не указано")
+                    okpo = details.get("OKPO", "Не указано")
+                    ogrn = details.get("OGRN", "Не указано")
                     
                 info_grid = [
                     ("Полное наименование:", fullname),
+                    ("Юр. адрес:", address),
                     ("ИНН:", inn),
+                    ("КПП:", kpp),
+                    ("ОКПО:", okpo),
+                    ("ОГРН:", ogrn)
                 ]
                     
                 for i, (label, value) in enumerate(info_grid):
                     ttk.Label(org_frame, text=label).grid(row=i, column=0, sticky="w", padx=10, pady=5)
                     ttk.Label(org_frame, text=value).grid(row=i, column=1, sticky="w", padx=10, pady=5)
+
             else:
                 ttk.Label(org_frame, text="Информация отсутствует").pack(padx=10, pady=10)
                 
