@@ -235,7 +235,7 @@ def get_responsible_person(ppe_id):
     query = """
         SELECT position, surname, first_name, second_name
         FROM dat_responsible
-        WHERE ppe_number = %s
+        WHERE school_id = %s
     """
     
     result = execute_query(query, (ppe_id,))

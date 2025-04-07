@@ -85,3 +85,11 @@ FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\erokhina\\De
 2025-04-04 12:28:56,790 - contracts - INFO -   job_title_and_full_name_genitive: директора Тестового Теста Тестовича
 2025-04-04 12:28:56,790 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: директора Тестового Т. Т.
 2025-04-04 12:28:57,506 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_101_20250404122856.docx
+2025-04-07 10:48:54,482 - database - ERROR - Ошибка выполнения запроса: column "ppe_number" does not exist
+LINE 4:         WHERE ppe_number = '1'
+                      ^
+
+2025-04-07 10:48:55,161 - database - ERROR - Ошибка выполнения запроса: column "ppe_number" does not exist
+LINE 4:         WHERE ppe_number = '1'
+                      ^
+
