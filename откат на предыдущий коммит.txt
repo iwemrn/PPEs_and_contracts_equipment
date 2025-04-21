@@ -1,0 +1,8 @@
+обяхательно бэк - иначе пизда всему миру
+git branch backup/bad-commit
+
+"откат" на одну ветку назад
+git reset --hard HEAD~1          # или на конкретный хэш
+
+обновление ветки
+git push --force-with-lease

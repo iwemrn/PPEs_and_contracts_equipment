@@ -404,6 +404,7 @@ def generate_contract(identifier, save_path, code_contract, contract_date, use_i
             context["total"] = f"{total:.2f}"
             context["total_price_text"] = amount_to_text_rus(total)
             
+
             logger.info(f"Список оборудования в контексте: {len(context.get('equipment_list', []))} позиций")
         except Exception as e:
             logger.error(f"Ошибка при получении списка оборудования: {e}")
@@ -526,6 +527,11 @@ def generate_contract(identifier, save_path, code_contract, contract_date, use_i
             logger.info(f"  {key}: {context.get(key, 'НЕ ЗАДАНО')}")
         
         doc.render(context)
+
+        for table in doc.tables:
+            for row in list(table.rows):                         # делаем копию, иначе skip‑прыжки
+                if all(cell.text.strip() == "" for cell in row.cells):
+                    row._tr.getparent().remove(row._tr)          # XML‑удаление :contentReference[oaicite:0]{index=0}
         
         # 10. Сохранение результата
         doc.save(save_path)
