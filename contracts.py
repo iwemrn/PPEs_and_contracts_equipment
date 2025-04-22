@@ -150,9 +150,8 @@ def get_responsible_info_by_inn(inn):
     query = """
         SELECT r."position", r.surname, r.first_name, r.second_name
         FROM dat_responsible r
-        JOIN dat_ppe p ON r.ppe_number = p.id
-        JOIN dat_ppe_details pd ON pd.school_id = p.school_id
-        WHERE pd.inn = %s
+        JOIN dat_ppe p ON r.school_id = p.school_id
+        WHERE p.school_id = %s
         LIMIT 1
     """
     
@@ -179,9 +178,10 @@ def get_responsible_info(ppe_number):
     Получает данные из dat_responsible для указанного ППЭ.
     """
     query = """
-        SELECT "position", surname, first_name, second_name
-        FROM dat_responsible
-        WHERE ppe_number = %s
+        SELECT r."position", r.surname, r.first_name, r.second_name
+        FROM dat_responsible r
+        JOIN dat_ppe p ON r.school_id = p.school_id
+        WHERE p.school_id = %s
         LIMIT 1
     """
     
@@ -210,7 +210,7 @@ def get_responsible_info_by_school_id(school_id):
     query = """
         SELECT r."position", r.surname, r.first_name, r.second_name
         FROM dat_responsible r
-        JOIN dat_ppe p ON r.ppe_number = p.id
+        JOIN dat_ppe p ON r.school_id = p.school_id
         WHERE p.school_id = %s
         LIMIT 1
     """
