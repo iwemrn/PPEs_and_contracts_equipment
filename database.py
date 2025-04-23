@@ -218,19 +218,19 @@ def update_equipment_agreement(ppe_id, contract_number, contract_year):
     
     return execute_query(query, (agreement_value, ppe_id), fetch=False)
 
-def get_ppe_details(ppe_id):
+def get_ppe_details(school_id):
     """Получает детальную информацию о ППЭ."""
     query = """
         SELECT pd.fullname, pd.address, pd.inn, pd.kpp, pd.okpo, pd.ogrn
         FROM dat_ppe p
         LEFT JOIN dat_ppe_details pd ON p.school_id = pd.school_id
-        WHERE p.id = %s
+        WHERE p.school_id = %s
     """
     
-    result = execute_query(query, (ppe_id,))
+    result = execute_query(query, (school_id,))
     return result[0] if result else None
 
-def get_responsible_person(ppe_id):
+def get_responsible_person(school_id):
     """Получает информацию об ответственном лице ППЭ."""
     query = """
         SELECT position, surname, first_name, second_name
@@ -238,7 +238,7 @@ def get_responsible_person(ppe_id):
         WHERE school_id = %s
     """
     
-    result = execute_query(query, (ppe_id,))
+    result = execute_query(query, (school_id,))
     return result[0] if result else None
 
 def save_contract_data(ppe_id, contract_number, contract_date, contract_name=None):

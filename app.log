@@ -1,344 +1,309 @@
-2025-04-04 12:26:17,329 - contracts - INFO - Загружены реквизиты для school_id 1: {'code_contract': '1', 'day': 4, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'num_contract': '0366200035624009751', 'date_contract': '07.02.2025', 'name_contract': 'на поставку ноутбуков для проведения ГИА в Тульской области в 2025 году', 'school_id': 1, 'school_fullname': 'Муниципальное Общеобразовательное учреждение "Арсеньевская Средняя Общеобразовательная Школа"', 'school_address': '301510, Тульская обл., Арсеньевский район, п. Арсеньево, ул. Халтурина, д. 11', 'INN': 7121002693, 'KPP': 712101001, 'OKPO': 52527018, 'OGRN': 1027103272701, 'cur_acc': '', 'bank_acc': '', 'pers_acc': '', 'fullname': 'Муниципальное Общеобразовательное учреждение "Арсеньевская Средняя Общеобразовательная Школа"', 'address': '301510, Тульская обл., Арсеньевский район, п. Арсеньево, ул. Халтурина, д. 11'}
-2025-04-04 12:26:17,396 - contracts - INFO - Получено 1 позиций оборудования для организации для ППЭ 101
-2025-04-04 12:26:17,396 - contracts - INFO - Список оборудования в контексте: 1 позиций
-2025-04-04 12:26:17,438 - contracts - INFO - Получена информация об ответственном лице по ППЭ 101: {'job_title': 'директор', 'surname': 'Тестовый', 'name': 'Тест', 'second_name': 'Тестович'}
-2025-04-04 12:26:17,438 - contracts - INFO - Добавлены переменные в родительном падеже: директора, Тестового Теста Тестовича
-2025-04-04 12:26:17,438 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'num_contract', 'date_contract', 'name_contract', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'ppe_address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
-2025-04-04 12:26:17,438 - contracts - INFO - Переменные для ответственного лица:
-2025-04-04 12:26:17,438 - contracts - INFO -   job_title: директор
-2025-04-04 12:26:17,439 - contracts - INFO -   surname: Тестовый
-2025-04-04 12:26:17,439 - contracts - INFO -   name: Тест
-2025-04-04 12:26:17,439 - contracts - INFO -   second_name: Тестович
-2025-04-04 12:26:17,439 - contracts - INFO -   job_title_genitive: директора
-2025-04-04 12:26:17,439 - contracts - INFO -   surname_genitive: Тестового
-2025-04-04 12:26:17,439 - contracts - INFO -   name_genitive: Теста
-2025-04-04 12:26:17,439 - contracts - INFO -   second_name_genitive: Тестовича
-2025-04-04 12:26:17,440 - contracts - INFO -   full_name_with_initials: Тестовый Т. Т.
-2025-04-04 12:26:17,440 - contracts - INFO -   full_name_with_initials_genitive: Тестового Т. Т.
-2025-04-04 12:26:17,440 - contracts - INFO -   job_title_and_full_name_genitive: директора Тестового Теста Тестовича
-2025-04-04 12:26:17,440 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: директора Тестового Т. Т.
-2025-04-04 12:26:20,249 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_101_20250404122617.docx
-2025-04-04 12:28:06,262 - contracts - INFO - Загружены реквизиты для school_id 1: {'code_contract': '1', 'day': 4, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'num_contract': '0366200035624009751', 'date_contract': '07.02.2025', 'name_contract': 'на поставку ноутбуков для проведения ГИА в Тульской области в 2025 году', 'school_id': 1, 'school_fullname': 'Муниципальное Общеобразовательное учреждение "Арсеньевская Средняя Общеобразовательная Школа"', 'school_address': '301510, Тульская обл., Арсеньевский район, п. Арсеньево, ул. Халтурина, д. 11', 'INN': 7121002693, 'KPP': 712101001, 'OKPO': 52527018, 'OGRN': 1027103272701, 'cur_acc': '', 'bank_acc': '', 'pers_acc': '', 'fullname': 'Муниципальное Общеобразовательное учреждение "Арсеньевская Средняя Общеобразовательная Школа"', 'address': '301510, Тульская обл., Арсеньевский район, п. Арсеньево, ул. Халтурина, д. 11'}
-2025-04-04 12:28:06,324 - contracts - INFO - Получено 1 позиций оборудования для организации для ППЭ 101
-2025-04-04 12:28:06,325 - contracts - INFO - Список оборудования в контексте: 1 позиций
-2025-04-04 12:28:06,352 - contracts - INFO - Получена информация об ответственном лице по ППЭ 101: {'job_title': 'директор', 'surname': 'Тестовый', 'name': 'Тест', 'second_name': 'Тестович'}
-2025-04-04 12:28:06,353 - contracts - INFO - Добавлены переменные в родительном падеже: директора, Тестового Теста Тестовича
-2025-04-04 12:28:06,353 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'num_contract', 'date_contract', 'name_contract', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'ppe_address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
-2025-04-04 12:28:06,353 - contracts - INFO - Переменные для ответственного лица:
-2025-04-04 12:28:06,354 - contracts - INFO -   job_title: директор
-2025-04-04 12:28:06,354 - contracts - INFO -   surname: Тестовый
-2025-04-04 12:28:06,354 - contracts - INFO -   name: Тест
-2025-04-04 12:28:06,354 - contracts - INFO -   second_name: Тестович
-2025-04-04 12:28:06,354 - contracts - INFO -   job_title_genitive: директора
-2025-04-04 12:28:06,355 - contracts - INFO -   surname_genitive: Тестового
-2025-04-04 12:28:06,355 - contracts - INFO -   name_genitive: Теста
-2025-04-04 12:28:06,355 - contracts - INFO -   second_name_genitive: Тестовича
-2025-04-04 12:28:06,355 - contracts - INFO -   full_name_with_initials: Тестовый Т. Т.
-2025-04-04 12:28:06,355 - contracts - INFO -   full_name_with_initials_genitive: Тестового Т. Т.
-2025-04-04 12:28:06,356 - contracts - INFO -   job_title_and_full_name_genitive: директора Тестового Теста Тестовича
-2025-04-04 12:28:06,356 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: директора Тестового Т. Т.
-2025-04-04 12:28:06,357 - contracts - ERROR - Ошибка при генерации договора: [Errno 2] No such file or directory: 'C:\\Users\\erokhina\\Desktop\\coding\\PPEs_and_contracts_equipment\\templates\\[Content_Types].xml'
-2025-04-04 12:28:06,372 - contracts - ERROR - Traceback (most recent call last):
-  File "C:\Users\erokhina\Desktop\coding\PPEs_and_contracts_equipment\contracts.py", line 528, in generate_contract
-    doc.render(context)
-  File "C:\Users\erokhina\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\docxtpl\template.py", line 475, in render
-    self.render_init()
-  File "C:\Users\erokhina\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\docxtpl\template.py", line 56, in render_init
-    self.init_docx()
-  File "C:\Users\erokhina\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\docxtpl\template.py", line 52, in init_docx
-    self.docx = Document(self.template_file)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\erokhina\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\docx\api.py", line 27, in Document
-    document_part = cast("DocumentPart", Package.open(docx).main_document_part)
-                                         ^^^^^^^^^^^^^^^^^^
-  File "C:\Users\erokhina\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\docx\opc\package.py", line 127, in open
-    pkg_reader = PackageReader.from_file(pkg_file)
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\erokhina\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\docx\opc\pkgreader.py", line 23, in from_file
-    content_types = _ContentTypeMap.from_xml(phys_reader.content_types_xml)
-                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\erokhina\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\docx\opc\phys_pkg.py", line 59, in content_types_xml
-    return self.blob_for(CONTENT_TYPES_URI)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\erokhina\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\docx\opc\phys_pkg.py", line 47, in blob_for
-    with open(path, "rb") as f:
-         ^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\erokhina\\Desktop\\coding\\PPEs_and_contracts_equipment\\templates\\[Content_Types].xml'
+2025-04-23 14:56:32,182 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 14:56:33,224 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")
+2025-04-23 14:56:33,610 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 14:57:24,802 - contracts - ERROR - Ошибка при генерации договора: list indices must be integers or slices, not str
+2025-04-23 15:20:32,508 - contracts - INFO - Выбрано 1 контрактов для предпросмотра.
+2025-04-23 15:20:32,508 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")
+2025-04-23 15:20:32,523 - contracts - ERROR - Ошибка при генерации договора: list indices must be integers or slices, not str
+2025-04-23 15:20:57,006 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 15:20:57,693 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")
+2025-04-23 15:20:58,051 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 15:21:55,757 - contracts - ERROR - Ошибка при генерации договора: list indices must be integers or slices, not str
+2025-04-23 15:26:08,467 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 15:26:08,936 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")
+2025-04-23 15:26:09,606 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 15:33:50,896 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 15:33:51,683 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")
+2025-04-23 15:33:52,215 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 15:50:40,269 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 15:50:41,101 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")
+2025-04-23 15:50:41,678 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 15:51:29,880 - database - ERROR - Ошибка выполнения запроса: value "0366200035624008976" is out of range for type integer
+LINE 13:         WHERE ppe_id = '0366200035624008976'
+                                ^
 
-2025-04-04 12:28:56,650 - contracts - INFO - Загружены реквизиты для school_id 1: {'code_contract': '1', 'day': 4, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'num_contract': '0366200035624009751', 'date_contract': '07.02.2025', 'name_contract': 'на поставку ноутбуков для проведения ГИА в Тульской области в 2025 году', 'school_id': 1, 'school_fullname': 'Муниципальное Общеобразовательное учреждение "Арсеньевская Средняя Общеобразовательная Школа"', 'school_address': '301510, Тульская обл., Арсеньевский район, п. Арсеньево, ул. Халтурина, д. 11', 'INN': 7121002693, 'KPP': 712101001, 'OKPO': 52527018, 'OGRN': 1027103272701, 'cur_acc': '', 'bank_acc': '', 'pers_acc': '', 'fullname': 'Муниципальное Общеобразовательное учреждение "Арсеньевская Средняя Общеобразовательная Школа"', 'address': '301510, Тульская обл., Арсеньевский район, п. Арсеньево, ул. Халтурина, д. 11'}
-2025-04-04 12:28:56,748 - contracts - INFO - Получено 1 позиций оборудования для организации для ППЭ 101
-2025-04-04 12:28:56,749 - contracts - INFO - Список оборудования в контексте: 1 позиций
-2025-04-04 12:28:56,787 - contracts - INFO - Получена информация об ответственном лице по ППЭ 101: {'job_title': 'директор', 'surname': 'Тестовый', 'name': 'Тест', 'second_name': 'Тестович'}
-2025-04-04 12:28:56,787 - contracts - INFO - Добавлены переменные в родительном падеже: директора, Тестового Теста Тестовича
-2025-04-04 12:28:56,788 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'num_contract', 'date_contract', 'name_contract', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'ppe_address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
-2025-04-04 12:28:56,788 - contracts - INFO - Переменные для ответственного лица:
-2025-04-04 12:28:56,788 - contracts - INFO -   job_title: директор
-2025-04-04 12:28:56,788 - contracts - INFO -   surname: Тестовый
-2025-04-04 12:28:56,788 - contracts - INFO -   name: Тест
-2025-04-04 12:28:56,789 - contracts - INFO -   second_name: Тестович
-2025-04-04 12:28:56,789 - contracts - INFO -   job_title_genitive: директора
-2025-04-04 12:28:56,789 - contracts - INFO -   surname_genitive: Тестового
-2025-04-04 12:28:56,789 - contracts - INFO -   name_genitive: Теста
-2025-04-04 12:28:56,789 - contracts - INFO -   second_name_genitive: Тестовича
-2025-04-04 12:28:56,789 - contracts - INFO -   full_name_with_initials: Тестовый Т. Т.
-2025-04-04 12:28:56,789 - contracts - INFO -   full_name_with_initials_genitive: Тестового Т. Т.
-2025-04-04 12:28:56,790 - contracts - INFO -   job_title_and_full_name_genitive: директора Тестового Теста Тестовича
-2025-04-04 12:28:56,790 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: директора Тестового Т. Т.
-2025-04-04 12:28:57,506 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_101_20250404122856.docx
-2025-04-07 10:48:54,482 - database - ERROR - Ошибка выполнения запроса: column "ppe_number" does not exist
-LINE 4:         WHERE ppe_number = '1'
-                      ^
+2025-04-23 15:51:36,532 - contracts - ERROR - Ошибка при генерации договора: value "0366200035624008976" is out of range for type integer
+LINE 13:         WHERE ppe_id = '0366200035624008976'
+                                ^
 
-2025-04-07 10:48:55,161 - database - ERROR - Ошибка выполнения запроса: column "ppe_number" does not exist
-LINE 4:         WHERE ppe_number = '1'
-                      ^
-
-2025-04-07 12:14:12,772 - contracts - INFO - Загружены реквизиты для school_id 1: {'code_contract': '1', 'day': 7, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'num_contract': '0366200035624007702', 'date_contract': '02.12.2024', 'name_contract': 'на поставку ноутбуков для проведения ГИА в Тульской области', 'school_id': 1, 'school_fullname': 'Муниципальное Общеобразовательное учреждение "Арсеньевская Средняя Общеобразовательная Школа"', 'school_address': '301510, Тульская обл., Арсеньевский район, п. Арсеньево, ул. Халтурина, д. 11', 'INN': 7121002693, 'KPP': 712101001, 'OKPO': 52527018, 'OGRN': 1027103272701, 'cur_acc': '40102810445370000059', 'bank_acc': '03231643706040006600', 'pers_acc': 857020041, 'fullname': 'Муниципальное Общеобразовательное учреждение "Арсеньевская Средняя Общеобразовательная Школа"', 'address': '301510, Тульская обл., Арсеньевский район, п. Арсеньево, ул. Халтурина, д. 11'}
-2025-04-07 12:14:12,797 - contracts - INFO - Получено 3 позиций оборудования для организации с school_id 1
-2025-04-07 12:14:12,801 - contracts - INFO - Список оборудования в контексте: 3 позиций
-2025-04-07 12:14:12,846 - database - ERROR - Ошибка выполнения запроса: column r.ppe_number does not exist
-LINE 4:         JOIN dat_ppe p ON r.ppe_number = p.id
-                                  ^
-HINT:  Perhaps you meant to reference the column "p.ppe_number".
-
-2025-04-07 12:14:12,847 - contracts - ERROR - Ошибка при получении информации об ответственном: column r.ppe_number does not exist
-LINE 4:         JOIN dat_ppe p ON r.ppe_number = p.id
-                                  ^
-HINT:  Perhaps you meant to reference the column "p.ppe_number".
-
-2025-04-07 12:14:12,853 - contracts - ERROR - Traceback (most recent call last):
-  File "C:\Users\erokhina\Desktop\coding\PPEs_and_contracts_equipment\contracts.py", line 426, in generate_contract
-    responsible_info = get_responsible_info_by_school_id(identifier)
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\erokhina\Desktop\coding\PPEs_and_contracts_equipment\contracts.py", line 218, in get_responsible_info_by_school_id
-    rows = execute_query(query, (school_id,))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\erokhina\Desktop\coding\PPEs_and_contracts_equipment\database.py", line 53, in execute_query
-    cursor.execute(query, params or ())
-psycopg2.errors.UndefinedColumn: column r.ppe_number does not exist
-LINE 4:         JOIN dat_ppe p ON r.ppe_number = p.id
-                                  ^
-HINT:  Perhaps you meant to reference the column "p.ppe_number".
-
-
-2025-04-07 12:14:12,853 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'num_contract', 'date_contract', 'name_contract', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
-2025-04-07 12:14:12,854 - contracts - INFO - Переменные для ответственного лица:
-2025-04-07 12:14:12,854 - contracts - INFO -   job_title: 
-2025-04-07 12:14:12,854 - contracts - INFO -   surname: 
-2025-04-07 12:14:12,854 - contracts - INFO -   name: 
-2025-04-07 12:14:12,854 - contracts - INFO -   second_name: 
-2025-04-07 12:14:12,854 - contracts - INFO -   job_title_genitive: 
-2025-04-07 12:14:12,855 - contracts - INFO -   surname_genitive: 
-2025-04-07 12:14:12,855 - contracts - INFO -   name_genitive: 
-2025-04-07 12:14:12,855 - contracts - INFO -   second_name_genitive: 
-2025-04-07 12:14:12,855 - contracts - INFO -   full_name_with_initials: 
-2025-04-07 12:14:12,855 - contracts - INFO -   full_name_with_initials_genitive: 
-2025-04-07 12:14:12,855 - contracts - INFO -   job_title_and_full_name_genitive: 
-2025-04-07 12:14:12,855 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: 
-2025-04-07 12:14:13,735 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_1_20250407121412.docx
-2025-04-21 14:22:24,151 - contracts - INFO - Загружены реквизиты для school_id 1: {'code_contract': '1', 'day': 21, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'num_contract': '0366200035624007702', 'date_contract': '02.12.2024', 'name_contract': 'на поставку ноутбуков для проведения ГИА в Тульской области', 'school_id': 1, 'school_fullname': 'муниципальное общеобразовательное учреждение «Арсеньевская средняя общеобразовательная школа»', 'school_address': '301510, Тульская обл., Арсеньевский район, п. Арсеньево, ул. Халтурина, д. 11', 'INN': 7121002693, 'KPP': 712101001, 'OKPO': 52527018, 'OGRN': 1027103272701, 'cur_acc': '40102810445370000059', 'bank_acc': '03231643706040006600', 'pers_acc': '857020041', 'fullname': 'муниципальное общеобразовательное учреждение «Арсеньевская средняя общеобразовательная школа»', 'address': '301510, Тульская обл., Арсеньевский район, п. Арсеньево, ул. Халтурина, д. 11'}
-2025-04-21 14:22:24,241 - contracts - INFO - Получено 1 позиций оборудования для организации для ППЭ 1
-2025-04-21 14:22:24,243 - contracts - INFO - Список оборудования в контексте: 1 позиций
-2025-04-21 14:22:24,291 - database - ERROR - Ошибка выполнения запроса: column "ppe_number" does not exist
-LINE 4:         WHERE ppe_number = '1'
-                      ^
-
-2025-04-21 14:22:24,291 - contracts - ERROR - Ошибка при получении информации об ответственном: column "ppe_number" does not exist
-LINE 4:         WHERE ppe_number = '1'
-                      ^
-
-2025-04-21 14:22:24,291 - contracts - ERROR - Traceback (most recent call last):
-  File "C:\Users\erokhina\Desktop\coding\PPEs_and_contracts_equipment\contracts.py", line 429, in generate_contract
-    responsible_info = get_responsible_info(identifier)
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\erokhina\Desktop\coding\PPEs_and_contracts_equipment\contracts.py", line 188, in get_responsible_info
-    rows = execute_query(query, (ppe_number,))
+2025-04-23 16:01:39,905 - contracts - INFO - Выбрано 1 контрактов для предпросмотра.
+2025-04-23 16:01:40,993 - contracts - INFO - Контракт: 0366200035624007702, Дата: 02.12.2024, Наименование: ООО «БИЗНЕС-ДОК ТОКЕН ВЕНД»
+2025-04-23 16:07:12,618 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 16:07:13,129 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 16:07:13,778 - contracts - INFO - Контракт: 0366200035624009735, Дата: 29.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 16:08:42,857 - contracts - INFO - Выбрано 3 контрактов для предпросмотра.
+2025-04-23 16:08:43,385 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")
+2025-04-23 16:08:43,809 - contracts - INFO - Контракт: 0366200035624009735, Дата: 29.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 16:08:44,210 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 16:09:25,083 - contracts - ERROR - Ошибка при генерации договора: 'ppe_id'
+2025-04-23 16:11:17,752 - contracts - INFO - Выбрано 1 контрактов для предпросмотра.
+2025-04-23 16:11:17,752 - contracts - INFO - Контракт: 0366200035624007702, Дата: 02.12.2024, Наименование: ООО «БИЗНЕС-ДОК ТОКЕН ВЕНД»
+2025-04-23 16:11:17,765 - contracts - ERROR - Ошибка при генерации договора: 'ppe_id'
+2025-04-23 16:11:29,935 - contracts - INFO - Выбрано 1 контрактов для предпросмотра.
+2025-04-23 16:11:30,617 - contracts - INFO - Контракт: 0366200035624007702, Дата: 02.12.2024, Наименование: ООО «БИЗНЕС-ДОК ТОКЕН ВЕНД»
+2025-04-23 16:12:24,201 - contracts - ERROR - Ошибка при генерации договора: 'ppe_id'
+2025-04-23 16:19:48,146 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 16:19:48,490 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")
+2025-04-23 16:19:48,834 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 16:20:59,622 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 16:20:59,622 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")
+2025-04-23 16:20:59,622 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 16:20:59,690 - contracts - INFO - Получено 2 позиций оборудования для организации для ППЭ 213
+2025-04-23 16:21:26,237 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 16:21:26,238 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")
+2025-04-23 16:21:26,238 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 16:21:26,270 - contracts - INFO - Получено 2 позиций оборудования для организации для ППЭ 213
+2025-04-23 16:23:10,164 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 16:23:10,164 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")
+2025-04-23 16:23:10,166 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 16:23:10,206 - database - ERROR - Ошибка выполнения запроса: can't adapt type 'dict'
+2025-04-23 16:23:10,206 - contracts - ERROR - Ошибка при генерации договора: can't adapt type 'dict'
+2025-04-23 16:23:10,214 - contracts - ERROR - Traceback (most recent call last):
+  File "C:\Users\erokhina\Desktop\coding\PPEs_and_contracts_equipment\contracts.py", line 176, in generate_contract
+    contract_data = get_contract_data_from_db(identifier, use_school_id=use_school_id)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\erokhina\Desktop\coding\PPEs_and_contracts_equipment\contracts.py", line 608, in get_contract_data_from_db
+    rows = execute_query(query, (identifier,))
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\erokhina\Desktop\coding\PPEs_and_contracts_equipment\database.py", line 53, in execute_query
     cursor.execute(query, params or ())
-psycopg2.errors.UndefinedColumn: column "ppe_number" does not exist
-LINE 4:         WHERE ppe_number = '1'
-                      ^
+psycopg2.ProgrammingError: can't adapt type 'dict'
 
+2025-04-23 16:27:52,898 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 16:27:52,898 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")
+2025-04-23 16:27:52,898 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 16:27:52,988 - database - ERROR - Ошибка выполнения запроса: operator does not exist: integer = integer[]
+LINE 5:             WHERE p.school_id = ARRAY[(74)]
+                                      ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
 
-2025-04-21 14:22:24,291 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'num_contract', 'date_contract', 'name_contract', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'ppe_address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
-2025-04-21 14:22:24,291 - contracts - INFO - Переменные для ответственного лица:
-2025-04-21 14:22:24,291 - contracts - INFO -   job_title: 
-2025-04-21 14:22:24,291 - contracts - INFO -   surname: 
-2025-04-21 14:22:24,291 - contracts - INFO -   name: 
-2025-04-21 14:22:24,291 - contracts - INFO -   second_name: 
-2025-04-21 14:22:24,291 - contracts - INFO -   job_title_genitive: 
-2025-04-21 14:22:24,291 - contracts - INFO -   surname_genitive: 
-2025-04-21 14:22:24,291 - contracts - INFO -   name_genitive: 
-2025-04-21 14:22:24,291 - contracts - INFO -   second_name_genitive: 
-2025-04-21 14:22:24,291 - contracts - INFO -   full_name_with_initials: 
-2025-04-21 14:22:24,291 - contracts - INFO -   full_name_with_initials_genitive: 
-2025-04-21 14:22:24,291 - contracts - INFO -   job_title_and_full_name_genitive: 
-2025-04-21 14:22:24,291 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: 
-2025-04-21 14:22:25,111 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_1_20250421142223.docx
-2025-04-21 14:23:02,881 - contracts - INFO - Загружены реквизиты для school_id 74: {'code_contract': '1', 'day': 21, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'num_contract': '0366200035624009751', 'date_contract': '07.02.2025', 'name_contract': 'на поставку ноутбуков для проведения ГИА в Тульской области в 2025 году', 'school_id': 74, 'school_fullname': 'муниципальное бюджетное общеобразовательное учреждение «Центр образования № 12»', 'school_address': '300062, Тульская обл., г. Тула, ул. Литейная, д. 25', 'INN': 7103045920, 'KPP': 710301001, 'OKPO': 24668151, 'OGRN': 1157154029823, 'cur_acc': '40102810445370000059', 'bank_acc': 'ХХХХХХХХХХХХ', 'pers_acc': 'ХХХХХХХХХ', 'fullname': 'муниципальное бюджетное общеобразовательное учреждение «Центр образования № 12»', 'address': '300062, Тульская обл., г. Тула, ул. Литейная, д. 25'}
-2025-04-21 14:23:02,961 - contracts - INFO - Получено 2 позиций оборудования для организации для ППЭ 213
-2025-04-21 14:23:02,961 - contracts - INFO - Список оборудования в контексте: 2 позиций
-2025-04-21 14:23:02,993 - database - ERROR - Ошибка выполнения запроса: column "ppe_number" does not exist
-LINE 4:         WHERE ppe_number = '213'
-                      ^
+2025-04-23 16:27:52,990 - contracts - ERROR - Ошибка при генерации договора: operator does not exist: integer = integer[]
+LINE 5:             WHERE p.school_id = ARRAY[(74)]
+                                      ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
 
-2025-04-21 14:23:02,993 - contracts - ERROR - Ошибка при получении информации об ответственном: column "ppe_number" does not exist
-LINE 4:         WHERE ppe_number = '213'
-                      ^
+2025-04-23 16:29:13,617 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 16:29:13,617 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")
+2025-04-23 16:29:13,626 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 16:29:13,707 - database - ERROR - Ошибка выполнения запроса: operator does not exist: integer = integer[]
+LINE 5:             WHERE p.school_id = ARRAY[(74)]
+                                      ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
 
-2025-04-21 14:23:02,993 - contracts - ERROR - Traceback (most recent call last):
-  File "C:\Users\erokhina\Desktop\coding\PPEs_and_contracts_equipment\contracts.py", line 429, in generate_contract
-    responsible_info = get_responsible_info(identifier)
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\erokhina\Desktop\coding\PPEs_and_contracts_equipment\contracts.py", line 188, in get_responsible_info
-    rows = execute_query(query, (ppe_number,))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\erokhina\Desktop\coding\PPEs_and_contracts_equipment\database.py", line 53, in execute_query
-    cursor.execute(query, params or ())
-psycopg2.errors.UndefinedColumn: column "ppe_number" does not exist
-LINE 4:         WHERE ppe_number = '213'
-                      ^
+2025-04-23 16:29:13,709 - contracts - ERROR - Ошибка при генерации договора: operator does not exist: integer = integer[]
+LINE 5:             WHERE p.school_id = ARRAY[(74)]
+                                      ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
 
+2025-04-23 16:29:26,775 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 16:29:27,214 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")
+2025-04-23 16:29:27,567 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 16:30:22,829 - database - ERROR - Ошибка выполнения запроса: operator does not exist: integer = integer[]
+LINE 5:             WHERE p.school_id = ARRAY[(74)]
+                                      ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
 
-2025-04-21 14:23:02,993 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'num_contract', 'date_contract', 'name_contract', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'ppe_address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
-2025-04-21 14:23:02,993 - contracts - INFO - Переменные для ответственного лица:
-2025-04-21 14:23:02,993 - contracts - INFO -   job_title: 
-2025-04-21 14:23:02,993 - contracts - INFO -   surname: 
-2025-04-21 14:23:02,993 - contracts - INFO -   name: 
-2025-04-21 14:23:02,993 - contracts - INFO -   second_name: 
-2025-04-21 14:23:03,001 - contracts - INFO -   job_title_genitive: 
-2025-04-21 14:23:03,001 - contracts - INFO -   surname_genitive: 
-2025-04-21 14:23:03,001 - contracts - INFO -   name_genitive: 
-2025-04-21 14:23:03,001 - contracts - INFO -   second_name_genitive: 
-2025-04-21 14:23:03,001 - contracts - INFO -   full_name_with_initials: 
-2025-04-21 14:23:03,001 - contracts - INFO -   full_name_with_initials_genitive: 
-2025-04-21 14:23:03,001 - contracts - INFO -   job_title_and_full_name_genitive: 
-2025-04-21 14:23:03,001 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: 
-2025-04-21 14:23:03,670 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_213_20250421142302.docx
-2025-04-21 14:29:06,860 - contracts - INFO - Загружены реквизиты для school_id 74: {'code_contract': '1', 'day': 21, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'num_contract': '0366200035624009751', 'date_contract': '07.02.2025', 'name_contract': 'на поставку ноутбуков для проведения ГИА в Тульской области в 2025 году', 'school_id': 74, 'school_fullname': 'муниципальное бюджетное общеобразовательное учреждение «Центр образования № 12»', 'school_address': '300062, Тульская обл., г. Тула, ул. Литейная, д. 25', 'INN': 7103045920, 'KPP': 710301001, 'OKPO': 24668151, 'OGRN': 1157154029823, 'cur_acc': '40102810445370000059', 'bank_acc': 'ХХХХХХХХХХХХ', 'pers_acc': 'ХХХХХХХХХ', 'fullname': 'муниципальное бюджетное общеобразовательное учреждение «Центр образования № 12»', 'address': '300062, Тульская обл., г. Тула, ул. Литейная, д. 25'}
-2025-04-21 14:29:06,908 - contracts - INFO - Получено 2 позиций оборудования для организации с school_id 74
-2025-04-21 14:29:06,908 - contracts - INFO - Список оборудования в контексте: 2 позиций
-2025-04-21 14:29:06,959 - database - ERROR - Ошибка выполнения запроса: column r.ppe_number does not exist
-LINE 4:         JOIN dat_ppe p ON r.ppe_number = p.id
-                                  ^
-HINT:  Perhaps you meant to reference the column "p.ppe_number".
+2025-04-23 16:30:22,829 - contracts - ERROR - Ошибка при генерации договора: operator does not exist: integer = integer[]
+LINE 5:             WHERE p.school_id = ARRAY[(74)]
+                                      ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
 
-2025-04-21 14:29:06,961 - contracts - ERROR - Ошибка при получении информации об ответственном: column r.ppe_number does not exist
-LINE 4:         JOIN dat_ppe p ON r.ppe_number = p.id
-                                  ^
-HINT:  Perhaps you meant to reference the column "p.ppe_number".
-
-2025-04-21 14:29:06,961 - contracts - ERROR - Traceback (most recent call last):
-  File "C:\Users\erokhina\Desktop\coding\PPEs_and_contracts_equipment\contracts.py", line 426, in generate_contract
-    responsible_info = get_responsible_info_by_school_id(identifier)
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\erokhina\Desktop\coding\PPEs_and_contracts_equipment\contracts.py", line 218, in get_responsible_info_by_school_id
-    rows = execute_query(query, (school_id,))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\erokhina\Desktop\coding\PPEs_and_contracts_equipment\database.py", line 53, in execute_query
-    cursor.execute(query, params or ())
-psycopg2.errors.UndefinedColumn: column r.ppe_number does not exist
-LINE 4:         JOIN dat_ppe p ON r.ppe_number = p.id
-                                  ^
-HINT:  Perhaps you meant to reference the column "p.ppe_number".
-
-
-2025-04-21 14:29:06,961 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'num_contract', 'date_contract', 'name_contract', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
-2025-04-21 14:29:06,961 - contracts - INFO - Переменные для ответственного лица:
-2025-04-21 14:29:06,961 - contracts - INFO -   job_title: 
-2025-04-21 14:29:06,961 - contracts - INFO -   surname: 
-2025-04-21 14:29:06,961 - contracts - INFO -   name: 
-2025-04-21 14:29:06,961 - contracts - INFO -   second_name: 
-2025-04-21 14:29:06,961 - contracts - INFO -   job_title_genitive: 
-2025-04-21 14:29:06,961 - contracts - INFO -   surname_genitive: 
-2025-04-21 14:29:06,961 - contracts - INFO -   name_genitive: 
-2025-04-21 14:29:06,961 - contracts - INFO -   second_name_genitive: 
-2025-04-21 14:29:06,961 - contracts - INFO -   full_name_with_initials: 
-2025-04-21 14:29:06,961 - contracts - INFO -   full_name_with_initials_genitive: 
-2025-04-21 14:29:06,961 - contracts - INFO -   job_title_and_full_name_genitive: 
-2025-04-21 14:29:06,968 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: 
-2025-04-21 14:29:07,687 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_213_20250421142906.docx
-2025-04-21 14:42:39,162 - contracts - INFO - Загружены реквизиты для school_id 74: {'code_contract': '1', 'day': 21, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'num_contract': '0366200035624009751', 'date_contract': '07.02.2025', 'name_contract': 'на поставку ноутбуков для проведения ГИА в Тульской области в 2025 году', 'school_id': 74, 'school_fullname': 'муниципальное бюджетное общеобразовательное учреждение «Центр образования № 12»', 'school_address': '300062, Тульская обл., г. Тула, ул. Литейная, д. 25', 'INN': 7103045920, 'KPP': 710301001, 'OKPO': 24668151, 'OGRN': 1157154029823, 'cur_acc': '40102810445370000059', 'bank_acc': 'ХХХХХХХХХХХХ', 'pers_acc': 'ХХХХХХХХХ', 'fullname': 'муниципальное бюджетное общеобразовательное учреждение «Центр образования № 12»', 'address': '300062, Тульская обл., г. Тула, ул. Литейная, д. 25'}
-2025-04-21 14:42:39,210 - contracts - INFO - Получено 2 позиций оборудования для организации с school_id 74
-2025-04-21 14:42:39,210 - contracts - INFO - Список оборудования в контексте: 2 позиций
-2025-04-21 14:42:39,259 - database - ERROR - Ошибка выполнения запроса: column r.ppe_number does not exist
-LINE 4:         JOIN dat_ppe p ON r.ppe_number = p.id
-                                  ^
-HINT:  Perhaps you meant to reference the column "p.ppe_number".
-
-2025-04-21 14:42:39,260 - contracts - ERROR - Ошибка при получении информации об ответственном: column r.ppe_number does not exist
-LINE 4:         JOIN dat_ppe p ON r.ppe_number = p.id
-                                  ^
-HINT:  Perhaps you meant to reference the column "p.ppe_number".
-
-2025-04-21 14:42:39,262 - contracts - ERROR - Traceback (most recent call last):
-  File "C:\Users\erokhina\Desktop\coding\PPEs_and_contracts_equipment\contracts.py", line 427, in generate_contract
-    responsible_info = get_responsible_info_by_school_id(identifier)
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\erokhina\Desktop\coding\PPEs_and_contracts_equipment\contracts.py", line 218, in get_responsible_info_by_school_id
-    rows = execute_query(query, (school_id,))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\erokhina\Desktop\coding\PPEs_and_contracts_equipment\database.py", line 53, in execute_query
-    cursor.execute(query, params or ())
-psycopg2.errors.UndefinedColumn: column r.ppe_number does not exist
-LINE 4:         JOIN dat_ppe p ON r.ppe_number = p.id
-                                  ^
-HINT:  Perhaps you meant to reference the column "p.ppe_number".
-
-
-2025-04-21 14:42:39,262 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'num_contract', 'date_contract', 'name_contract', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
-2025-04-21 14:42:39,262 - contracts - INFO - Переменные для ответственного лица:
-2025-04-21 14:42:39,262 - contracts - INFO -   job_title: 
-2025-04-21 14:42:39,262 - contracts - INFO -   surname: 
-2025-04-21 14:42:39,262 - contracts - INFO -   name: 
-2025-04-21 14:42:39,262 - contracts - INFO -   second_name: 
-2025-04-21 14:42:39,262 - contracts - INFO -   job_title_genitive: 
-2025-04-21 14:42:39,262 - contracts - INFO -   surname_genitive: 
-2025-04-21 14:42:39,262 - contracts - INFO -   name_genitive: 
-2025-04-21 14:42:39,262 - contracts - INFO -   second_name_genitive: 
-2025-04-21 14:42:39,262 - contracts - INFO -   full_name_with_initials: 
-2025-04-21 14:42:39,262 - contracts - INFO -   full_name_with_initials_genitive: 
-2025-04-21 14:42:39,262 - contracts - INFO -   job_title_and_full_name_genitive: 
-2025-04-21 14:42:39,262 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: 
-2025-04-21 14:42:40,059 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_213_20250421144238.docx
-2025-04-21 15:16:53,864 - contracts - INFO - Загружены реквизиты для school_id 110: {'code_contract': '1', 'day': 21, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'num_contract': '0366200035624007702', 'date_contract': '02.12.2024', 'name_contract': 'на поставку ноутбуков для проведения ГИА в Тульской области', 'school_id': 110, 'school_fullname': 'Муниципальное бюджетное общеобразовательное учреждение "Средняя общеобразовательная школа № 5 (центр образования) г. Суворова имени Героя Советского Союза Е.П.Тарасова"', 'school_address': '301430, Тульская обл., Суворовский район, г. Суворов, ул. Пионерская, д. 11', 'INN': 7133009870, 'KPP': 713301001, 'OKPO': 4352719, 'OGRN': 1027103471130, 'cur_acc': '40102810445370000059', 'bank_acc': 'ХХХХХХХХХХХХ', 'pers_acc': 'ХХХХХХХХХ', 'fullname': 'Муниципальное бюджетное общеобразовательное учреждение "Средняя общеобразовательная школа № 5 (центр образования) г. Суворова имени Героя Советского Союза Е.П.Тарасова"', 'address': '301430, Тульская обл., Суворовский район, г. Суворов, ул. Пионерская, д. 11'}
-2025-04-21 15:16:53,895 - contracts - INFO - Получено 1 позиций оборудования для организации с school_id 110
-2025-04-21 15:16:53,895 - contracts - INFO - Список оборудования в контексте: 1 позиций
-2025-04-21 15:16:53,911 - contracts - INFO - Получена информация об ответственном лице по school_id 110: {'job_title': 'Директор', 'surname': 'Медведева', 'name': 'Евгения', 'second_name': 'Владимировна'}
-2025-04-21 15:16:53,911 - contracts - INFO - Добавлены переменные в родительном падеже: Директора, Медведева Евгения Владимировны
-2025-04-21 15:16:53,911 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'num_contract', 'date_contract', 'name_contract', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
-2025-04-21 15:16:53,911 - contracts - INFO - Переменные для ответственного лица:
-2025-04-21 15:16:53,911 - contracts - INFO -   job_title: Директор
-2025-04-21 15:16:53,911 - contracts - INFO -   surname: Медведева
-2025-04-21 15:16:53,911 - contracts - INFO -   name: Евгения
-2025-04-21 15:16:53,911 - contracts - INFO -   second_name: Владимировна
-2025-04-21 15:16:53,911 - contracts - INFO -   job_title_genitive: Директора
-2025-04-21 15:16:53,926 - contracts - INFO -   surname_genitive: Медведева
-2025-04-21 15:16:53,926 - contracts - INFO -   name_genitive: Евгения
-2025-04-21 15:16:53,926 - contracts - INFO -   second_name_genitive: Владимировны
-2025-04-21 15:16:53,926 - contracts - INFO -   full_name_with_initials: Медведева Е. В.
-2025-04-21 15:16:53,926 - contracts - INFO -   full_name_with_initials_genitive: Медведева Е. В.
-2025-04-21 15:16:53,926 - contracts - INFO -   job_title_and_full_name_genitive: Директора Медведева Евгения Владимировны
-2025-04-21 15:16:53,926 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: Директора Медведева Е. В.
-2025-04-21 15:16:54,634 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_23_20250421151653.docx
-2025-04-21 15:17:59,549 - contracts - INFO - Загружены реквизиты для school_id 109: {'code_contract': '1', 'day': 21, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'num_contract': '0366200035624007702', 'date_contract': '02.12.2024', 'name_contract': 'на поставку ноутбуков для проведения ГИА в Тульской области', 'school_id': 109, 'school_fullname': 'Муниципальное казенное общеобразовательное учреждение "Киреевский центр образования № 1" муниципального образования Киреевский район', 'school_address': '301260, Тульская обл., Киреевский район, г. Киреевск, ул. Ленина, д. 32', 'INN': 7128004996, 'KPP': 712801001, 'OKPO': 43540770, 'OGRN': 1027101679681, 'cur_acc': '40102810445370000059', 'bank_acc': '03231643706280006600', 'pers_acc': '852020171', 'fullname': 'Муниципальное казенное общеобразовательное учреждение "Киреевский центр образования № 1" муниципального образования Киреевский район', 'address': '301260, Тульская обл., Киреевский район, г. Киреевск, ул. Ленина, д. 32'}
-2025-04-21 15:17:59,596 - contracts - INFO - Получено 1 позиций оборудования для организации с school_id 109
-2025-04-21 15:17:59,596 - contracts - INFO - Список оборудования в контексте: 1 позиций
-2025-04-21 15:17:59,627 - contracts - INFO - Получена информация об ответственном лице по school_id 109: {'job_title': 'Директор', 'surname': 'Кольцова', 'name': 'Нина', 'second_name': 'Николаевна'}
-2025-04-21 15:17:59,627 - contracts - INFO - Добавлены переменные в родительном падеже: Директора, Кольцова Нина Николаевны
-2025-04-21 15:17:59,627 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'num_contract', 'date_contract', 'name_contract', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
-2025-04-21 15:17:59,627 - contracts - INFO - Переменные для ответственного лица:
-2025-04-21 15:17:59,627 - contracts - INFO -   job_title: Директор
-2025-04-21 15:17:59,627 - contracts - INFO -   surname: Кольцова
-2025-04-21 15:17:59,627 - contracts - INFO -   name: Нина
-2025-04-21 15:17:59,627 - contracts - INFO -   second_name: Николаевна
-2025-04-21 15:17:59,627 - contracts - INFO -   job_title_genitive: Директора
-2025-04-21 15:17:59,627 - contracts - INFO -   surname_genitive: Кольцова
-2025-04-21 15:17:59,627 - contracts - INFO -   name_genitive: Нина
-2025-04-21 15:17:59,627 - contracts - INFO -   second_name_genitive: Николаевны
-2025-04-21 15:17:59,627 - contracts - INFO -   full_name_with_initials: Кольцова Н. Н.
-2025-04-21 15:17:59,627 - contracts - INFO -   full_name_with_initials_genitive: Кольцова Н. Н.
-2025-04-21 15:17:59,627 - contracts - INFO -   job_title_and_full_name_genitive: Директора Кольцова Нина Николаевны
-2025-04-21 15:17:59,627 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: Директора Кольцова Н. Н.
-2025-04-21 15:18:00,330 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_11_20250421151759.docx
+2025-04-23 16:31:45,646 - contracts - INFO - Выбрано 1 контрактов для предпросмотра.
+2025-04-23 16:31:46,494 - contracts - INFO - Контракт: 0366200035624007702, Дата: 02.12.2024, Наименование: ООО «БИЗНЕС-ДОК ТОКЕН ВЕНД»
+2025-04-23 16:32:47,727 - contracts - INFO - Загружены реквизиты для school_id [(39,)]: {'code_contract': '1', 'day': 23, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'num_contract': '0366200035624007702', 'date_contract': '02.12.2024', 'name_contract': 'ООО «БИЗНЕС-ДОК ТОКЕН ВЕНД»', 'school_id': 39, 'school_fullname': 'Муниципальное казенное общеобразовательное учреждение - гимназия №6', 'school_address': '301723, Тульская обл., г. Кимовск, ул. Крылова, д. 6', 'INN': 7115006795, 'KPP': 711501001, 'OKPO': 43530109, 'OGRN': 1027101394682, 'cur_acc': '40102810445370000059', 'bank_acc': '40302810670033000152', 'pers_acc': '05663206520', 'fullname': 'Муниципальное казенное общеобразовательное учреждение - гимназия №6', 'address': '301723, Тульская обл., г. Кимовск, ул. Крылова, д. 6'}
+2025-04-23 16:33:37,391 - contracts - INFO - Получено 1 позиций оборудования для организации для ППЭ 39
+2025-04-23 16:38:41,023 - contracts - INFO - Выбрано 1 контрактов для предпросмотра.
+2025-04-23 16:38:41,591 - contracts - INFO - Контракт: 0366200035624007702, Дата: 02.12.2024, Наименование: ООО «БИЗНЕС-ДОК ТОКЕН ВЕНД»
+2025-04-23 16:39:54,158 - contracts - INFO - Загружены реквизиты для school_id [(104,)]: {'code_contract': '1', 'day': 23, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'num_contract': '0366200035624007702', 'date_contract': '02.12.2024', 'name_contract': 'ООО «БИЗНЕС-ДОК ТОКЕН ВЕНД»', 'school_id': 104, 'school_fullname': 'Муниципальное бюджетное общеобразовательное учреждение «Центр образования № 22 – Лицей искусств»', 'school_address': '300001, Тульская обл., г. Тула, ул. Ложевая, д. 124', 'INN': 7105016988, 'KPP': 710501001, 'OKPO': 55976923, 'OGRN': 1027100684984, 'cur_acc': '40102810445370000059', 'bank_acc': '03234643707010006600', 'pers_acc': '008522838', 'fullname': 'Муниципальное бюджетное общеобразовательное учреждение «Центр образования № 22 – Лицей искусств»', 'address': '300001, Тульская обл., г. Тула, ул. Ложевая, д. 124'}
+2025-04-23 16:40:17,769 - contracts - INFO - Получено 1 позиций оборудования для организации для ППЭ 73
+2025-04-23 16:40:46,222 - contracts - INFO - Список оборудования в контексте: 1 позиций
+2025-04-23 16:41:04,776 - contracts - INFO - Получена информация об ответственном лице по ППЭ 73: {'job_title': 'Директор', 'surname': 'Зубарев', 'name': 'Александр', 'second_name': 'Викторович'}
+2025-04-23 16:41:29,624 - contracts - INFO - Добавлены переменные в родительном падеже: Директора, Зубарева Александра Викторовича
+2025-04-23 16:45:36,313 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 16:45:36,320 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")
+2025-04-23 16:45:36,320 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 16:45:36,420 - contracts - INFO - Загружены реквизиты для school_id [(74,)]: {'code_contract': '1', 'day': 23, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'contracts': [{'contract_number': '0366200035624008976', 'contract_date': '10.01.2025', 'contract_name': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")', 'contract_supplier': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")'}, {'contract_number': '0366200035624009751', 'contract_date': '07.02.2025', 'contract_name': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") ', 'contract_supplier': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") '}], 'school_id': 74, 'school_fullname': 'муниципальное бюджетное общеобразовательное учреждение «Центр образования № 12»', 'school_address': '300062, Тульская обл., г. Тула, ул. Литейная, д. 25', 'INN': 7103045920, 'KPP': 710301001, 'OKPO': 24668151, 'OGRN': 1157154029823, 'cur_acc': '40102810445370000059', 'bank_acc': 'ХХХХХХХХХХХХ', 'pers_acc': 'ХХХХХХХХХ', 'fullname': 'муниципальное бюджетное общеобразовательное учреждение «Центр образования № 12»', 'address': '300062, Тульская обл., г. Тула, ул. Литейная, д. 25'}
+2025-04-23 16:45:36,511 - contracts - INFO - Получено 2 позиций оборудования для организации для ППЭ 213
+2025-04-23 16:45:36,512 - contracts - INFO - Список оборудования в контексте: 2 позиций
+2025-04-23 16:45:36,542 - contracts - INFO - Получена информация об ответственном лице по ППЭ 213: {'job_title': 'Директор', 'surname': 'Битков', 'name': 'Александр', 'second_name': 'Ильич'}
+2025-04-23 16:45:36,544 - contracts - INFO - Добавлены переменные в родительном падеже: Директора, Биткова Александра Ильича
+2025-04-23 16:45:36,544 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'contracts', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'ppe_address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
+2025-04-23 16:45:36,544 - contracts - INFO - Переменные для ответственного лица:
+2025-04-23 16:45:36,544 - contracts - INFO -   job_title: Директор
+2025-04-23 16:45:36,544 - contracts - INFO -   surname: Битков
+2025-04-23 16:45:36,544 - contracts - INFO -   name: Александр
+2025-04-23 16:45:36,544 - contracts - INFO -   second_name: Ильич
+2025-04-23 16:45:36,544 - contracts - INFO -   job_title_genitive: Директора
+2025-04-23 16:45:36,544 - contracts - INFO -   surname_genitive: Биткова
+2025-04-23 16:45:36,547 - contracts - INFO -   name_genitive: Александра
+2025-04-23 16:45:36,547 - contracts - INFO -   second_name_genitive: Ильича
+2025-04-23 16:45:36,547 - contracts - INFO -   full_name_with_initials: Битков А. И.
+2025-04-23 16:45:36,547 - contracts - INFO -   full_name_with_initials_genitive: Биткова А. И.
+2025-04-23 16:45:36,547 - contracts - INFO -   job_title_and_full_name_genitive: Директора Биткова Александра Ильича
+2025-04-23 16:45:36,548 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: Директора Биткова А. И.
+2025-04-23 16:45:37,868 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_213_20250423164536.docx
+2025-04-23 16:46:40,423 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 16:46:41,136 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")
+2025-04-23 16:46:41,788 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 16:47:48,136 - contracts - INFO - Загружены реквизиты для school_id [(74,)]: {'code_contract': '1', 'day': 23, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'contracts': [{'contract_number': '0366200035624008976', 'contract_date': '10.01.2025', 'contract_name': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")', 'contract_supplier': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")'}, {'contract_number': '0366200035624009751', 'contract_date': '07.02.2025', 'contract_name': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") ', 'contract_supplier': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") '}], 'school_id': 74, 'school_fullname': 'муниципальное бюджетное общеобразовательное учреждение «Центр образования № 12»', 'school_address': '300062, Тульская обл., г. Тула, ул. Литейная, д. 25', 'INN': 7103045920, 'KPP': 710301001, 'OKPO': 24668151, 'OGRN': 1157154029823, 'cur_acc': '40102810445370000059', 'bank_acc': 'ХХХХХХХХХХХХ', 'pers_acc': 'ХХХХХХХХХ', 'fullname': 'муниципальное бюджетное общеобразовательное учреждение «Центр образования № 12»', 'address': '300062, Тульская обл., г. Тула, ул. Литейная, д. 25'}
+2025-04-23 16:48:29,673 - contracts - INFO - Получено 2 позиций оборудования для организации для ППЭ 213
+2025-04-23 16:50:34,849 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 16:52:02,518 - contracts - INFO - Выбрано 1 контрактов для предпросмотра.
+2025-04-23 16:52:02,520 - contracts - INFO - Контракт: 0366200035624007702, Дата: 02.12.2024, Наименование: ООО «БИЗНЕС-ДОК ТОКЕН ВЕНД»
+2025-04-23 16:52:02,640 - contracts - INFO - Загружены реквизиты для school_id [(93,)]: {'code_contract': '1', 'day': 23, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'contracts': [{'num_contract': '0366200035624007702', 'date_contract': '02.12.2024', 'name_contract': 'ООО «БИЗНЕС-ДОК ТОКЕН ВЕНД»', 'contract_supplier': 'ООО «БИЗНЕС-ДОК ТОКЕН ВЕНД»'}], 'school_id': 93, 'school_fullname': 'муниципальное бюджетное общеобразовательное учреждение "Центр образования № 8 имени Героя Советского Союза Леонида Павловича Тихмянова"', 'school_address': '300034, г. Тула, ул. Фрунзе, д.18', 'INN': 7106034468, 'KPP': 710601001, 'OKPO': 24641123, 'OGRN': 1157154027216, 'cur_acc': '40102810445370000059', 'bank_acc': '03234643707010006600', 'pers_acc': '008.32.236.8', 'fullname': 'муниципальное бюджетное общеобразовательное учреждение "Центр образования № 8 имени Героя Советского Союза Леонида Павловича Тихмянова"', 'address': '300034, г. Тула, ул. Фрунзе, д.18'}
+2025-04-23 16:52:02,736 - contracts - INFO - Получено 1 позиций оборудования для организации для ППЭ 76
+2025-04-23 16:52:02,737 - contracts - INFO - Список оборудования в контексте: 1 позиций
+2025-04-23 16:52:02,763 - contracts - INFO - Получена информация об ответственном лице по ППЭ 76: {'job_title': 'Директор', 'surname': 'Матвиевская', 'name': 'Татьяна', 'second_name': 'Николаевна'}
+2025-04-23 16:52:02,767 - contracts - INFO - Добавлены переменные в родительном падеже: Директора, Матвиевской Татьяны Николаевны
+2025-04-23 16:52:02,767 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'contracts', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'ppe_address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
+2025-04-23 16:52:02,767 - contracts - INFO - Переменные для ответственного лица:
+2025-04-23 16:52:02,767 - contracts - INFO -   job_title: Директор
+2025-04-23 16:52:02,767 - contracts - INFO -   surname: Матвиевская
+2025-04-23 16:52:02,767 - contracts - INFO -   name: Татьяна
+2025-04-23 16:52:02,767 - contracts - INFO -   second_name: Николаевна
+2025-04-23 16:52:02,767 - contracts - INFO -   job_title_genitive: Директора
+2025-04-23 16:52:02,767 - contracts - INFO -   surname_genitive: Матвиевской
+2025-04-23 16:52:02,767 - contracts - INFO -   name_genitive: Татьяны
+2025-04-23 16:52:02,767 - contracts - INFO -   second_name_genitive: Николаевны
+2025-04-23 16:52:02,767 - contracts - INFO -   full_name_with_initials: Матвиевская Т. Н.
+2025-04-23 16:52:02,767 - contracts - INFO -   full_name_with_initials_genitive: Матвиевской Т. Н.
+2025-04-23 16:52:02,767 - contracts - INFO -   job_title_and_full_name_genitive: Директора Матвиевской Татьяны Николаевны
+2025-04-23 16:52:02,767 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: Директора Матвиевской Т. Н.
+2025-04-23 16:52:03,819 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_76_20250423165202.docx
+2025-04-23 16:52:25,327 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 16:52:25,327 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")
+2025-04-23 16:52:25,327 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 16:52:25,386 - contracts - INFO - Загружены реквизиты для school_id [(74,)]: {'code_contract': '1', 'day': 23, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'contracts': [{'num_contract': '0366200035624008976', 'date_contract': '10.01.2025', 'name_contract': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")', 'contract_supplier': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")'}, {'num_contract': '0366200035624009751', 'date_contract': '07.02.2025', 'name_contract': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") ', 'contract_supplier': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") '}], 'school_id': 74, 'school_fullname': 'муниципальное бюджетное общеобразовательное учреждение «Центр образования № 12»', 'school_address': '300062, Тульская обл., г. Тула, ул. Литейная, д. 25', 'INN': 7103045920, 'KPP': 710301001, 'OKPO': 24668151, 'OGRN': 1157154029823, 'cur_acc': '40102810445370000059', 'bank_acc': 'ХХХХХХХХХХХХ', 'pers_acc': 'ХХХХХХХХХ', 'fullname': 'муниципальное бюджетное общеобразовательное учреждение «Центр образования № 12»', 'address': '300062, Тульская обл., г. Тула, ул. Литейная, д. 25'}
+2025-04-23 16:52:25,450 - contracts - INFO - Получено 2 позиций оборудования для организации для ППЭ 213
+2025-04-23 16:52:25,457 - contracts - INFO - Список оборудования в контексте: 2 позиций
+2025-04-23 16:52:25,468 - contracts - INFO - Получена информация об ответственном лице по ППЭ 213: {'job_title': 'Директор', 'surname': 'Битков', 'name': 'Александр', 'second_name': 'Ильич'}
+2025-04-23 16:52:25,468 - contracts - INFO - Добавлены переменные в родительном падеже: Директора, Биткова Александра Ильича
+2025-04-23 16:52:25,476 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'contracts', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'ppe_address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
+2025-04-23 16:52:25,476 - contracts - INFO - Переменные для ответственного лица:
+2025-04-23 16:52:25,476 - contracts - INFO -   job_title: Директор
+2025-04-23 16:52:25,476 - contracts - INFO -   surname: Битков
+2025-04-23 16:52:25,476 - contracts - INFO -   name: Александр
+2025-04-23 16:52:25,477 - contracts - INFO -   second_name: Ильич
+2025-04-23 16:52:25,477 - contracts - INFO -   job_title_genitive: Директора
+2025-04-23 16:52:25,477 - contracts - INFO -   surname_genitive: Биткова
+2025-04-23 16:52:25,477 - contracts - INFO -   name_genitive: Александра
+2025-04-23 16:52:25,477 - contracts - INFO -   second_name_genitive: Ильича
+2025-04-23 16:52:25,477 - contracts - INFO -   full_name_with_initials: Битков А. И.
+2025-04-23 16:52:25,478 - contracts - INFO -   full_name_with_initials_genitive: Биткова А. И.
+2025-04-23 16:52:25,478 - contracts - INFO -   job_title_and_full_name_genitive: Директора Биткова Александра Ильича
+2025-04-23 16:52:25,479 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: Директора Биткова А. И.
+2025-04-23 16:52:26,467 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_213_20250423165225.docx
+2025-04-23 16:57:01,732 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 16:57:01,734 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")
+2025-04-23 16:57:01,734 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") 
+2025-04-23 16:57:01,817 - contracts - INFO - Загружены реквизиты для school_id [(74,)]: {'code_contract': '1', 'day': 23, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'contracts': [{'num_contract': '0366200035624008976', 'date_contract': '10.01.2025', 'name_contract': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")', 'contract_supplier': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС")'}, {'num_contract': '0366200035624009751', 'date_contract': '07.02.2025', 'name_contract': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") ', 'contract_supplier': 'ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ "ЦИТРОНИКС" (ООО "ЦИТРОНИКС") '}], 'school_id': 74, 'school_fullname': 'муниципальное бюджетное общеобразовательное учреждение «Центр образования № 12»', 'school_address': '300062, Тульская обл., г. Тула, ул. Литейная, д. 25', 'INN': 7103045920, 'KPP': 710301001, 'OKPO': 24668151, 'OGRN': 1157154029823, 'cur_acc': '40102810445370000059', 'bank_acc': 'ХХХХХХХХХХХХ', 'pers_acc': 'ХХХХХХХХХ', 'fullname': 'муниципальное бюджетное общеобразовательное учреждение «Центр образования № 12»', 'address': '300062, Тульская обл., г. Тула, ул. Литейная, д. 25'}
+2025-04-23 16:57:01,907 - contracts - INFO - Получено 2 позиций оборудования для организации для ППЭ 213
+2025-04-23 16:57:01,907 - contracts - INFO - Список оборудования в контексте: 2 позиций
+2025-04-23 16:57:01,958 - contracts - INFO - Получена информация об ответственном лице по ППЭ 213: {'job_title': 'Директор', 'surname': 'Битков', 'name': 'Александр', 'second_name': 'Ильич'}
+2025-04-23 16:57:01,958 - contracts - INFO - Добавлены переменные в родительном падеже: Директора, Биткова Александра Ильича
+2025-04-23 16:57:01,959 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'contracts', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'ppe_address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
+2025-04-23 16:57:01,959 - contracts - INFO - Переменные для ответственного лица:
+2025-04-23 16:57:01,959 - contracts - INFO -   job_title: Директор
+2025-04-23 16:57:01,959 - contracts - INFO -   surname: Битков
+2025-04-23 16:57:01,959 - contracts - INFO -   name: Александр
+2025-04-23 16:57:01,959 - contracts - INFO -   second_name: Ильич
+2025-04-23 16:57:01,959 - contracts - INFO -   job_title_genitive: Директора
+2025-04-23 16:57:01,959 - contracts - INFO -   surname_genitive: Биткова
+2025-04-23 16:57:01,959 - contracts - INFO -   name_genitive: Александра
+2025-04-23 16:57:01,959 - contracts - INFO -   second_name_genitive: Ильича
+2025-04-23 16:57:01,959 - contracts - INFO -   full_name_with_initials: Битков А. И.
+2025-04-23 16:57:01,959 - contracts - INFO -   full_name_with_initials_genitive: Биткова А. И.
+2025-04-23 16:57:01,959 - contracts - INFO -   job_title_and_full_name_genitive: Директора Биткова Александра Ильича
+2025-04-23 16:57:01,959 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: Директора Биткова А. И.
+2025-04-23 16:57:02,725 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_213_20250423165701.docx
+2025-04-23 17:12:39,536 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 17:12:39,536 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: на поставку многофункциональных устройств (МФУ) в рамках проведения ГИА в Тульской области в 2025 году
+2025-04-23 17:12:39,536 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: на поставку ноутбуков для проведения ГИА в Тульской области в 2025 году
+2025-04-23 17:12:39,583 - contracts - INFO - Загружены реквизиты для school_id [(74,)]: {'code_contract': '1', 'day': 23, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'contracts': [{'num_contract': '0366200035624008976', 'date_contract': '10.01.2025', 'name_contract': 'на поставку многофункциональных устройств (МФУ) в рамках проведения ГИА в Тульской области в 2025 году'}, {'num_contract': '0366200035624009751', 'date_contract': '07.02.2025', 'name_contract': 'на поставку ноутбуков для проведения ГИА в Тульской области в 2025 году'}], 'school_id': 74, 'school_fullname': 'муниципальное бюджетное общеобразовательное учреждение «Центр образования № 12»', 'school_address': '300062, Тульская обл., г. Тула, ул. Литейная, д. 25', 'INN': 7103045920, 'KPP': 710301001, 'OKPO': 24668151, 'OGRN': 1157154029823, 'cur_acc': '40102810445370000059', 'bank_acc': 'ХХХХХХХХХХХХ', 'pers_acc': 'ХХХХХХХХХ', 'fullname': 'муниципальное бюджетное общеобразовательное учреждение «Центр образования № 12»', 'address': '300062, Тульская обл., г. Тула, ул. Литейная, д. 25'}
+2025-04-23 17:12:39,630 - contracts - INFO - Получено 2 позиций оборудования для организации для ППЭ 213
+2025-04-23 17:12:39,630 - contracts - INFO - Список оборудования в контексте: 2 позиций
+2025-04-23 17:12:39,661 - contracts - INFO - Получена информация об ответственном лице по ППЭ 213: {'job_title': 'Директор', 'surname': 'Битков', 'name': 'Александр', 'second_name': 'Ильич'}
+2025-04-23 17:12:39,661 - contracts - INFO - Добавлены переменные в родительном падеже: Директора, Биткова Александра Ильича
+2025-04-23 17:12:39,661 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'contracts', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'ppe_address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
+2025-04-23 17:12:39,661 - contracts - INFO - Переменные для ответственного лица:
+2025-04-23 17:12:39,661 - contracts - INFO -   job_title: Директор
+2025-04-23 17:12:39,661 - contracts - INFO -   surname: Битков
+2025-04-23 17:12:39,661 - contracts - INFO -   name: Александр
+2025-04-23 17:12:39,661 - contracts - INFO -   second_name: Ильич
+2025-04-23 17:12:39,661 - contracts - INFO -   job_title_genitive: Директора
+2025-04-23 17:12:39,661 - contracts - INFO -   surname_genitive: Биткова
+2025-04-23 17:12:39,661 - contracts - INFO -   name_genitive: Александра
+2025-04-23 17:12:39,661 - contracts - INFO -   second_name_genitive: Ильича
+2025-04-23 17:12:39,661 - contracts - INFO -   full_name_with_initials: Битков А. И.
+2025-04-23 17:12:39,661 - contracts - INFO -   full_name_with_initials_genitive: Биткова А. И.
+2025-04-23 17:12:39,661 - contracts - INFO -   job_title_and_full_name_genitive: Директора Биткова Александра Ильича
+2025-04-23 17:12:39,661 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: Директора Биткова А. И.
+2025-04-23 17:12:40,380 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_213_20250423171239.docx
+2025-04-23 17:15:35,800 - contracts - INFO - Выбрано 1 контрактов для предпросмотра.
+2025-04-23 17:15:35,800 - contracts - INFO - Контракт: 0366200035624007702, Дата: 02.12.2024, Наименование: на поставку ноутбуков для проведения ГИА в Тульской области
+2025-04-23 17:15:35,862 - contracts - INFO - Загружены реквизиты для school_id [(100,)]: {'code_contract': '1', 'day': 23, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'contracts': [{'num_contract': '0366200035624007702', 'date_contract': '02.12.2024', 'name_contract': 'на поставку ноутбуков для проведения ГИА в Тульской области'}], 'school_id': 100, 'school_fullname': 'Муниципальное бюджетное общеобразовательное учреждение «Центр образования № 40 имени Героя Советского Союза Ивана Андреевича Дементьева»', 'school_address': '300053, Тульская обл., г. Тула, ул. Вильямса, д. 10', 'INN': 7105044382, 'KPP': 710501001, 'OKPO': 14370077, 'OGRN': 1157154026655, 'cur_acc': '40102810445370000059', 'bank_acc': '03234643707010006600', 'pers_acc': '008522778', 'fullname': 'Муниципальное бюджетное общеобразовательное учреждение «Центр образования № 40 имени Героя Советского Союза Ивана Андреевича Дементьева»', 'address': '300053, Тульская обл., г. Тула, ул. Вильямса, д. 10'}
+2025-04-23 17:15:35,925 - contracts - INFO - Получено 1 позиций оборудования для организации для ППЭ 70
+2025-04-23 17:15:35,925 - contracts - INFO - Список оборудования в контексте: 1 позиций
+2025-04-23 17:15:35,956 - contracts - INFO - Получена информация об ответственном лице по ППЭ 70: {'job_title': 'Директор', 'surname': 'Гнидина', 'name': 'Светлана', 'second_name': 'Алексеевна'}
+2025-04-23 17:15:35,956 - contracts - INFO - Добавлены переменные в родительном падеже: Директора, Гнидиной Светланы Алексеевны
+2025-04-23 17:15:35,956 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'contracts', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'ppe_address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
+2025-04-23 17:15:35,956 - contracts - INFO - Переменные для ответственного лица:
+2025-04-23 17:15:35,956 - contracts - INFO -   job_title: Директор
+2025-04-23 17:15:35,956 - contracts - INFO -   surname: Гнидина
+2025-04-23 17:15:35,956 - contracts - INFO -   name: Светлана
+2025-04-23 17:15:35,956 - contracts - INFO -   second_name: Алексеевна
+2025-04-23 17:15:35,956 - contracts - INFO -   job_title_genitive: Директора
+2025-04-23 17:15:35,956 - contracts - INFO -   surname_genitive: Гнидиной
+2025-04-23 17:15:35,956 - contracts - INFO -   name_genitive: Светланы
+2025-04-23 17:15:35,956 - contracts - INFO -   second_name_genitive: Алексеевны
+2025-04-23 17:15:35,956 - contracts - INFO -   full_name_with_initials: Гнидина С. А.
+2025-04-23 17:15:35,956 - contracts - INFO -   full_name_with_initials_genitive: Гнидиной С. А.
+2025-04-23 17:15:35,956 - contracts - INFO -   job_title_and_full_name_genitive: Директора Гнидиной Светланы Алексеевны
+2025-04-23 17:15:35,956 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: Директора Гнидиной С. А.
+2025-04-23 17:15:36,671 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_70_20250423171535.docx
+2025-04-23 17:18:14,400 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 17:18:14,400 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: на поставку ноутбуков для проведения ГИА в Тульской области в 2025 году
+2025-04-23 17:18:14,400 - contracts - INFO - Контракт: 0366200035624009735, Дата: 29.01.2025, Наименование: на поставку многофункциональных устройств (МФУ) в рамках проведения ГИА в Тульской области в 2025 году
+2025-04-23 17:18:14,478 - contracts - INFO - Загружены реквизиты для school_id [(20,)]: {'code_contract': '1', 'day': 23, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'contracts': [{'num_contract': '0366200035624009751', 'date_contract': '07.02.2025', 'name_contract': 'на поставку ноутбуков для проведения ГИА в Тульской области в 2025 году'}, {'num_contract': '0366200035624009735', 'date_contract': '29.01.2025', 'name_contract': 'на поставку многофункциональных устройств (МФУ) в рамках проведения ГИА в Тульской области в 2025 году'}], 'school_id': 20, 'school_fullname': 'Муниципальное бюджетное общеобразовательное учреждение «Средняя общеобразовательная школа №2 г. Суворова имени Героя Российской Федерации А.П. Ефанова»', 'school_address': '301430, Тульская обл., Суворовский район, г. Суворов, ул. Пионерская, д. 4', 'INN': 7133010000, 'KPP': 713301001, 'OKPO': 43527031, 'OGRN': 1027103471152, 'cur_acc': '40102810445370000059', 'bank_acc': '03234643706400006600', 'pers_acc': '854030028; 854030029', 'fullname': 'Муниципальное бюджетное общеобразовательное учреждение «Средняя общеобразовательная школа №2 г. Суворова имени Героя Российской Федерации А.П. Ефанова»', 'address': '301430, Тульская обл., Суворовский район, г. Суворов, ул. Пионерская, д. 4'}
+2025-04-23 17:18:14,541 - contracts - INFO - Получено 2 позиций оборудования для организации для ППЭ 129
+2025-04-23 17:18:14,556 - contracts - INFO - Список оборудования в контексте: 2 позиций
+2025-04-23 17:18:14,603 - contracts - INFO - Получена информация об ответственном лице по ППЭ 129: {'job_title': 'Директор', 'surname': 'Самойлова', 'name': 'Татьяна', 'second_name': 'Васильевна'}
+2025-04-23 17:18:14,603 - contracts - INFO - Добавлены переменные в родительном падеже: Директора, Самойловой Татьяны Васильевны
+2025-04-23 17:18:14,603 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'contracts', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'ppe_address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
+2025-04-23 17:18:14,603 - contracts - INFO - Переменные для ответственного лица:
+2025-04-23 17:18:14,603 - contracts - INFO -   job_title: Директор
+2025-04-23 17:18:14,603 - contracts - INFO -   surname: Самойлова
+2025-04-23 17:18:14,603 - contracts - INFO -   name: Татьяна
+2025-04-23 17:18:14,603 - contracts - INFO -   second_name: Васильевна
+2025-04-23 17:18:14,603 - contracts - INFO -   job_title_genitive: Директора
+2025-04-23 17:18:14,603 - contracts - INFO -   surname_genitive: Самойловой
+2025-04-23 17:18:14,603 - contracts - INFO -   name_genitive: Татьяны
+2025-04-23 17:18:14,603 - contracts - INFO -   second_name_genitive: Васильевны
+2025-04-23 17:18:14,603 - contracts - INFO -   full_name_with_initials: Самойлова Т. В.
+2025-04-23 17:18:14,603 - contracts - INFO -   full_name_with_initials_genitive: Самойловой Т. В.
+2025-04-23 17:18:14,603 - contracts - INFO -   job_title_and_full_name_genitive: Директора Самойловой Татьяны Васильевны
+2025-04-23 17:18:14,603 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: Директора Самойловой Т. В.
+2025-04-23 17:18:15,312 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_129_20250423171814.docx
+2025-04-23 17:26:19,200 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-23 17:26:19,200 - contracts - INFO - Контракт: 0366200035624008976, Дата: 10.01.2025, Наименование: на поставку многофункциональных устройств (МФУ) в рамках проведения ГИА в Тульской области в 2025 году
+2025-04-23 17:26:19,200 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: на поставку ноутбуков для проведения ГИА в Тульской области в 2025 году
+2025-04-23 17:26:19,278 - contracts - INFO - Загружены реквизиты для school_id [(74,)]: {'code_contract': '1', 'day': 23, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'contracts': [{'num_contract': '0366200035624008976', 'date_contract': '10.01.2025', 'name_contract': 'на поставку многофункциональных устройств (МФУ) в рамках проведения ГИА в Тульской области в 2025 году'}, {'num_contract': '0366200035624009751', 'date_contract': '07.02.2025', 'name_contract': 'на поставку ноутбуков для проведения ГИА в Тульской области в 2025 году'}], 'school_id': 74, 'school_fullname': 'муниципальное бюджетное общеобразовательное учреждение «Центр образования № 12»', 'school_address': '300062, Тульская обл., г. Тула, ул. Литейная, д. 25', 'INN': 7103045920, 'KPP': 710301001, 'OKPO': 24668151, 'OGRN': 1157154029823, 'cur_acc': '40102810445370000059', 'bank_acc': 'ХХХХХХХХХХХХ', 'pers_acc': 'ХХХХХХХХХ', 'fullname': 'муниципальное бюджетное общеобразовательное учреждение «Центр образования № 12»', 'address': '300062, Тульская обл., г. Тула, ул. Литейная, д. 25'}
+2025-04-23 17:26:19,341 - contracts - INFO - Получено 2 позиций оборудования для организации для ППЭ 213
+2025-04-23 17:26:19,341 - contracts - INFO - Список оборудования в контексте: 2 позиций
+2025-04-23 17:26:19,372 - contracts - INFO - Получена информация об ответственном лице по ППЭ 213: {'job_title': 'Директор', 'surname': 'Битков', 'name': 'Александр', 'second_name': 'Ильич'}
+2025-04-23 17:26:19,372 - contracts - INFO - Добавлены переменные в родительном падеже: Директора, Биткова Александра Ильича
+2025-04-23 17:26:19,372 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'contracts', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'ppe_address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
+2025-04-23 17:26:19,372 - contracts - INFO - Переменные для ответственного лица:
+2025-04-23 17:26:19,372 - contracts - INFO -   job_title: Директор
+2025-04-23 17:26:19,372 - contracts - INFO -   surname: Битков
+2025-04-23 17:26:19,372 - contracts - INFO -   name: Александр
+2025-04-23 17:26:19,372 - contracts - INFO -   second_name: Ильич
+2025-04-23 17:26:19,372 - contracts - INFO -   job_title_genitive: Директора
+2025-04-23 17:26:19,372 - contracts - INFO -   surname_genitive: Биткова
+2025-04-23 17:26:19,372 - contracts - INFO -   name_genitive: Александра
+2025-04-23 17:26:19,372 - contracts - INFO -   second_name_genitive: Ильича
+2025-04-23 17:26:19,372 - contracts - INFO -   full_name_with_initials: Битков А. И.
+2025-04-23 17:26:19,372 - contracts - INFO -   full_name_with_initials_genitive: Биткова А. И.
+2025-04-23 17:26:19,372 - contracts - INFO -   job_title_and_full_name_genitive: Директора Биткова Александра Ильича
+2025-04-23 17:26:19,372 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: Директора Биткова А. И.
+2025-04-23 17:26:20,091 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_213_20250423172619.docx

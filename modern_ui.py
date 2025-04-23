@@ -3,6 +3,7 @@
 """
 
 import tkinter as tk
+import logging
 import io
 from tkinter import ttk, messagebox
 import ttkthemes
@@ -12,6 +13,10 @@ from database import connect_to_database, get_ppe_list, show_equipment, show_con
 from contracts import generate_contract, get_contract_data_from_db
 from utils import show_contract_input_dialog, open_document, show_save_dialog
 
+# Настройка логирования
+logger = logging.getLogger('contracts')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 class ModernPPEApp:
     def __init__(self, root):
         self.root = root
@@ -19,6 +24,15 @@ class ModernPPEApp:
         self.connection = connect_to_database()
         self._initialize_variables()
         self._create_ui()
+
+        # self.contracts_tree = ttk.Treeview(self.root, columns=("Дата", "Номер", "Наименование", "Поставщик", "ИНН", "Описание"), show="headings")
+        # self.contracts_tree.heading("Дата", text="Дата")
+        # self.contracts_tree.heading("Номер", text="Номер")
+        # self.contracts_tree.heading("Наименование", text="Наименование")
+        # self.contracts_tree.heading("Поставщик", text="Поставщик")
+        # self.contracts_tree.heading("ИНН", text="ИНН")
+        # self.contracts_tree.heading("Описание", text="Описание")
+
 
     """Настройка параметров главного окна приложения."""        
     def _initialize_window(self):
@@ -267,23 +281,40 @@ class ModernPPEApp:
         # # Создаем заглушку для начального экрана
         # self._create_welcome_screen()
         
-    """Обработчик выбора ППЭ из списка."""
     def _on_ppe_select(self, event):
         selected_items = self.ppe_list.selection()
         if not selected_items:
             return
-            
+        
         # Получаем данные выбранного ППЭ
         item = selected_items[0]
         ppe_number, ppe_address = self.ppe_list.item(item, "values")
         self.current_ppe = ppe_number
         
-        # Обновляем информацию на вкладках
-        self._update_info_tab(ppe_number, ppe_address)
+        # Получаем school_id для этого ППЭ
+        school_id = self._get_school_id_by_ppe_number(ppe_number)
+        
+        # Обновляем информацию на вкладках, передавая school_id
+        self._update_info_tab(ppe_number, ppe_address, school_id)
         self._update_equipment_tab(ppe_number)
         self._update_contracts_tab(ppe_number)
         self._update_plans_tab(ppe_number)
- 
+
+    def _get_school_id_by_ppe_number(self, ppe_number):
+        """Получает school_id для выбранного ППЭ из базы данных."""
+        query = """
+            SELECT school_id 
+            FROM dat_ppe 
+            WHERE ppe_number = %s
+        """
+        from database import execute_query
+        result = execute_query(query, (ppe_number,))
+        
+        if result and len(result) > 0:
+            return result[0][0]  # Возвращаем school_id
+        else:
+            return None  # Если не найден, возвращаем None
+
     """Преобразует числовой код типа ГИА в текстовое представление."""
     def _get_gia_type_name(self, gia_type):
         if int(gia_type) == 1:
@@ -296,7 +327,7 @@ class ModernPPEApp:
             return f"Неизвестный тип ({gia_type})"
 
     """Обновление вкладки с общей информацией."""
-    def _update_info_tab(self, ppe_number, ppe_address):
+    def _update_info_tab(self, ppe_number, ppe_address, school_id):
         # Очищаем текущее содержимое
         for widget in self.info_frame.winfo_children():
             widget.destroy()
@@ -334,9 +365,8 @@ class ModernPPEApp:
         try:
             from database import get_ppe_details, get_responsible_person
                 
-            details = get_ppe_details(ppe_number)
-            print(details)
-            responsible = get_responsible_person(ppe_number)
+            details = get_ppe_details(school_id)
+            responsible = get_responsible_person(school_id)
             
             # Получаем тип ГИА
             try:
@@ -486,6 +516,7 @@ class ModernPPEApp:
         # Загружаем данные оборудования
         try:
             from database import _fetch_equipment
+            print(ppe_number)
             rows = _fetch_equipment(self, ppe_number)
             
             if rows:
@@ -512,7 +543,7 @@ class ModernPPEApp:
                 foreground="red"
             ).pack(expand=True)
         
-    def _view_selected_contract(self, contracts_tree):
+    def _view_selected_contract(self, contracts_tree, ppe_number):
         """Просмотр выбранного контракта."""
         selected_items = contracts_tree.selection()
         if not selected_items:
@@ -537,87 +568,25 @@ class ModernPPEApp:
             
             if action:
                 # Пользователь выбрал "Да" - вызываем функцию предпросмотра договора
-                self._preview_contract()
+                self._preview_contract(ppe_number)
         else:
             messagebox.showwarning("Предупреждение", "Не удалось получить данные контракта")
 
-    def _preview_contract(self):
-        """Предварительный просмотр договора."""
+    logger = logging.getLogger('contracts')
+
+    def _preview_contract(self, ppe_number):
         if not self.current_ppe:
             messagebox.showwarning("Предупреждение", "Выберите ППЭ для просмотра договора")
             return
-                
+        
         try:
-            # Спрашиваем пользователя, какой метод использовать
-            method_choice = messagebox.askyesnocancel(
-                "Выбор метода", 
-                "Выберите метод генерации договора:\n\n"
-                "Да - использовать ИНН организации\n"
-                "Нет - использовать school_id организации\n"
-                "Отмена - использовать только номер ППЭ"
-            )
-            
-            # Определяем идентификатор и метод
-            if method_choice is None:
-                use_inn = False
-                use_school_id = False
-                identifier = self.current_ppe
-            elif method_choice:
-                use_inn = True
-                use_school_id = False
-                
-                # Получаем ИНН
-                query_inn = """
-                    SELECT inn FROM dat_ppe_details
-                    RIGHT JOIN dat_ppe ON dat_ppe.school_id = dat_ppe_details.school_id
-                    WHERE dat_ppe.id = %s
-                """
-                from database import execute_query
-                inn_result = execute_query(query_inn, (self.current_ppe,))
-                
-                if inn_result and inn_result[0][0]:
-                    identifier = inn_result[0][0]
-                    messagebox.showinfo(
-                    "Информация", 
-                    f"Генерация договора по ИНН: {identifier}\n\n"
-                    "Эта функция находится в разработке. "
-                    "Будет использован стандартный метод генерации."
-                    )
-                
-                    # Сбрасываем на стандартный метод
-                    use_inn = False
-                    identifier = self.current_ppe
-                else:
-                    messagebox.showwarning("Предупреждение", "ИНН не найден. Будет использован номер ППЭ.")
-                    use_inn = False
-                    identifier = self.current_ppe
-            else:
-                use_inn = False
-                use_school_id = True
-                
-                # Получаем school_id
-                query_school_id = """
-                    SELECT school_id FROM dat_ppe
-                    WHERE id = %s
-                """
-                from database import execute_query
-                school_id_result = execute_query(query_school_id, (self.current_ppe,))
-                
-                if school_id_result and school_id_result[0][0]:
-                    identifier = school_id_result[0][0]
-                else:
-                    messagebox.showwarning("Предупреждение", "school_id не найден. Будет использован номер ППЭ.")
-                    use_school_id = False
-                    identifier = self.current_ppe
-            
-            # Используем фиксированные значения для предпросмотра договора
-            # НЕ используем номер и дату контракта, а используем стандартные значения для договора
+             # Используем фиксированные значения для предпросмотра договора
             from datetime import datetime
             contract_details = {
                 "number": "1",  # Фиксированный номер для предпросмотра
                 "date": datetime.now().strftime("%d.%m.%Y")  # Текущая дата
             }
-            
+
             # Создаем временный файл для договора
             from contracts import create_temp_contract_directory
             import os
@@ -680,52 +649,76 @@ class ModernPPEApp:
 
             # Обновляем окно, чтобы показать прогресс-бар
             loading_window.update()
-            
-            # Генерируем договор напрямую, без использования отдельного потока
-            # Это решает проблему с бесконечной загрузкой
+
             try:
-                from contracts import generate_contract
-                from utils import open_document
+                """Предпросмотр нескольких контрактов."""
+                selected_items = self.contracts_tree.selection()
                 
-                # Генерируем договор
-                result = generate_contract(
-                    identifier, 
-                    temp_file, 
-                    contract_details["number"], 
-                    contract_details["date"],
-                    use_inn=use_inn,
-                    use_school_id=use_school_id
-                )
+                if not selected_items:
+                    messagebox.showwarning("Предупреждение", "Выберите хотя бы один контракт для предпросмотра")
+                    return
                 
-                # Закрываем окно загрузки
-                loading_window.destroy()
+                # Сбор информации о контрактах
+                contracts_data = []
+                for item in selected_items:
+                    contract_values = self.contracts_tree.item(item, "values")
+                    contract_date = contract_values[0]
+                    contract_number = contract_values[1]
+                    contract_name = contract_values[4]
+                    contracts_data.append({
+                        "num_contract": contract_number,
+                        "date_contract": contract_date,
+                        "name_contract": contract_name,
+                    })
+
+                # Логируем информацию о выбранных контрактах
+                logger.info(f"Выбрано {len(contracts_data)} контрактов для предпросмотра.")
+                for contract in contracts_data:
+                    logger.info(f"Контракт: {contract['num_contract']}, Дата: {contract['date_contract']}, Наименование: {contract['name_contract']}")
                 
-                if result:
-                    # Показываем информационное сообщение о предпросмотре
-                    messagebox.showinfo(
-                        "Предпросмотр договора", 
-                        f"Договор для ППЭ №{self.current_ppe} успешно сгенерирован.\n\n"
-                        f"Номер договора: {contract_details['number']}\n"
-                        f"Дата договора: {contract_details['date']}\n\n"
-                        "Сейчас документ будет открыт для предпросмотра."
+                try:
+                    from contracts import generate_contract
+                    from utils import open_document
+
+                    result = generate_contract(
+                        contracts_data,  # Передаем все контракты
+                        temp_file, 
+                        contract_details["number"], 
+                        contract_details["date"],
+                        ppe_number
                     )
                     
-                    # Открываем файл напрямую, без задержки
-                    open_document(temp_file)
-                else:
-                    messagebox.showerror("Ошибка", "Не удалось сгенерировать договор для предпросмотра")
-            except Exception as e:
-                # Закрываем окно загрузки в случае ошибки
-                if loading_window.winfo_exists():
+                    # Закрываем окно загрузки
                     loading_window.destroy()
-                messagebox.showerror("Ошибка", f"Произошла ошибка при предпросмотре договора: {str(e)}")
+
+                    if result:
+                        messagebox.showinfo(
+                            "Предпросмотр договора", 
+                            f"Договор для ППЭ №{self.current_ppe} успешно сгенерирован.\n\n"
+                            f"Номер договора: {contract_details['number']}\n"
+                            f"Дата договора: {contract_details['date']}\n\n"
+                            "Сейчас документ будет открыт для предпросмотра."
+                        )
+                        
+                        # Открываем файл для предпросмотра
+                        open_document(temp_file)
+
+                    else:
+                        messagebox.showerror("Ошибка", "Не удалось сгенерировать договор для предпросмотра")
+                except Exception as e:
+                    messagebox.showerror("Ошибка", f"Произошла ошибка при генерации договора: {str(e)}")
+                    import traceback
+                    traceback.print_exc()
+
+            except Exception as e:
+                messagebox.showerror("Ошибка", f"Произошла ошибка при подготовке предпросмотра договора: {str(e)}")
                 import traceback
-                traceback.print_exc()
-            
+                traceback.print_exc() 
+
         except Exception as e:
             messagebox.showerror("Ошибка", f"Произошла ошибка при подготовке предпросмотра договора: {str(e)}")
             import traceback
-            traceback.print_exc()
+            traceback.print_exc() 
 
     def _update_contracts_tab(self, ppe_number):
         """Обновление вкладки с контрактами напрямую по ppe_number."""
@@ -733,37 +726,9 @@ class ModernPPEApp:
         for widget in self.contracts_frame.winfo_children():
             widget.destroy()
             
-        # Создаем таблицу для отображения контрактов
+        # Настроим заголовки и колонки только один раз при создании окна
         columns = ("Дата", "Номер", "Поставщик", "ИНН", "Описание")
-        contracts_tree = ttk.Treeview(
-            self.contracts_frame,
-            columns=columns,
-            show="headings"
-        )
-
-        # Настраиваем заголовки и колонки
-        column_settings = [
-            ("Дата", 120, "center"),
-            ("Номер", 150, "center"),
-            ("Поставщик", 200, "w"),
-            ("ИНН", 120, "center"),
-            ("Описание", 400, "w")
-        ]
-
-        for col, width, anchor in column_settings:
-            contracts_tree.heading(col, text=col)
-            contracts_tree.column(col, width=width, anchor=anchor)
-
-        # Добавляем скроллбары
-        y_scrollbar = ttk.Scrollbar(self.contracts_frame, orient="vertical", command=contracts_tree.yview)
-        x_scrollbar = ttk.Scrollbar(self.contracts_frame, orient="horizontal", command=contracts_tree.xview)
-        contracts_tree.configure(yscrollcommand=y_scrollbar.set, xscrollcommand=x_scrollbar.set)
-
-        # Размещаем элементы
-        contracts_tree.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-        y_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-        x_scrollbar.pack(side=tk.BOTTOM, fill=tk.X)
-
+        
         # Добавляем кнопки для работы с контрактами
         button_frame = ttk.Frame(self.contracts_frame)
         button_frame.pack(fill=tk.X, pady=10)
@@ -777,12 +742,35 @@ class ModernPPEApp:
         ttk.Button(
             button_frame, 
             text="Просмотреть договор", 
-            command=lambda: self._view_selected_contract(contracts_tree) # Правильный вызов функции
+            command=lambda: self._view_selected_contract(self.contracts_tree, ppe_number)  # Правильный вызов функции
         ).pack(side=tk.LEFT, padx=5)
+
+        # Используем уже созданное дерево contracts_tree
+        self.contracts_tree = ttk.Treeview(self.contracts_frame, columns=columns, show="headings")
+        column_settings = [
+            ("Дата", 120, "center"),
+            ("Номер", 150, "center"),
+            ("Поставщик", 200, "w"),
+            ("ИНН", 120, "center"),
+            ("Описание", 400, "w")
+        ]
+
+        for col, width, anchor in column_settings:
+            self.contracts_tree.heading(col, text=col)
+            self.contracts_tree.column(col, width=width, anchor=anchor)
+
+        # Добавляем скроллбары
+        y_scrollbar = ttk.Scrollbar(self.contracts_frame, orient="vertical", command=self.contracts_tree.yview)
+        x_scrollbar = ttk.Scrollbar(self.contracts_frame, orient="horizontal", command=self.contracts_tree.xview)
+        self.contracts_tree.configure(yscrollcommand=y_scrollbar.set, xscrollcommand=x_scrollbar.set)
+
+        # Размещаем элементы
+        self.contracts_tree.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        y_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        x_scrollbar.pack(side=tk.BOTTOM, fill=tk.X)
 
         # Загружаем данные контрактов напрямую по ppe_number
         try:
-            # Запрос для получения контрактов по ppe_number
             query_contracts = """
                 SELECT c.contract_date, c.contract_number, c.supplier, c.supplier_inn, c.contract_name 
                 FROM dat_contract c
@@ -800,15 +788,14 @@ class ModernPPEApp:
                     # Форматируем дату, если она есть
                     if row[0] and hasattr(row[0], 'strftime'):
                         formatted_row[0] = row[0].strftime('%d.%m.%Y')
-                    contracts_tree.insert("", tk.END, values=formatted_row)
+                    self.contracts_tree.insert("", tk.END, values=formatted_row)
             else:
-                # Если нет данных, показываем сообщение в таблице
                 ttk.Label(
                     button_frame, 
                     text=f"Контракты для ППЭ №{ppe_number} не найдены", 
                     foreground="#666666"
                 ).pack(side=tk.RIGHT, padx=10)
-                
+                    
         except Exception as e:
             ttk.Label(
                 button_frame, 
