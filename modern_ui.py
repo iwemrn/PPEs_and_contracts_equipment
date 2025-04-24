@@ -25,15 +25,6 @@ class ModernPPEApp:
         self._initialize_variables()
         self._create_ui()
 
-        # self.contracts_tree = ttk.Treeview(self.root, columns=("Дата", "Номер", "Наименование", "Поставщик", "ИНН", "Описание"), show="headings")
-        # self.contracts_tree.heading("Дата", text="Дата")
-        # self.contracts_tree.heading("Номер", text="Номер")
-        # self.contracts_tree.heading("Наименование", text="Наименование")
-        # self.contracts_tree.heading("Поставщик", text="Поставщик")
-        # self.contracts_tree.heading("ИНН", text="ИНН")
-        # self.contracts_tree.heading("Описание", text="Описание")
-
-
     """Настройка параметров главного окна приложения."""        
     def _initialize_window(self):
         self.root.title("Система управления ППЭ")
@@ -542,9 +533,9 @@ class ModernPPEApp:
                 text=f"Ошибка при загрузке данных оборудования: {str(e)}", 
                 foreground="red"
             ).pack(expand=True)
-        
+
+    """Просмотр выбранного контракта."""    
     def _view_selected_contract(self, contracts_tree, ppe_number):
-        """Просмотр выбранного контракта."""
         selected_items = contracts_tree.selection()
         if not selected_items:
             messagebox.showwarning("Предупреждение", "Выберите контракт для просмотра")
@@ -720,8 +711,8 @@ class ModernPPEApp:
             import traceback
             traceback.print_exc() 
 
+    """Обновление вкладки с контрактами напрямую по ppe_number."""
     def _update_contracts_tab(self, ppe_number):
-        """Обновление вкладки с контрактами напрямую по ppe_number."""
         # Очищаем текущее содержимое
         for widget in self.contracts_frame.winfo_children():
             widget.destroy()
@@ -803,58 +794,66 @@ class ModernPPEApp:
                 foreground="red"
             ).pack(side=tk.RIGHT, padx=10)
 
+    """Обновление вкладки с планами помещений."""
     def _update_plans_tab(self, ppe_number):
-        """Обновление вкладки с планами помещений."""
-        # Очищаем текущее содержимое
+        # Очистка текущего содержимого
         for widget in self.plans_frame.winfo_children():
             widget.destroy()
-            
-        # Создаем фрейм для отображения PDF с вертикальной прокруткой
+
+        # Создание фрейма для отображения PDF с вертикальным скроллом
         pdf_canvas = tk.Canvas(self.plans_frame)
         pdf_scrollbar = ttk.Scrollbar(self.plans_frame, orient="vertical", command=pdf_canvas.yview)
         pdf_display_frame = ttk.Frame(pdf_canvas)
-        
-        # Настраиваем прокрутку
+
+        # Конфигурация скроллинга
         pdf_display_frame.bind(
             "<Configure>",
             lambda e: pdf_canvas.configure(scrollregion=pdf_canvas.bbox("all"))
         )
-        
+
         pdf_canvas.create_window((0, 0), window=pdf_display_frame, anchor="nw")
         pdf_canvas.configure(yscrollcommand=pdf_scrollbar.set)
-        
-        # Размещаем элементы
+
+        # Размещение элементов
         pdf_canvas.pack(side="left", fill="both", expand=True)
         pdf_scrollbar.pack(side="right", fill="y")
-        
-        # Пытаемся загрузить PDF план
+
+        # Попытка загрузить план PDF
         try:
             from pdf_handler import show_ppe_pdf
-            
-            # Создаем необходимые атрибуты для совместимости с существующим кодом
+
+            # Создание необходимых атрибутов для совместимости с существующим кодом
             self.scrollable_pdf_frame = pdf_display_frame
-            
-            # Загружаем PDF
+
+            # Загрузка PDF
             result = show_ppe_pdf(self, str(ppe_number))
-            
+
+            # Если файл не найден, выводим сообщение
             if not result:
+                # Если результат None или пустое значение, выводим сообщение о том, что план не найден
                 ttk.Label(
-                    pdf_display_frame, 
-                    text="План помещения для данного ППЭ не найден", 
+                    pdf_display_frame,
+                    text="План помещения для данного ППЭ не найден",
                     style="Subheader.TLabel"
                 ).pack(expand=True)
-                
-            # Добавляем обработчик прокрутки колесиком мыши
+            else:
+                # Если файл найден и успешно загружен, убираем сообщение о не найденном файле
+                for widget in pdf_display_frame.winfo_children():
+                    if isinstance(widget, ttk.Label):
+                        widget.destroy()  # Удаляем текст о не найденном файле
+
+            # Обработчик скроллинга колесиком мыши
             def _on_mousewheel(event):
-                pdf_canvas.yview_scroll(int(-1*(event.delta/120)), "units")
-            
+                pdf_canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
             pdf_display_frame.bind("<MouseWheel>", _on_mousewheel)
             pdf_canvas.bind("<MouseWheel>", _on_mousewheel)
-                
+
         except Exception as e:
+            # В случае ошибки при загрузке PDF
             ttk.Label(
-                pdf_display_frame, 
-                text=f"Ошибка при загрузке плана помещения: {str(e)}", 
+                pdf_display_frame,
+                text=f"Ошибка при загрузке плана помещения: {str(e)}",
                 foreground="red"
             ).pack(expand=True)
   

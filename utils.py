@@ -7,6 +7,7 @@ import tkinter as tk
 import logging
 from tkinter import messagebox, filedialog, simpledialog, ttk
 from datetime import datetime
+from database import update_equipment_agreement, check_agreement_exists, get_contract_data_by_id, get_contract_id_for_ppe
 import shutil
 import platform
 import subprocess
@@ -74,6 +75,20 @@ def create_invisible_scrolled_area(parent):
 
     return canvas, scrollable_frame
 
+def validate_contract_details(code_contract, contract_date):
+    """Проверяет правильность введённого номера договора и даты."""
+    if not code_contract or not code_contract.strip():
+        messagebox.showerror("Ошибка", "Номер договора не может быть пустым.")
+        return False
+
+    try:
+        datetime.strptime(contract_date, "%d.%m.%Y")
+    except ValueError:
+        messagebox.showerror("Ошибка", "Дата должна быть в формате ДД.ММ.ГГГГ.")
+        return False
+    
+    return True
+
 def on_download_contract(app):
     """Обработчик для скачивания договора."""
     selected_item = app.ppe_list.selection()
@@ -83,12 +98,45 @@ def on_download_contract(app):
     
     ppe_id = app.ppe_list.item(selected_item, "values")[0]
     
-    # Запрос номера и даты договора
-    contract_details = ask_contract_details()
-    if contract_details is None:
-        messagebox.showwarning("Отмена", "Сохранение договора отменено пользователем.")
-        return
-    
+    # Проверяем наличие поля agreement через contract_id в таблице equip_data
+    agreement_exists = check_agreement_exists(ppe_id)
+
+    code_contract = None
+    contract_date = None
+
+    if agreement_exists:
+        # Если договор существует, извлекаем его данные с использованием contract_id
+        contract_id = get_contract_id_for_ppe(ppe_id)  # Функция для получения contract_id из equip_data
+        if contract_id:
+            contract_data = get_contract_data_by_id(contract_id)  # Функция для получения данных о контракте по contract_id
+            if contract_data:
+                code_contract = contract_data['num_contract']
+                contract_date = contract_data['date_contract']
+                # Показываем существующий договор
+                messagebox.showinfo("Предпросмотр договора", f"Номер договора: {code_contract}\nДата договора: {contract_date}")
+            else:
+                messagebox.showerror("Ошибка", "Не удалось получить данные о договоре.")
+                return
+        else:
+            messagebox.showerror("Ошибка", "Не найден contract_id для ППЭ.")
+            return
+    else:
+        # Запрос номера и даты договора
+        contract_details = ask_contract_details()
+        if contract_details is None:
+            messagebox.showwarning("Отмена", "Сохранение договора отменено пользователем.")
+            return
+
+        code_contract = contract_details["code_contract"]
+        contract_date = contract_details["date"]
+        
+        # Валидация данных
+        if not validate_contract_details(code_contract, contract_date):
+            return
+
+        # Обновляем поле agreement в базе данных
+        agreement_exists = update_equipment_agreement(ppe_id, code_contract, datetime.strptime(contract_date, "%d.%m.%Y").year)
+
     save_path = filedialog.asksaveasfilename(
         defaultextension=".docx",
         filetypes=[("Word Document", "*.docx")],
@@ -96,34 +144,51 @@ def on_download_contract(app):
     )
 
     if save_path:
+        # Создаем окно с прогресс-баром
+        loading_window = tk.Toplevel(app.root)
+        loading_window.title("Генерация договора")
+        loading_window.geometry("300x150")
+        loading_window.transient(app.root)
+        loading_window.grab_set()
+
+        # Центрируем окно
+        loading_window.update_idletasks()
+        width = loading_window.winfo_width()
+        height = loading_window.winfo_height()
+        x = (loading_window.winfo_screenwidth() // 2) - (width // 2)
+        y = (loading_window.winfo_screenheight() // 2) - (height // 2)
+        loading_window.geometry(f"{width}x{height}+{x}+{y}")
+
+        # Прогрессбар
+        progress = ttk.Progressbar(loading_window, mode="indeterminate")
+        progress.pack(fill=tk.X, padx=20, pady=10)
+        progress.start()
+
+        # Функция для завершения
+        def finish_generation():
+            progress.stop()
+            loading_window.destroy()
+            messagebox.showinfo("Успех", f"Файл сохранён:\n{save_path}")
+
         try:
             from contracts import generate_contract
             result = generate_contract(
-                ppe_number=ppe_id,
-                save_path=save_path,
-                code_contract=contract_details["code_contract"],
-                contract_date=contract_details["date"]
+                [{"num_contract": code_contract, "date_contract": contract_date, "name_contract": contract_name}],  # Передаем данные о контракте как список
+                save_path,
+                code_contract,
+                contract_date,
+                ppe_id
             )
-            
+
+            # Завершаем процесс
             if result:
-                # Обновляем поле agreement в базе данных
-                from database import update_equipment_agreement
-                contract_year = datetime.strptime(contract_details["date"], "%d.%m.%Y").year
-                affected_rows = update_equipment_agreement(ppe_id, contract_details["code_contract"], contract_year)
-                
-                messagebox.showinfo(
-                    "Успех", 
-                    f"Договор сохранен: {save_path}\n"
-                    f"Обновлено записей оборудования: {affected_rows}"
-                )
-                
-                if hasattr(app, "_show_save_path"):
-                    app._show_save_path(save_path)
+                finish_generation()
             else:
                 messagebox.showerror("Ошибка", "Не удалось сгенерировать договор")
+                loading_window.destroy()
         except Exception as e:
-            logger.error(f"Ошибка при скачивании договора: {e}")
-            messagebox.showerror("Ошибка", str(e))
+            messagebox.showerror("Ошибка", f"Произошла ошибка при генерации договора: {str(e)}")
+            loading_window.destroy()
 
 def show_save_path(self, path):
     """Показывает путь сохранения файла в интерфейсе."""
@@ -307,8 +372,6 @@ def save_contract_file(app, ppe_id, temp_file, contract_number, contract_date):
         # Получаем год из даты договора
         contract_year = datetime.strptime(contract_date, "%d.%m.%Y").year
         
-        # Обновляем поле agreement в базе данных
-        from database import update_equipment_agreement
         affected_rows = update_equipment_agreement(ppe_id, contract_number, contract_year)
         
         # Сохраняем данные договора в базу данных
@@ -355,7 +418,8 @@ def ask_contract_details():
         date_obj = datetime.strptime(date_str, "%d.%m.%Y")
         return {
             "code_contract": code_contract,
-            "date": date_str
+            "date": date_str,
+            "name": name,
         }
     except ValueError:
         messagebox.showerror("Ошибка", "Неверный формат даты. Ожидается: ДД.ММ.ГГГГ")

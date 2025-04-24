@@ -43,7 +43,6 @@ def get_equipment_list(ppe_number):
         JOIN "dat_equip"
             ON "dat_equip"."id" = equip_data.equip_id
         WHERE ppe_id = %s
-        AND (agreement IS NULL OR agreement = '')
         GROUP BY "name_in_1C", equip_price
         ORDER BY "name_in_1C";
     """
@@ -63,10 +62,6 @@ def get_equipment_list(ppe_number):
 
     logger.info(f"Получено {len(equipment_list)} позиций оборудования для организации для ППЭ {ppe_number}")
     return equipment_list
-
-def get_equipment_list_by_inn(inn):
-    pass
-
 
 def get_equipment_list_by_school_id(school_id):
     """
@@ -106,12 +101,6 @@ def get_equipment_list_by_school_id(school_id):
 
     logger.info(f"Получено {len(equipment_list)} позиций оборудования для организации с school_id {school_id}")
     return equipment_list
-
-def get_responsible_info_by_inn(inn):
-    pass
-
-def get_responsible_info(ppe_number):
-    pass
 
 def get_responsible_info_by_school_id(school_id):
     """
@@ -157,51 +146,6 @@ def find_template():
 
     raise FileNotFoundError("Шаблон договора не найден")
 
-# def generate_contract(identifier, save_path, code_contract, contract_date):
-#     """
-#     Генерирует договор на основе шаблона для нескольких контрактов, используя номер ППЭ.
-#     """
-#     try:
-#         # 1. Получение пути к шаблону
-#         template_path = find_template()
-
-#         # 2. Получение данных для всех контрактов
-#         contracts_data = []
-#         for contract in identifier:
-#             # Извлекаем данные о контрактах из базы данных
-#             contract_data = get_contract_data_from_db(contract["contract_number"])
-#             contracts_data.append(contract_data)
-
-#         # 3. Использование переданной даты или текущей
-#         if contract_date:
-#             contract_date = datetime.strptime(contract_date, "%d.%m.%Y")
-#         else:
-#             contract_date = datetime.now()
-
-#         # 4. Подготовка контекста для шаблона
-#         context = {
-#             "contracts_data": contracts_data,  # Данные по всем контрактам
-#             "code_contract": code_contract,
-#             "day": contract_date.day,
-#             "month_name": build_month_name_rus(contract_date.month),
-#             "year": contract_date.year,
-#             "year_next": contract_date.year + 1
-#         }
-
-#         # 5. Получение оборудования и ответственного лица по номеру ППЭ
-#         equipment_list = get_equipment_list(identifier)
-#         context["equipment_list"] = equipment_list
-
-#         # 6. Генерация документа
-#         doc = DocxTemplate(template_path)
-#         doc.render(context)
-#         doc.save(save_path)
-
-#         return save_path
-#     except Exception as e:
-#         logger.error(f"Ошибка при генерации договора: {e}")
-#         return None
-
 def generate_contract(contracts_data, save_path, code_contract, contract_date, ppe_number):
     """
     Генерирует договор на основе шаблона для нескольких контрактов.
@@ -219,6 +163,9 @@ def generate_contract(contracts_data, save_path, code_contract, contract_date, p
         # Проверка типа contract_date и преобразование в datetime, если это строка
         if isinstance(contract_date, str):
             contract_date = datetime.strptime(contract_date, "%d.%m.%Y")
+
+        # Инициализация контекста
+        context = {}
 
         # Убедимся, что contract_date - это объект datetime
         if isinstance(contract_date, datetime):

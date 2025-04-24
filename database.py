@@ -293,3 +293,73 @@ def save_contract_data(ppe_id, contract_number, contract_date, contract_name=Non
         logger.error(f"Ошибка при связывании договора с ППЭ: {e}")
     
     return contract_id
+
+
+def check_agreement_exists(ppe_id):
+    """
+    Проверяет, существует ли запись договора для данного ППЭ.
+    Возвращает True, если договор существует, иначе False.
+    """
+    query = """
+        SELECT agreement 
+        FROM equip_data
+        WHERE ppe_id = %s
+        AND (agreement IS NOT NULL AND agreement != '')
+        LIMIT 1
+    """
+    
+    rows = execute_query(query, (ppe_id,))
+    return bool(rows)
+
+def get_contract_data_for_ppe(ppe_id):
+    """
+    Извлекает данные договора по ППЭ из столбца `agreement`.
+    Столбец `agreement` должен содержать информацию в формате "<номер договора>/<год заключения договора>".
+    Возвращает словарь с данными контракта.
+    """
+    query = """
+        SELECT agreement
+        FROM equip_data
+        WHERE ppe_id = %s
+        AND (agreement IS NOT NULL AND agreement != '')
+        LIMIT 1
+    """
+    
+    rows = execute_query(query, (ppe_id,))
+    
+    if rows:
+        # Делаем парсинг значения из столбца agreement
+        agreement_value = rows[0][0]
+        if agreement_value:
+            # Предполагаем формат "<номер договора>/<год заключения>"
+            contract_number, contract_year = agreement_value.split('/')
+            return {
+                "num_contract": contract_number,
+                "date_contract": contract_year # Можно использовать 01.01 для примера
+            }
+    
+    return None
+
+def get_contract_data_by_id(contract_id):
+    """Получает данные о контракте по contract_id."""
+    query = """
+        SELECT contract_number, contract_date, contract_name FROM dat_contract WHERE id = %s LIMIT 1
+    """
+    result = execute_query(query, (contract_id,))
+    if result:
+        return {
+            "num_contract": result[0][0],
+            "date_contract": result[0][1],
+            "name_contract": result[0][1]
+        }
+    return None
+
+def get_contract_id_for_ppe(ppe_id):
+    """Получает contract_id для указанного ППЭ из таблицы equip_data."""
+    query = """
+        SELECT contract_id FROM equip_data WHERE ppe_id = %s LIMIT 1
+    """
+    result = execute_query(query, (ppe_id,))
+    if result:
+        return result[0][0]
+    return None

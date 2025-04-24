@@ -352,3 +352,88 @@ HINT:  No operator matches the given name and argument types. You might need to 
 2025-04-23 17:44:43,713 - contracts - INFO -   job_title_and_full_name_genitive: Директора Лобановой Лилии Викторовны
 2025-04-23 17:44:43,713 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: Директора Лобановой Л. В.
 2025-04-23 17:44:44,424 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_24_20250423174443.docx
+2025-04-24 13:22:26,853 - contracts - INFO - Выбрано 1 контрактов для предпросмотра.
+2025-04-24 13:22:26,856 - contracts - INFO - Контракт: 0366200035624007702, Дата: 02.12.2024, Наименование: на поставку ноутбуков для проведения ГИА в Тульской области
+2025-04-24 13:22:26,926 - contracts - INFO - Загружены реквизиты для school_id [(110,)]: {'code_contract': '1', 'day': 24, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'contracts': [{'num_contract': '0366200035624007702', 'date_contract': '02.12.2024', 'name_contract': 'на поставку ноутбуков для проведения ГИА в Тульской области'}], 'school_id': 110, 'school_fullname': 'Муниципальное бюджетное общеобразовательное учреждение "Средняя общеобразовательная школа № 5 (центр образования) г. Суворова имени Героя Советского Союза Е.П.Тарасова"', 'school_address': '301430, Тульская обл., Суворовский район, г. Суворов, ул. Пионерская, д. 11', 'INN': 7133009870, 'KPP': 713301001, 'OKPO': 4352719, 'OGRN': 1027103471130, 'cur_acc': '40102810445370000059', 'bank_acc': 'ХХХХХХХХХХХХ', 'pers_acc': 'ХХХХХХХХХ', 'fullname': 'Муниципальное бюджетное общеобразовательное учреждение "Средняя общеобразовательная школа № 5 (центр образования) г. Суворова имени Героя Советского Союза Е.П.Тарасова"', 'address': '301430, Тульская обл., Суворовский район, г. Суворов, ул. Пионерская, д. 11'}
+2025-04-24 13:22:27,095 - contracts - INFO - Получено 1 позиций оборудования для организации для ППЭ 23
+2025-04-24 13:22:27,096 - contracts - INFO - Список оборудования в контексте: 1 позиций
+2025-04-24 13:22:27,138 - contracts - INFO - Получена информация об ответственном лице по ППЭ 23: {'job_title': 'Директор', 'surname': 'Медведева', 'name': 'Евгения', 'second_name': 'Владимировна'}
+2025-04-24 13:22:27,139 - contracts - INFO - Добавлены переменные в родительном падеже: Директора, Медведевой Евгении Владимировны
+2025-04-24 13:22:27,139 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'contracts', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'ppe_address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
+2025-04-24 13:22:27,140 - contracts - INFO - Переменные для ответственного лица:
+2025-04-24 13:22:27,140 - contracts - INFO -   job_title: Директор
+2025-04-24 13:22:27,140 - contracts - INFO -   surname: Медведева
+2025-04-24 13:22:27,140 - contracts - INFO -   name: Евгения
+2025-04-24 13:22:27,140 - contracts - INFO -   second_name: Владимировна
+2025-04-24 13:22:27,140 - contracts - INFO -   job_title_genitive: Директора
+2025-04-24 13:22:27,140 - contracts - INFO -   surname_genitive: Медведевой
+2025-04-24 13:22:27,141 - contracts - INFO -   name_genitive: Евгении
+2025-04-24 13:22:27,141 - contracts - INFO -   second_name_genitive: Владимировны
+2025-04-24 13:22:27,141 - contracts - INFO -   full_name_with_initials: Медведева Е. В.
+2025-04-24 13:22:27,141 - contracts - INFO -   full_name_with_initials_genitive: Медведевой Е. В.
+2025-04-24 13:22:27,141 - contracts - INFO -   job_title_and_full_name_genitive: Директора Медведевой Евгении Владимировны
+2025-04-24 13:22:27,141 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: Директора Медведевой Е. В.
+2025-04-24 13:22:28,003 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_23_20250424132226.docx
+2025-04-24 13:23:27,602 - contracts - INFO - Выбрано 2 контрактов для предпросмотра.
+2025-04-24 13:23:27,603 - contracts - INFO - Контракт: 0366200035624009735, Дата: 29.01.2025, Наименование: на поставку многофункциональных устройств (МФУ) в рамках проведения ГИА в Тульской области в 2025 году
+2025-04-24 13:23:27,603 - contracts - INFO - Контракт: 0366200035624009751, Дата: 07.02.2025, Наименование: на поставку ноутбуков для проведения ГИА в Тульской области в 2025 году
+2025-04-24 13:23:27,668 - contracts - INFO - Загружены реквизиты для school_id [(1,)]: {'code_contract': '1', 'day': 24, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'contracts': [{'num_contract': '0366200035624009735', 'date_contract': '29.01.2025', 'name_contract': 'на поставку многофункциональных устройств (МФУ) в рамках проведения ГИА в Тульской области в 2025 году'}, {'num_contract': '0366200035624009751', 'date_contract': '07.02.2025', 'name_contract': 'на поставку ноутбуков для проведения ГИА в Тульской области в 2025 году'}], 'school_id': 1, 'school_fullname': 'муниципальное общеобразовательное учреждение «Арсеньевская средняя общеобразовательная школа»', 'school_address': '301510, Тульская обл., Арсеньевский район, п. Арсеньево, ул. Халтурина, д. 11', 'INN': 7121002693, 'KPP': 712101001, 'OKPO': 52527018, 'OGRN': 1027103272701, 'cur_acc': '40102810445370000059', 'bank_acc': '03231643706040006600', 'pers_acc': '857020041', 'fullname': 'муниципальное общеобразовательное учреждение «Арсеньевская средняя общеобразовательная школа»', 'address': '301510, Тульская обл., Арсеньевский район, п. Арсеньево, ул. Халтурина, д. 11'}
+2025-04-24 13:23:27,767 - contracts - INFO - Получено 2 позиций оборудования для организации для ППЭ 101
+2025-04-24 13:23:27,768 - contracts - INFO - Список оборудования в контексте: 2 позиций
+2025-04-24 13:23:27,805 - contracts - INFO - Получена информация об ответственном лице по ППЭ 101: {'job_title': 'Директор', 'surname': 'Макаров', 'name': 'Игорь', 'second_name': 'Николаевич'}
+2025-04-24 13:23:27,805 - contracts - INFO - Добавлены переменные в родительном падеже: Директора, Макарова Игоря Николаевича
+2025-04-24 13:23:27,806 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'contracts', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'ppe_address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
+2025-04-24 13:23:27,806 - contracts - INFO - Переменные для ответственного лица:
+2025-04-24 13:23:27,806 - contracts - INFO -   job_title: Директор
+2025-04-24 13:23:27,806 - contracts - INFO -   surname: Макаров
+2025-04-24 13:23:27,806 - contracts - INFO -   name: Игорь
+2025-04-24 13:23:27,806 - contracts - INFO -   second_name: Николаевич
+2025-04-24 13:23:27,806 - contracts - INFO -   job_title_genitive: Директора
+2025-04-24 13:23:27,807 - contracts - INFO -   surname_genitive: Макарова
+2025-04-24 13:23:27,807 - contracts - INFO -   name_genitive: Игоря
+2025-04-24 13:23:27,807 - contracts - INFO -   second_name_genitive: Николаевича
+2025-04-24 13:23:27,807 - contracts - INFO -   full_name_with_initials: Макаров И. Н.
+2025-04-24 13:23:27,807 - contracts - INFO -   full_name_with_initials_genitive: Макарова И. Н.
+2025-04-24 13:23:27,808 - contracts - INFO -   job_title_and_full_name_genitive: Директора Макарова Игоря Николаевича
+2025-04-24 13:23:27,808 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: Директора Макарова И. Н.
+2025-04-24 13:23:28,616 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_101_20250424132327.docx
+2025-04-24 17:25:50,459 - database - ERROR - Ошибка выполнения запроса: relation "contracts" does not exist
+LINE 2:         SELECT num_contract, date_contract FROM contracts WH...
+                                                        ^
+
+2025-04-24 17:25:52,995 - database - ERROR - Ошибка выполнения запроса: relation "contracts" does not exist
+LINE 2:         SELECT num_contract, date_contract FROM contracts WH...
+                                                        ^
+
+2025-04-24 17:29:49,348 - database - ERROR - Ошибка выполнения запроса: relation "dat_contracts" does not exist
+LINE 2: ...ontract_number, contract_date, contract_name FROM dat_contra...
+                                                             ^
+
+2025-04-24 17:31:04,198 - database - ERROR - Ошибка выполнения запроса: column "contract_id" does not exist
+LINE 2: ...tract_date, contract_name FROM dat_contract WHERE contract_i...
+                                                             ^
+
+2025-04-24 17:32:18,757 - contracts - ERROR - Ошибка при генерации договора: cannot access local variable 'context' where it is not associated with a value
+2025-04-24 17:40:44,174 - contracts - ERROR - Ошибка при генерации договора: cannot access local variable 'context' where it is not associated with a value
+2025-04-24 17:42:44,731 - contracts - INFO - Загружены реквизиты для school_id [(96,)]: {'contracts': [{'num_contract': '0366200035624007702', 'date_contract': datetime.date(2024, 12, 2)}], 'school_id': 96, 'school_fullname': 'Муниципальное бюджетное общеобразовательное учреждение «Центр образования № 19»', 'school_address': '300045, Тульская обл., г. Тула, ул. Кауля, д. 9, корпус 4', 'INN': 7107021165, 'KPP': 710701001, 'OKPO': 43538081, 'OGRN': 1027100971479, 'cur_acc': '40102810445370000059', 'bank_acc': '03234643707010006600', 'pers_acc': '008122578', 'fullname': 'Муниципальное бюджетное общеобразовательное учреждение «Центр образования № 19»', 'address': '300045, Тульская обл., г. Тула, ул. Кауля, д. 9, корпус 4'}
+2025-04-24 17:42:44,814 - contracts - INFO - Получено 0 позиций оборудования для организации для ППЭ 57
+2025-04-24 17:42:44,814 - contracts - WARNING - Предупреждение: Список оборудования пуст для 57
+2025-04-24 17:42:44,816 - contracts - INFO - Список оборудования в контексте: 1 позиций
+2025-04-24 17:42:44,856 - contracts - INFO - Получена информация об ответственном лице по ППЭ 57: {'job_title': 'Директор', 'surname': 'Данилин', 'name': 'Сергей', 'second_name': 'Викторович'}
+2025-04-24 17:42:44,857 - contracts - INFO - Добавлены переменные в родительном падеже: Директора, Данилина Сергея Викторовича
+2025-04-24 17:42:44,857 - contracts - INFO - Ключи контекста: ['contracts', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'ppe_address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
+2025-04-24 17:42:44,858 - contracts - INFO - Переменные для ответственного лица:
+2025-04-24 17:42:44,858 - contracts - INFO -   job_title: Директор
+2025-04-24 17:42:44,858 - contracts - INFO -   surname: Данилин
+2025-04-24 17:42:44,858 - contracts - INFO -   name: Сергей
+2025-04-24 17:42:44,858 - contracts - INFO -   second_name: Викторович
+2025-04-24 17:42:44,858 - contracts - INFO -   job_title_genitive: Директора
+2025-04-24 17:42:44,859 - contracts - INFO -   surname_genitive: Данилина
+2025-04-24 17:42:44,859 - contracts - INFO -   name_genitive: Сергея
+2025-04-24 17:42:44,859 - contracts - INFO -   second_name_genitive: Викторовича
+2025-04-24 17:42:44,859 - contracts - INFO -   full_name_with_initials: Данилин С. В.
+2025-04-24 17:42:44,859 - contracts - INFO -   full_name_with_initials_genitive: Данилина С. В.
+2025-04-24 17:42:44,859 - contracts - INFO -   job_title_and_full_name_genitive: Директора Данилина Сергея Викторовича
+2025-04-24 17:42:44,860 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: Директора Данилина С. В.
+2025-04-24 17:42:45,653 - contracts - INFO - Договор сформирован и сохранён: C:/Users/erokhina/Desktop/прол.docx
+2025-04-24 17:48:39,323 - contracts - INFO - Загружены реквизиты для school_id [(96,)]: {'contracts': [{'num_contract': '0366200035624007702', 'date_contract': datetime.date(2024, 12, 2)}], 'school_id': 96, 'school_fullname': 'Муниципальное бюджетное общеобразовательное учреждение «Центр образования № 19»', 'school_address': '300045, Тульская обл., г. Тула, ул. Кауля, д. 9, корпус 4', 'INN': 7107021165, 'KPP': 710701001, 'OKPO': 43538081, 'OGRN': 1027100971479, 'cur_acc': '40102810445370000059', 'bank_acc': '03234643707010006600', 'pers_acc': '008122578', 'fullname': 'Муниципальное бюджетное общеобразовательное учреждение «Центр образования № 19»', 'address': '300045, Тульская обл., г. Тула, ул. Кауля, д. 9, корпус 4'}
