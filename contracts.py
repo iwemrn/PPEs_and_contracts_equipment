@@ -438,6 +438,7 @@ def generate_contract(contracts_data, save_path, code_contract, contract_date, p
         # 10. Сохранение результата
         doc.save(save_path)
         logger.info(f"Договор сформирован и сохранён: {save_path}")
+
         return save_path
     
     except Exception as e:
@@ -924,3 +925,15 @@ def convert_to_genitive(word_or_phrase):
                 result.append(word)
 
     return ' '.join(result)
+
+def delete_temp_file(temp_file):
+    """
+    Удаляет временный файл после его использования.
+    """
+    if temp_file and os.path.exists(temp_file):
+        try:
+            os.remove(temp_file)
+            logger.info(f"Временный файл {temp_file} удален.")
+        except Exception as e:
+            logger.error(f"Ошибка при удалении временного файла: {e}")
+

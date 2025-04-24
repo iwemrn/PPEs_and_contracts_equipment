@@ -307,3 +307,48 @@ HINT:  No operator matches the given name and argument types. You might need to 
 2025-04-23 17:26:19,372 - contracts - INFO -   job_title_and_full_name_genitive: Директора Биткова Александра Ильича
 2025-04-23 17:26:19,372 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: Директора Биткова А. И.
 2025-04-23 17:26:20,091 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_213_20250423172619.docx
+2025-04-23 17:43:37,629 - contracts - INFO - Выбрано 1 контрактов для предпросмотра.
+2025-04-23 17:43:37,629 - contracts - INFO - Контракт: 0366200035624007702, Дата: 02.12.2024, Наименование: на поставку ноутбуков для проведения ГИА в Тульской области
+2025-04-23 17:43:37,707 - contracts - INFO - Загружены реквизиты для school_id [(23,)]: {'code_contract': '1', 'day': 23, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'contracts': [{'num_contract': '0366200035624007702', 'date_contract': '02.12.2024', 'name_contract': 'на поставку ноутбуков для проведения ГИА в Тульской области'}], 'school_id': 23, 'school_fullname': 'Муниципальное общеобразовательное учреждение "Центр образования №2" г. Ясногорска Тульской Области', 'school_address': '301030, Тульская обл., Ясногорский район, г. Ясногорск, ул. П.Смидовича, д. 3', 'INN': 7136005591, 'KPP': 713601001, 'OKPO': 39039277, 'OGRN': 1027101848179, 'cur_acc': '40102810445370000059', 'bank_acc': '03231643706500006600', 'pers_acc': '02663004570', 'fullname': 'Муниципальное общеобразовательное учреждение "Центр образования №2" г. Ясногорска Тульской Области', 'address': '301030, Тульская обл., Ясногорский район, г. Ясногорск, ул. П.Смидовича, д. 3'}
+2025-04-23 17:43:37,801 - contracts - INFO - Получено 1 позиций оборудования для организации для ППЭ 26
+2025-04-23 17:43:37,801 - contracts - INFO - Список оборудования в контексте: 1 позиций
+2025-04-23 17:43:37,848 - contracts - INFO - Получена информация об ответственном лице по ППЭ 26: {'job_title': 'Директор', 'surname': 'Иванова', 'name': 'Юлия', 'second_name': 'Игоревна'}
+2025-04-23 17:43:37,848 - contracts - INFO - Добавлены переменные в родительном падеже: Директора, Ивановой Юлии Игоревны
+2025-04-23 17:43:37,848 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'contracts', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'ppe_address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
+2025-04-23 17:43:37,848 - contracts - INFO - Переменные для ответственного лица:
+2025-04-23 17:43:37,848 - contracts - INFO -   job_title: Директор
+2025-04-23 17:43:37,848 - contracts - INFO -   surname: Иванова
+2025-04-23 17:43:37,848 - contracts - INFO -   name: Юлия
+2025-04-23 17:43:37,848 - contracts - INFO -   second_name: Игоревна
+2025-04-23 17:43:37,848 - contracts - INFO -   job_title_genitive: Директора
+2025-04-23 17:43:37,848 - contracts - INFO -   surname_genitive: Ивановой
+2025-04-23 17:43:37,848 - contracts - INFO -   name_genitive: Юлии
+2025-04-23 17:43:37,848 - contracts - INFO -   second_name_genitive: Игоревны
+2025-04-23 17:43:37,848 - contracts - INFO -   full_name_with_initials: Иванова Ю. И.
+2025-04-23 17:43:37,848 - contracts - INFO -   full_name_with_initials_genitive: Ивановой Ю. И.
+2025-04-23 17:43:37,848 - contracts - INFO -   job_title_and_full_name_genitive: Директора Ивановой Юлии Игоревны
+2025-04-23 17:43:37,848 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: Директора Ивановой Ю. И.
+2025-04-23 17:43:38,582 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_26_20250423174337.docx
+2025-04-23 17:43:38,582 - contracts - ERROR - Ошибка при генерации договора: stat: path should be string, bytes, os.PathLike or integer, not DocxTemplate
+2025-04-23 17:44:43,556 - contracts - INFO - Выбрано 1 контрактов для предпросмотра.
+2025-04-23 17:44:43,556 - contracts - INFO - Контракт: 0366200035624007702, Дата: 02.12.2024, Наименование: на поставку ноутбуков для проведения ГИА в Тульской области
+2025-04-23 17:44:43,619 - contracts - INFO - Загружены реквизиты для school_id [(21,)]: {'code_contract': '1', 'day': 23, 'month_name': 'апреля', 'year': 2025, 'year_next': 2026, 'contracts': [{'num_contract': '0366200035624007702', 'date_contract': '02.12.2024', 'name_contract': 'на поставку ноутбуков для проведения ГИА в Тульской области'}], 'school_id': 21, 'school_fullname': 'Муниципальное казенное общеобразовательное учреждение "Средняя общнобразовательная школа №2 п. Теплое имени кавалера ордена Красной Звезды К.Н. Емельянова"', 'school_address': '301900, Тульская обл., Тепло-Огаревский район, п.г.т. Теплое, ул. Комсомольская, д. 28', 'INN': 7132013640, 'KPP': 713401001, 'OKPO': 43560423, 'OGRN': 1027103071863, 'cur_acc': '40102810445370000059', 'bank_acc': '03231643706420006600', 'pers_acc': '854020291', 'fullname': 'Муниципальное казенное общеобразовательное учреждение "Средняя общнобразовательная школа №2 п. Теплое имени кавалера ордена Красной Звезды К.Н. Емельянова"', 'address': '301900, Тульская обл., Тепло-Огаревский район, п.г.т. Теплое, ул. Комсомольская, д. 28'}
+2025-04-23 17:44:43,681 - contracts - INFO - Получено 1 позиций оборудования для организации для ППЭ 24
+2025-04-23 17:44:43,681 - contracts - INFO - Список оборудования в контексте: 1 позиций
+2025-04-23 17:44:43,713 - contracts - INFO - Получена информация об ответственном лице по ППЭ 24: {'job_title': 'Директор', 'surname': 'Лобанова', 'name': 'Лилия', 'second_name': 'Викторовна'}
+2025-04-23 17:44:43,713 - contracts - INFO - Добавлены переменные в родительном падеже: Директора, Лобановой Лилии Викторовны
+2025-04-23 17:44:43,713 - contracts - INFO - Ключи контекста: ['code_contract', 'day', 'month_name', 'year', 'year_next', 'contracts', 'school_id', 'school_fullname', 'school_address', 'INN', 'KPP', 'OKPO', 'OGRN', 'cur_acc', 'bank_acc', 'pers_acc', 'fullname', 'address', 'ppe_address', 'equipment_list', 'total', 'total_price_text', 'job_title', 'surname', 'name', 'second_name', 'name_initial', 'second_name_initial', 'full_name_with_initials', 'responsible_fullname', 'job_title_genitive', 'surname_genitive', 'name_genitive', 'second_name_genitive', 'full_name_genitive', 'full_name_with_initials_genitive', 'job_title_and_full_name_genitive', 'job_title_and_full_name_with_initials_genitive']
+2025-04-23 17:44:43,713 - contracts - INFO - Переменные для ответственного лица:
+2025-04-23 17:44:43,713 - contracts - INFO -   job_title: Директор
+2025-04-23 17:44:43,713 - contracts - INFO -   surname: Лобанова
+2025-04-23 17:44:43,713 - contracts - INFO -   name: Лилия
+2025-04-23 17:44:43,713 - contracts - INFO -   second_name: Викторовна
+2025-04-23 17:44:43,713 - contracts - INFO -   job_title_genitive: Директора
+2025-04-23 17:44:43,713 - contracts - INFO -   surname_genitive: Лобановой
+2025-04-23 17:44:43,713 - contracts - INFO -   name_genitive: Лилии
+2025-04-23 17:44:43,713 - contracts - INFO -   second_name_genitive: Викторовны
+2025-04-23 17:44:43,713 - contracts - INFO -   full_name_with_initials: Лобанова Л. В.
+2025-04-23 17:44:43,713 - contracts - INFO -   full_name_with_initials_genitive: Лобановой Л. В.
+2025-04-23 17:44:43,713 - contracts - INFO -   job_title_and_full_name_genitive: Директора Лобановой Лилии Викторовны
+2025-04-23 17:44:43,713 - contracts - INFO -   job_title_and_full_name_with_initials_genitive: Директора Лобановой Л. В.
+2025-04-23 17:44:44,424 - contracts - INFO - Договор сформирован и сохранён: C:\Users\erokhina\Documents\TempContracts\preview_contract_24_20250423174443.docx
