@@ -3,14 +3,23 @@
 """
 
 import tkinter as tk
+from tkcalendar import DateEntry
 import logging
 import io
-from tkinter import ttk, messagebox
+from tkinter import ttk, filedialog, messagebox
 import ttkthemes
 from PIL import Image, ImageTk
 import os
 from database import connect_to_database, get_ppe_list, show_equipment, show_contracts
 from contracts import generate_contract, get_contract_data_from_db
+from tkinter import messagebox, filedialog
+from tkinter import ttk
+from datetime import datetime
+from database import get_contracts_for_ppe, get_contract_data_by_id
+from contracts import generate_contract
+from utils import ask_contract_details_dialog, validate_contract_details
+from database import update_equipment_agreement
+import tkinter as tk
 from utils import show_contract_input_dialog, open_document, show_save_dialog
 
 # Настройка логирования
@@ -726,8 +735,8 @@ class ModernPPEApp:
 
         ttk.Button(
             button_frame, 
-            text="Создать договор", 
-            command=self._download_contract  # Используем функцию создания договора
+            text="Скачать договор", 
+            command=self.on_download_contract  # Используем функцию создания договора
         ).pack(side=tk.LEFT, padx=5)
 
         ttk.Button(
@@ -856,16 +865,120 @@ class ModernPPEApp:
                 text=f"Ошибка при загрузке плана помещения: {str(e)}",
                 foreground="red"
             ).pack(expand=True)
-  
-    def _download_contract(self):
-        """Скачивание договора."""
-        if not self.current_ppe:
-            messagebox.showwarning("Предупреждение", "Выберите ППЭ для скачивания договора")
+
+    def on_download_contract(self):
+        selected_item = self.ppe_list.selection()
+        if not selected_item:
+            messagebox.showerror("Ошибка", "Сначала выберите ППЭ.")
             return
-            
-        # Используем существующую логику из utils.py
-        from utils import on_download_contract
-        on_download_contract(self)
+
+        ppe_id = self.ppe_list.item(selected_item, "values")[0]
+
+        # Проверяем, выбраны ли контракты в Treeview
+        selected_contracts = self.contracts_tree.selection()
+        if not selected_contracts:
+            messagebox.showerror("Ошибка", "Выберите хотя бы один контракт в таблице.")
+            return
+
+        # Запрашиваем номер и дату договора вручную
+        from utils import ask_contract_details_dialog, validate_contract_details
+        details = ask_contract_details_dialog()
+        if not details:
+            messagebox.showwarning("Отмена", "Сохранение договора отменено.")
+            return
+
+        code_contract = details["code_contract"]
+        contract_date = details["date"]
+
+        if not validate_contract_details(code_contract, contract_date):
+            return
+
+        # Собираем данные по всем выбранным контрактам
+        contracts_data = []
+        for item in selected_contracts:
+            values = self.contracts_tree.item(item, "values")
+            if len(values) < 5:
+                continue  # Пропускаем, если не хватает данных
+
+            contracts_data.append({
+                "num_contract": values[1],        # Номер контракта
+                "date_contract": values[0],       # Дата контракта
+                "name_contract": values[4],       # Наименование
+            })
+
+        if not contracts_data:
+            messagebox.showerror("Ошибка", "Не удалось получить данные по контрактам.")
+            return
+
+        # Запрашиваем путь сохранения
+        from tkinter import filedialog
+        save_path = filedialog.asksaveasfilename(
+            defaultextension=".docx",
+            filetypes=[("Word Document", "*.docx")],
+            initialfile=f"Договор_{code_contract}.docx",
+            title="Сохранить договор"
+        )
+
+        if not save_path:
+            return
+
+        # Создаём окно прогресса
+        loading_window = tk.Toplevel(self.root)
+        loading_window.title("Генерация договора")
+        loading_window.geometry("300x150")
+        loading_window.transient(self.root)
+        loading_window.grab_set()
+
+        loading_window.update_idletasks()
+        x = (loading_window.winfo_screenwidth() // 2) - (300 // 2)
+        y = (loading_window.winfo_screenheight() // 2) - (150 // 2)
+        loading_window.geometry(f"300x150+{x}+{y}")
+
+        tk.Label(loading_window, text="Генерация договора...", wraplength=280).pack(pady=(20, 10))
+        progress = ttk.Progressbar(loading_window, mode="determinate", maximum=100)
+        progress.pack(fill=tk.X, padx=20, pady=10)
+        time_label = ttk.Label(loading_window, text="Осталось: 10 секунд")
+        time_label.pack(pady=5)
+
+        def update_progress(remaining_time):
+            if remaining_time <= 0:
+                progress.configure(mode="indeterminate")
+                progress.start(10)
+                time_label.configure(text="Завершение...")
+                return
+            progress.configure(value=100 - remaining_time * 10)
+            time_label.configure(text=f"Осталось: {remaining_time} секунд")
+            loading_window.after(1000, update_progress, remaining_time - 1)
+
+        update_progress(10)
+        loading_window.update()
+
+        try:
+            from contracts import generate_contract
+            result = generate_contract(
+                contracts_data,
+                save_path,
+                code_contract,
+                contract_date,
+                ppe_id
+            )
+
+            if result:
+                # Обновляем поле agreement для всего оборудования этого ППЭ
+                from database import update_equipment_agreement
+                update_equipment_agreement(ppe_id, code_contract, contract_date)
+
+                messagebox.showinfo("Успех", f"Договор успешно сохранён:\n{save_path}")
+            else:
+                messagebox.showerror("Ошибка", "Не удалось сгенерировать договор.")
+
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            messagebox.showerror("Ошибка", f"Произошла ошибка:\n{str(e)}")
+
+        finally:
+            loading_window.destroy()
     
     def _show_help(self):
         """Показ справочной информации."""

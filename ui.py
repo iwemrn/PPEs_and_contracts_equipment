@@ -7,7 +7,7 @@ import logging
 from tkinter import ttk, messagebox
 from utils import (
     toggle_ppe_list, toggle_pdf_visibility, create_invisible_scrolled_area,
-    on_download_contract, on_preview_contract_click
+    on_download_contract
 )
 from database import show_equipment, get_ppe_list, execute_query
 

@@ -5,9 +5,11 @@
 import os
 import tkinter as tk
 import logging
+from tkcalendar import DateEntry
+import tkinter as tk
 from tkinter import messagebox, filedialog, simpledialog, ttk
 from datetime import datetime
-from database import update_equipment_agreement, check_agreement_exists, get_contract_data_by_id, get_contract_id_for_ppe
+from database import update_equipment_agreement, check_agreement_exists, get_contract_data_by_id, get_contracts_for_ppe
 import shutil
 import platform
 import subprocess
@@ -89,107 +91,6 @@ def validate_contract_details(code_contract, contract_date):
     
     return True
 
-def on_download_contract(app):
-    """Обработчик для скачивания договора."""
-    selected_item = app.ppe_list.selection()
-    if not selected_item:
-        messagebox.showerror("Ошибка", "Сначала выберите ППЭ.")
-        return
-    
-    ppe_id = app.ppe_list.item(selected_item, "values")[0]
-    
-    # Проверяем наличие поля agreement через contract_id в таблице equip_data
-    agreement_exists = check_agreement_exists(ppe_id)
-
-    code_contract = None
-    contract_date = None
-
-    if agreement_exists:
-        # Если договор существует, извлекаем его данные с использованием contract_id
-        contract_id = get_contract_id_for_ppe(ppe_id)  # Функция для получения contract_id из equip_data
-        if contract_id:
-            contract_data = get_contract_data_by_id(contract_id)  # Функция для получения данных о контракте по contract_id
-            if contract_data:
-                code_contract = contract_data['num_contract']
-                contract_date = contract_data['date_contract']
-                # Показываем существующий договор
-                messagebox.showinfo("Предпросмотр договора", f"Номер договора: {code_contract}\nДата договора: {contract_date}")
-            else:
-                messagebox.showerror("Ошибка", "Не удалось получить данные о договоре.")
-                return
-        else:
-            messagebox.showerror("Ошибка", "Не найден contract_id для ППЭ.")
-            return
-    else:
-        # Запрос номера и даты договора
-        contract_details = ask_contract_details()
-        if contract_details is None:
-            messagebox.showwarning("Отмена", "Сохранение договора отменено пользователем.")
-            return
-
-        code_contract = contract_details["code_contract"]
-        contract_date = contract_details["date"]
-        
-        # Валидация данных
-        if not validate_contract_details(code_contract, contract_date):
-            return
-
-        # Обновляем поле agreement в базе данных
-        agreement_exists = update_equipment_agreement(ppe_id, code_contract, datetime.strptime(contract_date, "%d.%m.%Y").year)
-
-    save_path = filedialog.asksaveasfilename(
-        defaultextension=".docx",
-        filetypes=[("Word Document", "*.docx")],
-        title="Сохранить договор"
-    )
-
-    if save_path:
-        # Создаем окно с прогресс-баром
-        loading_window = tk.Toplevel(app.root)
-        loading_window.title("Генерация договора")
-        loading_window.geometry("300x150")
-        loading_window.transient(app.root)
-        loading_window.grab_set()
-
-        # Центрируем окно
-        loading_window.update_idletasks()
-        width = loading_window.winfo_width()
-        height = loading_window.winfo_height()
-        x = (loading_window.winfo_screenwidth() // 2) - (width // 2)
-        y = (loading_window.winfo_screenheight() // 2) - (height // 2)
-        loading_window.geometry(f"{width}x{height}+{x}+{y}")
-
-        # Прогрессбар
-        progress = ttk.Progressbar(loading_window, mode="indeterminate")
-        progress.pack(fill=tk.X, padx=20, pady=10)
-        progress.start()
-
-        # Функция для завершения
-        def finish_generation():
-            progress.stop()
-            loading_window.destroy()
-            messagebox.showinfo("Успех", f"Файл сохранён:\n{save_path}")
-
-        try:
-            from contracts import generate_contract
-            result = generate_contract(
-                [{"num_contract": code_contract, "date_contract": contract_date, "name_contract": contract_name}],  # Передаем данные о контракте как список
-                save_path,
-                code_contract,
-                contract_date,
-                ppe_id
-            )
-
-            # Завершаем процесс
-            if result:
-                finish_generation()
-            else:
-                messagebox.showerror("Ошибка", "Не удалось сгенерировать договор")
-                loading_window.destroy()
-        except Exception as e:
-            messagebox.showerror("Ошибка", f"Произошла ошибка при генерации договора: {str(e)}")
-            loading_window.destroy()
-
 def show_save_path(self, path):
     """Показывает путь сохранения файла в интерфейсе."""
     # Удалим старую метку, если есть
@@ -200,6 +101,42 @@ def show_save_path(self, path):
     label = tk.Label(self.pdf_buttons_frame, text=f"Сохранено: {path}", fg="blue")
     label.tag = "save_path_label"
     label.pack(side=tk.LEFT, padx=5)
+
+def ask_contract_details_dialog():
+    """Окно для ввода номера и выбора даты договора."""
+    dialog = tk.Toplevel()
+    dialog.title("Введите данные договора")
+    dialog.geometry("320x160")
+    dialog.resizable(False, False)
+    dialog.grab_set()
+
+    tk.Label(dialog, text="Номер договора:").grid(row=0, column=0, padx=10, pady=10, sticky="e")
+    entry_number = tk.Entry(dialog)
+    entry_number.grid(row=0, column=1, padx=10, pady=10)
+
+    tk.Label(dialog, text="Дата договора:").grid(row=1, column=0, padx=10, pady=10, sticky="e")
+    date_entry = DateEntry(dialog, date_pattern="dd.mm.yyyy")
+    date_entry.grid(row=1, column=1, padx=10, pady=10)
+
+    result = {}
+
+    def submit():
+        result["code_contract"] = entry_number.get().strip()
+        result["date"] = date_entry.get()
+        dialog.destroy()
+
+    def cancel():
+        dialog.destroy()
+
+    btn_frame = tk.Frame(dialog)
+    btn_frame.grid(row=2, column=0, columnspan=2, pady=10)
+
+    tk.Button(btn_frame, text="OK", width=10, command=submit).pack(side=tk.LEFT, padx=5)
+    tk.Button(btn_frame, text="Отмена", width=10, command=cancel).pack(side=tk.LEFT, padx=5)
+
+    dialog.wait_window()
+    return result if "code_contract" in result else None
+
 
 def open_document(file_path):
     """Открывает документ в системном приложении без блокировки."""
@@ -396,34 +333,34 @@ def save_contract_file(app, ppe_id, temp_file, contract_number, contract_date):
         import traceback
         logger.error(traceback.format_exc())
 
-def ask_contract_details():
-    """
-    Открывает окно для ввода номера договора и даты.
+# def ask_contract_details():
+#     """
+#     Открывает окно для ввода номера договора и даты.
     
-    Returns:
-        dict: Словарь с данными договора или None, если отменено
-    """
-    root = tk.Tk()
-    root.withdraw()  # Скрыть главное окно
+#     Returns:
+#         dict: Словарь с данными договора или None, если отменено
+#     """
+#     root = tk.Tk()
+#     root.withdraw()  # Скрыть главное окно
 
-    code_contract = simpledialog.askstring("Номер договора", "Введите номер договора:")
-    if not code_contract:
-        return None
+#     code_contract = simpledialog.askstring("Номер договора", "Введите номер договора:")
+#     if not code_contract:
+#         return None
 
-    date_str = simpledialog.askstring("Дата договора", "Введите дату договора в формате ДД.ММ.ГГГГ:")
-    if not date_str:
-        return None
+#     date_str = simpledialog.askstring("Дата договора", "Введите дату договора в формате ДД.ММ.ГГГГ:")
+#     if not date_str:
+#         return None
 
-    try:
-        date_obj = datetime.strptime(date_str, "%d.%m.%Y")
-        return {
-            "code_contract": code_contract,
-            "date": date_str,
-            "name": name,
-        }
-    except ValueError:
-        messagebox.showerror("Ошибка", "Неверный формат даты. Ожидается: ДД.ММ.ГГГГ")
-        return None
+#     try:
+#         date_obj = datetime.strptime(date_str, "%d.%m.%Y")
+#         return {
+#             "code_contract": code_contract,
+#             "date": date_str,
+#             "name": name,
+#         }
+#     except ValueError:
+#         messagebox.showerror("Ошибка", "Неверный формат даты. Ожидается: ДД.ММ.ГГГГ")
+#         return None
 
 def show_contract_input_dialog(app, ppe_id):
     """

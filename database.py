@@ -200,7 +200,7 @@ def show_equipment(app, ppe_number):
 
     _display_equipment(app, rows)
 
-def update_equipment_agreement(ppe_id, contract_number, contract_year):
+def update_equipment_agreement(ppe_id, contract_number, contract_date):
     """
     Обновляет поле agreement в таблице equip_data для указанного ППЭ.
     Формат agreement: "<номер договора>/<год заключения договора>"
@@ -208,7 +208,7 @@ def update_equipment_agreement(ppe_id, contract_number, contract_year):
     Returns:
         int: Количество обновленных записей
     """
-    agreement_value = f"{contract_number}/{contract_year}"
+    agreement_value = f"{contract_number}/{contract_date}"
     
     query = """
         UPDATE equip_data
@@ -350,16 +350,28 @@ def get_contract_data_by_id(contract_id):
         return {
             "num_contract": result[0][0],
             "date_contract": result[0][1],
-            "name_contract": result[0][1]
+            "name_contract": result[0][2]
         }
     return None
 
-def get_contract_id_for_ppe(ppe_id):
-    """Получает contract_id для указанного ППЭ из таблицы equip_data."""
-    query = """
-        SELECT contract_id FROM equip_data WHERE ppe_id = %s LIMIT 1
+def get_contracts_for_ppe(ppe_id):
     """
-    result = execute_query(query, (ppe_id,))
-    if result:
-        return result[0][0]
-    return None
+    Получает список всех контрактов, связанных с указанным ППЭ.
+    Возвращает список словарей с contract_id, num_contract, date_contract, name_contract.
+    """
+    query = """
+        SELECT DISTINCT c.id, c.contract_number, c.contract_date, c.contract_name
+        FROM equip_data ed
+        JOIN dat_contract c ON ed.contract_id = c.id
+        WHERE ed.ppe_id = %s
+    """
+    rows = execute_query(query, (ppe_id,))
+    return [
+        {
+            "id": row[0],
+            "num_contract": row[1],
+            "date_contract": row[2].strftime("%d.%m.%Y") if row[2] else "",
+            "name_contract": row[3]
+        }
+        for row in rows
+    ] if rows else []
